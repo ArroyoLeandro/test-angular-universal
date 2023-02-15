@@ -1,0 +1,13 @@
+<div class="flex flex-col">
+    <p class="font-bold text-2xl">
+        JOIN OUR<br>COMMUNITY</p>
+    <div class="flex flex-row pt-2 pb-6 justify-center ">
+        <div [formGroup]="form" class="bg-white">
+            <input type="email" name="email" formControlName="email" class="font-poppins font-normal text-grey1 text-sm border border-gris-oscuro h-10 px-6" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+            <div class="text-danger" *ngIf="email">
+                <br> {{'validaciones.emailValido' | translate}}
+            </div>
+        </div>
+        <button [disabled]="!email ? false : true" (click)="saveEmail()" class="h-10 pl-2 pr-1 border border-gris-oscuro focus:border-gris hover:border-gris"><img src="assets/images/icon-arrow.svg" alt="" class="p-3"></button>
+    </div>
+</div>

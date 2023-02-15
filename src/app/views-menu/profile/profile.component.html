@@ -1,0 +1,113 @@
+<div class="w-full bg-wholesale-principal border-b border-white"><img class="w-full h-full -mb-2" src="/assets/images/curva_profile.svg"></div>
+<div class="w-full max-w-screen-lg p-6 mx-auto font-poppins mt-20 xl:mt-0">
+    <div class="w-full flex flex-wrap mb-6 items-center justify-between">
+        <h2 class="font-semibold uppercase">{{'pagePerfil.misDatos' | translate}}</h2>
+        <button [ngClass]="editing ? 'bg-wholesale-principal' : 'bg-transparent'" (click)="editingData()" class="p-2 rounded flex items-center hover:bg-wholesale-principal font-poppins">
+            {{'buttons.editar' | translate}} <span class="material-icons-outlined ml-2">edit</span>
+        </button>
+        <hr class="mt-1 border-t-2 border-principal w-full">
+    </div>
+    <form [formGroup]="dataCustomer" class="w-full flex flex-wrap flex-col sm:flex-row sm:gap-y-4">
+        <h3 class="sm:w-2/12 sm:pr-4 text-gris-oscuro">{{'formCustomer.nombre' | translate}}</h3>
+        <div class="sm:w-10/12 pl-1 pb-4 sm:pb-0 "><input [readonly]="!editing" #inputName formControlName="name" autocomplete="none" class="input text-gris-medio" placeholder="{{'placeholders.nombre' | translate}} "></div>
+        <h3 class="sm:w-2/12 sm:pr-4 text-gris-oscuro">{{'formCustomer.apellido' | translate}}</h3>
+        <div class="sm:w-10/12 pl-1 pb-4 sm:pb-0 "><input [readonly]="!editing" formControlName="lastname" autocomplete="none" class="input text-gris-medio" placeholder="{{'placeholders.apellido' | translate}} "></div>
+        <h3 class="sm:w-2/12 sm:pr-4 text-gris-oscuro">{{'formCustomer.email' | translate}}</h3>
+        <div class="sm:w-10/12 pl-1 pb-4 sm:pb-0 "><input [readonly]="true" formControlName="email" autocomplete="none" placeholder="{{'placeholders.email' | translate}} " class=" text-gris-medio"></div>
+        <h3 class="sm:w-2/12 sm:pr-4 text-gris-oscuro">ID</h3>
+        <div class="sm:w-10/12 pl-1 pb-4 sm:pb-0 "><input [readonly]="!editing" formControlName="cpf" autocomplete="none" placeholder="{{'placeholders.id' | translate}} " class="text-gris-medio"></div>
+        <h3 class="sm:w-2/12 sm:pr-4 text-gris-oscuro">{{'formCustomer.telefono' | translate}}</h3>
+        <div class="sm:w-10/12 pl-1 pb-4 sm:pb-0 "><input [readonly]="!editing" type="number" autocomplete="none" formControlName="phone" placeholder="{{'placeholders.telefono' | translate}}" class="text-gris-medio"></div>
+
+    </form>
+    <div class="w-full flex flex-wrap mt-10 items-center justify-between">
+        <h2 class="text-gris-oscuro">{{'pagePerfil.direccionesPersonales' | translate}}</h2>
+        <button (click)="openAddress('personal')" class="p-2 rounded flex items-center  text-gris-medio hover:text-principal focus:text-principal">
+            {{'buttons.agregar' | translate}} <span class="material-icons-outlined ml-2">add_circle_outline</span>
+        </button>
+        <hr class="mt-1 border-t-2 border-principal-medio w-full">
+    </div>
+    <div *ngFor="let address of personalAddresses; let i = index" class="flex flex-wrap md:flex-row items-center justify-between gap-y-1 md:gap-3 py-4 md:py-2 px-2 mb-3 md:mb-0 hover:bg-principal-claro relative border-b border-principal-claro">
+        <div class="w-full md:w-2/6 text-gris-oscuro">{{address.street}} - {{address.number}} </div>
+        <div class="w-full md:w-auto text-gris-oscuro"><span class=" text-gris-medio ml-1">{{'formDirecciones.zip' | translate}}</span> {{address.zip_code}} </div>
+        <div class="w-full md:w-1/6 text-gris-oscuro">{{address.city}} </div>
+        <div class="w-full md:w-auto text-gris-oscuro"><span class=" text-gris-medio ml-1">{{'formDirecciones.estado' | translate}}</span> {{address.state}} </div>
+        <button (click)="deletePersonalAddress(i)" attr.aria-label="{{'buttons.quitar' | translate}}" class="absolute top-2 right-2 md:static flex items-center text-gris-medio hover:text-principal">
+            <span class="material-icons-outlined">remove_circle_outline</span>
+        </button>
+        <button (click)="editAddress(i, address, 'personal')" attr.aria-label="{{'buttons.quitar' | translate}}" class="absolute top-2 right-2 md:static flex items-center text-gris-medio hover:text-principal">
+            <span class="material-icons-outlined ml-2">edit</span>
+        </button>
+    </div>
+    <div class="w-full flex flex-wrap mt-10 items-center justify-between">
+        <h2 class="text-gris-oscuro ">{{'pagePerfil.direccionesEntrega' | translate}}</h2>
+        <button (click)="openAddress('delivery')" class="p-2 rounded flex items-center  text-gris-medio hover:text-principal focus:text-principal">
+            {{'buttons.agregar' | translate}} <span class="material-icons-outlined ml-2">add_circle_outline</span>
+        </button>
+        <hr class="mt-1 border-t-2 border-principal-medio w-full">
+    </div>
+    <div *ngFor="let address of deliveryAddresses; let i = index" class="flex flex-wrap md:flex-row items-center justify-between gap-y-1 md:gap-3 py-4 md:py-2 px-2 mb-3 md:mb-0 hover:bg-principal-claro relative border-b border-principal-claro">
+        <div class="w-full md:w-2/6 text-gris-oscuro">{{address.street}} - {{address.number}} </div>
+        <div class="w-full md:w-auto text-gris-oscuro"><span class=" text-gris-medio ml-1">{{'formDirecciones.zip' | translate}}</span> {{address.zip_code}} </div>
+        <div class="w-full md:w-1/6 text-gris-oscuro">{{address.city}} </div>
+        <div class="w-full md:w-auto text-gris-oscuro"><span class=" text-gris-medio ml-1">{{'formDirecciones.estado' | translate}}</span> {{address.state}} </div>
+        <button (click)="deleteAddress(i)" attr.aria-label="{{'buttons.quitar' | translate}}" class="absolute top-2 right-2 md:static flex items-center text-gris-medio hover:text-principal">
+            <span class="material-icons-outlined">remove_circle_outline</span>
+        </button>
+        <button (click)="editAddress(i, address, 'delivery')" attr.aria-label="{{'buttons.quitar' | translate}}" class="absolute top-2 right-2 md:static flex items-center text-gris-medio hover:text-principal">
+            <span class="material-icons-outlined ml-2">edit</span>
+        </button>
+    </div>
+
+    <button (click)="save()" class="p-2 rounded w-44 flex items-center justify-center mx-auto mt-6 bg-wholesale-principal hover:bg-principal focus:bg-principal hover:text-white focus:text-white">
+        {{'buttons.guardar' | translate}}  <span class="material-icons-outlined ml-2">check_circle</span>
+    </button>
+
+</div>
+<div class="w-full max-w-screen-lg p-6 mx-auto flex flex-wrap items-center justify-between">
+    <h2 class="font-semibold uppercase">{{'registracion.cambiarPass' | translate}}</h2>
+    <button (click)="open()" class="p-2 rounded flex items-center hover:bg-wholesale-principal font-poppins">
+        {{'buttons.entrar' | translate}} <span class="material-icons-outlined ml-2">edit</span>
+    </button>
+    <hr class="mt-1 border-t-2 border-principal w-full">
+</div>
+<!-- Compras -->
+<div class="w-full max-w-screen-lg p-6 mx-auto">
+    <div class="w-full flex flex-wrap items-center justify-between">
+        <h2 class="font-semibold">{{'pagePerfil.misCompras' | translate}} </h2>
+        <div class="text-right"><span class="material-icons-outlined">shopping_bag</span></div>
+        <hr class="mt-1 border-t-2 border-principal w-full">
+    </div>
+    <!-- item listado pedido -->
+    <div  *ngFor="let order of myOrders; let i = index" class="flex flex-col">
+        <div class="grid grid-flow-col auto-cols-auto auto-rows-auto items-center gap-x-2 py-4 md:py-2 px-2 mb-3 md:mb-0 hover:bg-principal-claro focus-within:bg-principal-claro relative border-b border-principal-claro" [ngClass]="{'bg-principal-claro font-semibold': mostrarCompra, '': !mostrarCompra}">
+            <div class="col-start-1 row-start-1 lg:row-span-2 text-gris-oscuro"><span class=" text-gris-medio ml-1">#</span> {{order.id}} </div>
+            <div class="col-start-1 row-start-2 lg:col-start-2 lg:row-span-2 lg:col-span-5 pl-5 lg:pl-0 text-gris-oscuro text-sm font-normal"> {{order.customer.email}} </div>
+            <div class="sm:row-span-2 text-gris-oscuro pl-5 sm:pl-0"> {{order.created_at | date: 'dd/MM/yyyy'}} </div>
+            <div class="sm:row-start-1 sm:row-span-2 justify-self-end text-gris-oscuro" [ngClass]="{'font-bold': order.isActive, '': !order.isActive}"><span class=" text-gris-medio ml-1">Total</span> {{order.total | currency}} </div>
+            <div class="row-span-2 sm:row-span-2 row-start-2 sm:row-start-1 justify-self-end flex gap-4">
+                <button (click)="toggleAccordian($event, i)" attr.aria-label="{{'buttons.entrar' | translate}}" class="flex items-center text-gris-medio hover:text-principal m-0.5">
+                    <span class="material-icons-outlined">expand_more</span>
+                </button>
+                <button (click)="repetir(order)" aria-label="volver a comprar" class="flex items-center px-1 rounded" [ngClass]="{'bg-wholesale-principal text-principal hover:bg-principal hover:text-white border-2 border-wholesale-principal hover:border-principal': mostrarCompra, ' m-0.5 text-gris-medio hover:text-principal ': !mostrarCompra}">
+                    <span class="font-semibold pr-1" >{{'buttons.repetir' | translate}} </span><span class="material-icons-outlined">update</span>
+                </button>
+            </div>
+        </div>
+
+        <div [hidden]="!order.isActive" class="w-full bg-white px-2" [ngClass]="{'inline': order.isActive, 'hidden': !order.isActive}">
+
+            <!-- cada item listado productos -->
+            <div *ngFor="let product of order.products" class="grid grid-flow-col auto-cols-auto auto-rows-auto sm:grid-flow-col items-center justify-start w-full text-sm gap-x-6 gap-y-2 sm:gap-6 my-2 pb-2 border-b border-principal-claro">
+                <div class="w-8"><img [src]=" product.product && product.product.images.length > 0 ? product.product.images[0].url : default_photo "  alt="Oppsie Poopsie - Flower Citriq"></div>
+                <h6 *ngIf="product.product !== null" class="font-semibold w-60"> {{product.product.name}}  </h6>
+                <div> {{product.quantity}} x {{product.price | currency}} </div>
+                <div> {{product.total | currency}} </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- Fin item pedido -->
+
+
+</div>

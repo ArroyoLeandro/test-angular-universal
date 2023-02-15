@@ -1,0 +1,28 @@
+<div *ngIf="list.length > 0" class="px-5 sm:px-10 pt-10">
+    <div class="hidden lg:block lg:w-full lg:h-auto max-w-screen-xl m-auto">
+        <div class="w-full text-center pt-6 pb-2">
+            <h2 class="w-full font-poppins font-normal text-4xl text-black"> {{'pageDetail.sugerencias' | translate}} </h2>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 pt-8 pb-16 gap-y-6 gap-x-6 max-w-screen-xl mx-auto">
+            <div *ngFor="let product of list| slice:0-4" class="">
+                <div routerLink="/home/product/{{product.sku}}" class="flex flex-col gap-3 justify-between pb-6 h-full text-center border border-gris-medio bg-white cursor-pointer hover:shadow-2xl sm:w-auto">
+                    <div class="w-full relative" style="padding-top: 100%;">
+                        <img class="absolute w-full h-full top-0 left-0 object-contain" [src]="product.images.length > 0 ? product.images[0].url : default_image  " alt="{{product.name}}">
+                        <div *ngIf="product.promoActive" class="transform rotate-90 absolute top-8 right-4 w-17 h-8/9 ">
+                            <button class="bg-principal font-bold px-4 text-white text-sm font-poppins w-full h-full"> {{promotionInfo.name}} </button>
+                        </div>
+                    </div>
+
+                    <h3 class="font-poppins font-normal leading-6 px-4"> {{product.name}} </h3>
+                    <!-- <p class="font-poppins font-normal leading-6 px-4">{{ product.variations.length > 0 ? product.variations[0].price : product.price | currency}}</p> -->
+                    <p class="font-poppins font-normal leading-6 px-4">{{product.price > 0 ? product.price : ''}}</p>
+                    <button routerLink="/home/product/{{product.sku}}" class="border border-principal hover:text-white hover:bg-principal text-center place-items-center py-2 px-5 w-45 mx-auto self-end">
+                        <span class="font-poppins font-normal text-sm tracking-wide">{{'buttons.verMas' | translate}}</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

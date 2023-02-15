@@ -1,0 +1,89 @@
+<div *ngIf="!showPageThanks">
+    <div class="bg-wholesale-principal w-full p-10 ">
+        <div class="flex flex-col sm:flex-row justify-between max-w-screen-lg m-auto">
+            <div class="lg:mr-8 h-40">
+                <div class="rounded-full bg-white mx-auto -mt-16 lg:-ml-8 w-40 h-40 p-3.5 flex flex-col items-center">
+                    <img src="assets/images/logoOOPSIE.svg" alt="OOPSIE POOPSIE" class="max-w-full margin-auto mt-9">
+                    <img src="assets/images/logo-icono.png" alt="PRE-POO-SPRAY" class="w-3/5 mt-2">
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:ml-10">
+                <h1 class="font-bold text-3xl text-center sm:text-left">
+                    {{'wholesale.title' | translate}}
+                </h1>
+                <p class="w-auto pt-4 text-center sm:text-left lg:text-justify text-sm leading-4">
+                    {{'wholesale.welcome' | translate}}
+                </p>
+                <p class="w-auto pt-4 text-center sm:text-left lg:text-justify text-sm leading-4">
+                    {{'wholesale.welcome2' | translate}}
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 items-start max-w-screen-lg lg:mx-auto m-10">
+        <div>
+            <!-- login -->
+            <div class="relative">
+                <button aria-label="Expand/Collapse" (click)="toState()" class="absolute transform -rotate-180 z-20 left-0 top-0 py-5 px-6 w-full flex justify-start hover:text-gris-medio focus:text-principal focus:outline-none group">
+                    <span [@rotar]='toggleForm' class="material-icons-outlined transform bg-principal bg-opacity-0 py-0.5 group-focus:bg-opacity-10 rounded">arrow_back_ios</span>
+                </button>
+                <app-login [currentState]="toggleForm" class="relative"></app-login>
+            </div>
+            <!-- login -->
+
+            <!-- registro -->
+            <div class="relative">
+                <button aria-label="Expand/Collapse" (click)="toState()" class="absolute z-20 right-0 top-0 p-6 w-full flex justify-end hover:text-gris-medio focus:text-principal focus:outline-none group">
+                    <span [@rotar]='toggleForm' class="material-icons-outlined transform bg-principal bg-opacity-0 py-0.5 group-focus:bg-opacity-10 rounded">arrow_back_ios</span>
+                </button>
+                <app-register [currentState]="toggleForm" (emitir)="getEvent($event)" class=""></app-register>
+                <!-- fin registro -->
+            </div>
+        </div>
+        <!-- catalogo -->
+        <div class="relative grid grid-cols-2 grid-rows-2 rounded-md overflow-x-hidden">
+            <div class="col-start-1 sm:col-start-2 col-span-full sm:col-span-none row-start-1 text-white z-10 py-6 pl-6 sm:pl-0 pr-6 font-thin leading-4 bg-gradient-to-b from-black sm:from-transparent">
+                <span class="text-sm pb-4 block"> {{'wholesale.verProductosDesc' | translate}} </span>
+                <button (click)="ctg()" class="z-10 w-full p-3 text-md font-poppins uppercase whitespace-nowrap border border-principal sm:border-white focus:outline-none bg-principal sm:bg-transparent bg-opacity-60 sm:bg-opacity-none focus:bg-opacity-none hover:bg-principal focus:bg-principal hover:border-principal focus:border-principal"> {{'buttons.verCatalogo' | translate}} </button>
+                <!-- <h2 class="z-10 text-xl font-poppins font-bold uppercase whitespace-nowrap"> {{'buttons.verProductos' | translate}} </h2> -->
+            </div>
+            <!--<div class="z-10 flex flex-col md:flex-row w-full gap-4">
+                <button (click)="volver()" class="flex-1 bg-wholesale-principal focus:outline-none hover:bg-principal focus:bg-principal hover:text-white focus:text-white py-2 px-3 rounded"> {{'buttons.volver' | translate}} </button>
+            </div>-->
+            <img src="assets/images/productos_catalogo.jpg" class="absolute top-0 left-0 w-full h-full object-cover object-center" style="z-index: -1;">
+        </div>
+        <!-- fin catalogo -->
+
+    </div>
+
+</div>
+
+<!-- pagina de gracias quitarle el hidden cuando se aplique -->
+<div *ngIf="showPageThanks" class="absolute bg-white inset-0 flex flex-col items-center lg:justify-center lg:p-20">
+    <div class="bg-wholesale-principal w-full p-10 max-w-screen-lg mx-auto ">
+        <div class="flex flex-col sm:flex-row justify-between max-w-screen-lg m-auto">
+            <div class=" h-40">
+                <div class="rounded-full bg-white mx-auto -mt-16 w-40 h-40 p-3.5 flex flex-col items-center">
+                    <img src="assets/images/logoOOPSIE.svg" alt="OOPSIE POOPSIE" class="max-w-full margin-auto mt-9">
+                    <img src="assets/images/logo-icono.png" alt="PRE-POO-SPRAY" class="w-3/5 mt-2">
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:ml-10">
+                <h1 class="font-bold text-xl lg:text-3xl mb-4">
+                    {{'wholesale.gracias' | translate}}
+                </h1>
+                <span class="w-auto mt-4 text-center sm:text-left lg:text-justify text-sm block leading-4">
+                    {{'wholesale.recordar' | translate}}
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="flex flex-col lg:flex-row justify-center items-start gap-8 max-w-screen-lg mx-auto my-10 px-6 lg-px-20">
+        <p class="text-center sm:text-left lg:text-justify ">{{'wholesale.verCatalogoDesc' | translate}}</p>
+        <button (click)="ctg()" class="bg-wholesale-principal uppercase focus:outline-none hover:bg-principal focus:bg-principal hover:text-white focus:text-white py-2 lg:w-80 w-full rounded"> {{'buttons.verCatalogo' | translate}} </button>
+
+    </div>
+</div>

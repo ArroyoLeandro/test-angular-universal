@@ -1,0 +1,26 @@
+
+<div class="swiper-container relative" [swiper]="swiperAutoplayConfig" [(index)]="index">
+    <ul class="swiper-wrapper">
+        <!-- le saco el clic no anda (click)="home && redirect(image.redirect)" -->
+        <li *ngFor="let image of images" class="swiper-slide">
+            <div class="swiper-zoom-container">
+                <img #imageDbClick [ngClass]="!home ? 'object-contain' : 'object-cover' " class="block w-full h-full top-0 left-0 z-0" [src]="image.url" [alt]="image.uic && image.uic">
+            </div>
+            <div *ngIf="home" class="z-10 top-8 h-full w-full absolute px-12 md:px-28 lg:px-36 pb-10 flex flex-col justify-center text-left">
+                <h2 class="animaRight max-w-full w-80 lg:w-96 text-xl sm:text-3xl md:text-5xl lg:text-6xl font-extrabold" *ngIf="image['text1']"> {{image.text1}} </h2>
+                <p class="animaRight-2 max-w-full w-80 lg:w-96 py-4 leading-normal text-sm sm:text-base" *ngIf="image['text2']"> {{image.text2}} </p>
+                <button class="animaRight-3 w-max delay-150 bg-principal text-white py-3 px-5 font-normal rounded-md hover:bg-principal-hover focus:bg-principal-hover" *ngIf="image['text3']">{{image.text3}}</button>
+            </div>
+        </li>
+    </ul>
+    <!-- Add Pagination -->
+    <ng-container *ngIf="images.length > 1">
+        <div class="absolute top-0 left-0 h-full z-10 flex items-center">
+            <button class="swiper-button-prev px-2 ml-1 text-2xl" aria-label="Prev" tabindex="0">&#10094;</button>
+        </div>
+        <div class="absolute top-0 right-0 h-full z-10 flex items-center">
+            <button class="swiper-button-next px-2 mr-1 text-2xl" aria-label="Next" tabindex="0">&#10095;</button>
+        </div>
+    </ng-container>
+    <!--<div class="swiper-pagination"></div>-->
+</div>

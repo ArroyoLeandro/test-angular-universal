@@ -1,0 +1,281 @@
+<app-pandora-wish *ngIf="this.banners.header.length > 0" class="order-1"></app-pandora-wish>
+
+<section class="" >
+    <!-- TITULO -->
+    <h3 *ngIf="!isAuth && !verCatalogo" class="relative text-center text-info font-bold text-3xl max-w-screen-xl mx-auto px-4 mt-10">
+        {{texts.texto4 ? texts.texto4 : ''}}
+        <button *ngIf="texts.texto5" class="hover:text-principal-hover focus:text-principal-hover flex items-center justify-center text-sm font-normal gap-2 mx-auto">
+            {{texts.texto5}} 
+            <span class="material-icons-outlined text-3xl"> arrow_right_alt </span>
+        </button>
+    </h3>
+    <!-- Productos -->
+    <div #top class="grid grid-cols-1 sm:grid-cols-2 pt-8 pb-16 gap-y-6 gap-x-6 max-w-screen-xl mx-auto px-5 sm:px-10" [ngClass]="isAuth ? 'md:grid-cols-4' : 'md:grid-cols-3 lg:grid-cols-4'">
+        <div *ngFor="let product of products | slice:0:8">
+            <app-product-card [catalogo]="verCatalogo ? true : false" [product]="product"></app-product-card>
+        </div>
+    </div>
+
+    <!-- ADD -->
+    <div #top class="h-96 w-full bg-principal-claro flex flex-col p-6 justify-center gap-y-6 relative">
+        <picture>
+            <!-- <source media="(min-width:1280px)" srcset="assets/images/bg-lanzamientos.jpg">
+            la xxl 1920 -->
+            <!-- <source media="(min-width:640px)" srcset="assets/images/bg-lanzamientos-xl.jpg">
+            la xl 1280 -->
+            <img *ngIf="banners.middle.length > 0" [src]="banners.middle[0].url" class="overflow-hidden absolute left-0 top-0 w-full h-full object-cover z-0 object-top md:object-center">
+            <!-- la mobile 640 -->
+        </picture>
+
+        <h1 class="text-center text-info font-bold text-3xl md:text-5xl leading-relaxed tracking-wider font-poppins z-10 px-24 md:px-6"> {{texts.texto1}} </h1>
+        <p class="text-center text-info font-poppins z-10 px-6 md:px-24"> {{texts.texto2}} </p>
+        <div class="text-center z-10">
+            <button class="bg-principal text-white place-items-center py-3 px-5 font-normal text-base rounded-md hover:bg-principal-hover focus:bg-principal-hover">
+                {{'buttons.verProductos' | translate}}
+            </button>
+        </div>
+    </div>
+
+    <!-- MAS PRODUCTS -->
+    <!-- TITULO -->
+    <h3 *ngIf="!isAuth && !verCatalogo" class="relative text-center text-info font-bold text-3xl max-w-screen-xl mx-auto px-4 mt-10">
+        {{texts.texto6 ? texts.texto6 : ''}}
+        <button *ngIf="texts.texto7" class="hover:text-principal-hover focus:text-principal-hover flex items-center justify-center text-sm font-normal gap-2 mx-auto">
+            {{texts.texto7}}  
+            <span class="material-icons-outlined text-3xl"> arrow_right_alt </span>
+        </button>
+    </h3>
+
+    <div #top class="grid grid-cols-1 sm:grid-cols-2 pt-8 pb-16 gap-y-6 gap-x-6 max-w-screen-xl mx-auto px-5 sm:px-10" [ngClass]="isAuth ? 'md:grid-cols-4' : 'md:grid-cols-3 lg:grid-cols-4'">
+        <div *ngFor="let product of products | slice:8:16">
+            <app-product-card [catalogo]="verCatalogo ? true : false" [product]="product"></app-product-card>
+        </div>
+    </div>
+
+    <!-- 2º ADD -->
+    <div class="w-full bg-principal-claro p-6 relative">
+        <img *ngIf="banners.end.length > 0" src="{{ banners.end[0].url }}" class="overflow-hidden absolute left-0 top-0 w-full h-full object-cover z-0">
+        <p class="text-info font-bold text-3xl text-center p-6 z-10 relative"> {{texts.texto3}} </p>
+
+        <div *ngIf="products.length > 0" class="hidden sm:block product-banner z-10 mb-6">
+            <div class="h-auto w-full max-w-xs sm:max-w-none mx-auto">
+                <app-carousel-slider [products]="products | slice:16:24"></app-carousel-slider>
+            </div>
+        </div>
+    </div>
+
+    <!-- 
+    <div *ngIf="!isAuth" class="">
+        <h3 *ngIf="!isAuth && !verCatalogo" class="relative text-center font-bold max-w-screen-xl mx-auto">
+            <span class="inline-block bg-white p-2 z-10 relative"> {{texts.texto2}} </span>
+            <span class="block absolute w-full z-0 left-0 border-t border-gris-medio -mt-5"></span>
+        </h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 pt-8 pb-16 gap-y-6 gap-x-6 max-w-screen-xl mx-auto">
+            <app-twopack [catalogo]="verCatalogo ? true : false" [product]="product" *ngFor="let product of products | slice:16:18"></app-twopack>
+        </div>
+    </div>
+    -->
+</section>
+
+<!-- <section>
+    <app-newsletters></app-newsletters>
+</section> -->
+
+<section class="relative">
+    <div class="absolute w-6 lg:w-1/3 h-full left-0 top-0 bg-principal z-0"></div>
+    <div *ngIf="banners.lastSection.length > 0" class="relative w-full max-w-screen-lg mx-auto my-10 grid lg:grid-cols-2 justify-center items-center gap-6 z-10">
+        <div class="max-w-full lg:w-full h-80 lg:h-full mx-6 lg:mx-0 rounded-lg bg-cover bg-no-repeat bg-center" [ngStyle]="{ 'background-image': 'url(' + banners.lastSection[0].url + ')'}"></div>
+        <div class="pb-4 pl-12 pr-6 lg:pb-10 lg:pt-10 lg:pl-10 lg:pr-10">
+            <h4 *ngIf="texts.texto8" class="font-bold">{{ texts.texto8 }}</h4>
+            <p *ngIf="texts.texto9">{{ texts.texto9 }}</p>
+            <p *ngIf="texts.texto10" class="pt-5"><a href="#" class="hover:text-principal-hover focus:text-principal-hover">
+                {{ texts.texto10 }}
+                <span class="block material-icons-outlined text-3xl">
+                arrow_right_alt
+                </span>
+            </a></p>
+        </div>
+
+    </div>
+</section>
+
+<!-- FAQS -->
+<section *ngIf="false" >
+    <div class="w-full bg-principal flex flex-col justify-center mt-24">
+        <div class="w-full max-w-screen-lg mx-auto py-6 px-6 lg:px-0 gap-6">
+            <div class="bg-principal-claro rounded-md flex flex-col sm:flex-row w-full px-6 py-8 -mt-20 gap-6">
+                <div class="flex items-center gap-3"><img src="assets/images/ico-bestquality.svg" alt="Icon">Best quality and prices on the internet</div>
+                <div class="flex items-center gap-3"><img src="assets/images/ico-delivery.svg" alt="Icon">Delivery to you or collection from store</div>
+                <div class="flex items-center gap-3"><img src="assets/images/ico-14days.svg" alt="Icon">14 - day returns on all items</div>
+            </div>
+        </div>
+        <div class="w-full max-w-screen-lg mx-auto px-6 lg:px-0 pb-12 mt-6">
+            <h4 class="font-extrabold text-2xl lg:text-3xl uppercase"> Preguntas Frecuentes</h4>
+
+            <div class="overflow-hidden">
+                <!-- accordion-tab  -->
+                <div class="group outline-none accordion-section border-b border-principal" tabindex="0">
+                    <div class="group flex justify-between py-3 items-center transition ease-in-out duration-500 cursor-pointer pr-10 relative">
+                        <div class="text-md font-poppins font-semibold group-focus:text-white transition ease-in-out duration-500">
+                            ¿Cuánto cuesta el envío?
+                        </div>
+                        <div class="h-8 w-8 items-center inline-flex justify-center transform transition ease-in-out duration-500 group-focus:text-white group-focus:-rotate-45 absolute top-0 right-0 mb-auto ml-auto mt-2 mr-2">
+                            <span class="text-2xl lg:text-3xl material-icons-outlined">add</span>
+                        </div>
+                    </div>
+                    <div class="group-focus:max-h-screen max-h-0 px-4 overflow-hidden ease-in-out duration-500">
+                        <p class="pb-4">
+                            El envío estándar gratuito actual es en pedidos de $ 2500 o superior y se aplica solo a los pedidos enviados a CABA y Provincia de Buenos Aires.
+                            Para el resto de casos el envío se cotizará al momento de realizar la compra.
+                            Tenga en cuenta que las devoluciones y cambios gratuitos solo están disponibles para pedidos enviados dentro del país.
+                        </p>
+                    </div>
+                </div>
+                <!-- accordion-tab -->
+                <!-- accordion-tab  -->
+                <div class="group outline-none accordion-section border-b border-principal" tabindex="0">
+                    <div class="group flex justify-between py-3 items-center transition ease-in-out duration-500 cursor-pointer pr-10 relative">
+                        <div class="text-md font-poppins font-semibold group-focus:text-white transition ease-in-out duration-500">
+                            ¿Cuánto tiempo tardaré en recibir mi paquete?
+                        </div>
+                        <div class="h-8 w-8 items-center inline-flex justify-center transform transition ease-in-out duration-500 group-focus:text-white group-focus:-rotate-45 absolute top-0 right-0 mb-auto ml-auto mt-2 mr-2">
+                            <span class="text-2xl lg:text-3xl material-icons-outlined">add</span>
+                        </div>
+                    </div>
+                    <div class="group-focus:max-h-screen max-h-0 px-4 overflow-hidden ease-in-out duration-500">
+                        <p class="pb-4">
+                            Dependiendo del método de envío y la velocidad, normalmente puede esperar su pedido dentro de 2 a 8 días. Tenga en cuenta que covid-19 ha afectado a muchos transportistas y puede causar retrasos en los tiempos de envío.
+                        </p>
+                    </div>
+                </div>
+                <!-- accordion-tab -->
+                <!-- accordion-tab  -->
+                <div class="group outline-none accordion-section border-b border-principal" tabindex="0">
+                    <div class="group flex justify-between py-3 items-center transition ease-in-out duration-500 cursor-pointer pr-10 relative">
+                        <div class="text-md font-poppins font-semibold group-focus:text-white transition ease-in-out duration-500">
+                            ¿Los precios incluyen impuestos?
+                        </div>
+                        <div class="h-8 w-8 items-center inline-flex justify-center transform transition ease-in-out duration-500 group-focus:text-white group-focus:-rotate-45 absolute top-0 right-0 mb-auto ml-auto mt-2 mr-2">
+                            <span class="text-2xl lg:text-3xl material-icons-outlined">add</span>
+                        </div>
+                    </div>
+                    <div class="group-focus:max-h-screen max-h-0 px-4 overflow-hidden ease-in-out duration-500">
+                        <p class="pb-4">
+                            Todos nuestros precios se publican a consumidor final con los impuestos internos incluidos. En el caso de compras internacionales, se aplicaran las tasas correspondientes al momento de realizar el pedido.
+                        </p>
+                    </div>
+                </div>
+                <!-- accordion-tab -->
+                <!-- accordion-tab  -->
+                <div class="group outline-none accordion-section border-b border-principal" tabindex="0">
+                    <div class="group flex justify-between py-3 items-center transition ease-in-out duration-500 cursor-pointer pr-10 relative">
+                        <div class="text-md font-poppins font-semibold group-focus:text-white transition ease-in-out duration-500">
+                            ¿Puedo seguir el pedido?
+                        </div>
+                        <div class="h-8 w-8 items-center inline-flex justify-center transform transition ease-in-out duration-500 group-focus:text-white group-focus:-rotate-45 absolute top-0 right-0 mb-auto ml-auto mt-2 mr-2">
+                            <span class="text-2xl lg:text-3xl material-icons-outlined">add</span>
+                        </div>
+                    </div>
+                    <div class="group-focus:max-h-screen max-h-0 px-4 overflow-hidden ease-in-out duration-500">
+                        <p class="pb-4">
+                            Una vez realizado su pedido, recibirá una confirmación de pedido. Una vez que se haya enviado su pedido, recibirá una confirmación de envío con información de seguimiento.
+                            Desafortunadamente, una vez que se ha realizado un pedido, no podemos realizar ningún cambio en el pedido o en la información de envío, así que asegúrese de que todos los detalles sean correctos antes de comprar.
+                        </p>
+                    </div>
+                </div>
+                <!-- accordion-tab -->
+                <!-- accordion-tab  -->
+                <div class="group outline-none accordion-section border-b border-principal" tabindex="0">
+                    <div class="group flex justify-between py-3 items-center transition ease-in-out duration-500 cursor-pointer pr-10 relative">
+                        <div class="text-md font-poppins font-semibold group-focus:text-white transition ease-in-out duration-500">
+                            ¿Cuáles son los medios de pago disponibles?
+                        </div>
+                        <div class="h-8 w-8 items-center inline-flex justify-center transform transition ease-in-out duration-500 group-focus:text-white group-focus:-rotate-45 absolute top-0 right-0 mb-auto ml-auto mt-2 mr-2">
+                            <span class="text-2xl lg:text-3xl material-icons-outlined">add</span>
+                        </div>
+                    </div>
+                    <div class="group-focus:max-h-screen max-h-0 px-4 overflow-hidden ease-in-out duration-500">
+                        <p class="pb-4">
+                            Aceptamos pagos con tarjeta de débito, tarjeta de crédito, Paypal, Amazon Pay, Apple Pay, G Pay, Mercado Libre y otros métodos de pago específicos de su ubicación geográfica.
+                        </p>
+                    </div>
+                </div>
+                <!-- accordion-tab -->
+                <!-- accordion-tab  -->
+                <div class="group outline-none accordion-section border-b border-principal" tabindex="0">
+                    <div class="group flex justify-between py-3 items-center transition ease-in-out duration-500 cursor-pointer pr-10 relative">
+                        <div class="text-md font-poppins font-semibold group-focus:text-white transition ease-in-out duration-500">
+                            ¿Los productos cuentan con garantía?
+                        </div>
+                        <div class="h-8 w-8 items-center inline-flex justify-center transform transition ease-in-out duration-500 group-focus:text-white group-focus:-rotate-45 absolute top-0 right-0 mb-auto ml-auto mt-2 mr-2">
+                            <span class="text-2xl lg:text-3xl material-icons-outlined">add</span>
+                        </div>
+                    </div>
+                    <div class="group-focus:max-h-screen max-h-0 px-4 overflow-hidden ease-in-out duration-500">
+                        <p class="pb-4">
+                            Su satisfacción es de gran valor para nosotros y las fallas que se presenten durante el primer año de uso serán consideradas y abordadas lo antes posible. Los defectos de fabricación se evalúan caso por caso con un comprobante de compra válido.
+                        </p>
+                    </div>
+                </div>
+                <!-- accordion-tab -->
+                <!-- accordion-tab  -->
+                <div class="group outline-none accordion-section border-b border-principal" tabindex="0">
+                    <div class="group flex justify-between py-3 items-center transition ease-in-out duration-500 cursor-pointer pr-10 relative">
+                        <div class="text-md font-poppins font-semibold group-focus:text-white transition ease-in-out duration-500">
+                            ¿Cuál es su política de devolución?
+                        </div>
+                        <div class="h-8 w-8 items-center inline-flex justify-center transform transition ease-in-out duration-500 group-focus:text-white group-focus:-rotate-45 absolute top-0 right-0 mb-auto ml-auto mt-2 mr-2">
+                            <span class="text-2xl lg:text-3xl material-icons-outlined">add</span>
+                        </div>
+                    </div>
+                    <div class="group-focus:max-h-screen max-h-0 px-4 overflow-hidden ease-in-out duration-500">
+                        <p class="pb-4">
+                            Si por alguna razón no está satisfecho con un producto o uno de nuestros vendedores autorizados, puede solicitar un reembolso o un producto de reemplazo.
+                            Tenga en cuenta que debido a que no podemos controlar la calidad de nuestros productos vendidos por vendedores no autorizados, a menos que la ley lo prohíba, la garantía de devolución de dinero de 45 días no está disponible para productos comprados a vendedores no autorizados. 
+                            La Garantía también se limita al comprador usuario final original.
+                        </p>
+                    </div>
+                </div>
+                <!-- accordion-tab -->
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- official pandora -->
+<!-- VER RESPONSIVE IMAGENES -->
+<!-- <div class="w-full h-full mt-20 sm:mt-5">
+    <div class="align-top lg:text-center sm:my-12">
+        <p class="font-poppins font-semibold text-2xl text-principal tracking-small">@theofficialpandora</p>
+    </div>
+
+    <div class="w-full flex flex-wrap justify-center lg:mb-4">
+
+        <div class="flex flex-nowrap ml-4 w-auto">
+            <div class="flex flex-col w-auto min-w-min">
+                <div class="flex-wrap w-auto my-2 sm:w-full sm:m-2"><img src="assets/images/img-1.jpg" alt=""></div>
+                <div class="flex-wrap my-2 w-auto sm:m-2"><img src="assets/images/img-2.jpg" alt=""></div>
+            </div>
+            <div class="mx-2">
+                <img class="h-auto justify-center w-auto sm:m-2" src="assets/images/img-3.2.jpg" alt="">
+            </div>
+        </div>
+
+        <div class="hidden lg:flex lg:flex-nowrap lg:ml-4 w-auto">
+            <div class="flex flex-col w-auto min-w-min">
+                <div class="flex-wrap w-auto my-2 sm:w-full sm:m-2"><img src="assets/images/img-4.jpg" alt=""></div>
+
+            </div>
+            <div class="mx-2">
+                <div class="flex-wrap my-2 justify-center w-auto sm:m-2"><img src="assets/images/img-5.jpg" alt=""></div>
+                <div class="flex-wrap my-2 justify-center w-auto sm:m-2"><img class="" src="assets/images/img-6.jpg" alt=""></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="my-10 flex justify-center ">
+    <button class="border border-principal text-center place-items-center py-2 h-full w-45">
+        <p class="text-principal font-poppins font-regular text-sm tracking-wide leading-6 px-5"> {{'buttons.followIg' | translate}} </p>
+    </button>
+</div> -->

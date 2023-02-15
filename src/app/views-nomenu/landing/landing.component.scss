@@ -1,0 +1,100 @@
+.mapa {
+    height: 47vh;
+}
+
+.mapa-container {
+    position: relative;
+    width: 100%;
+}
+
+.divSearch {
+    padding: 5px 10px;
+    display: flex;
+    width: 70%;
+    border-radius: 5px;
+    max-width: 400px;
+    position: absolute;
+    margin: auto;
+    z-index: 1;
+    margin: auto;
+    left: 0;
+    right: 0;
+    background: #fff;
+    @media (min-width: 768px) {
+        left: 40px;
+        width: 90%;
+        margin: 0;
+    }
+    input {
+        border: none;
+        width: 100%;
+        color: #666666;
+        &:focus {
+            box-shadow: none;
+            border: none;
+        }
+    }
+    i {
+        font-size: 22px;
+        margin-top: 9px;
+        color: #ff4b3b;
+    }
+}
+
+.list-lojas {
+    position: absolute;
+    right: 3%;
+    @media (max-width: 767px) {
+        position: relative;
+        top: unset;
+        right: unset;
+        margin: 0 auto;
+        margin-top: 10px;
+    }
+    width: 220px;
+    height: auto;
+    h5 {
+        color: white;
+        text-align: center;
+    }
+    p {
+        text-align: center;
+        padding-top: 14px;
+    }
+    .distance {
+        position: relative;
+        height: 35px;
+        width: 100%;
+        background: #ffffff47;
+        padding-left: 37px;
+        border-bottom: 1px solid white;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        &:hover {
+            cursor: pointer;
+            background: #8080805c!important;
+            color: white!important;
+        }
+        span {
+            position: absolute;
+            left: 35px;
+            font-size: 12px;
+            top: 16px;
+        }
+        i {
+            position: absolute;
+            font-size: 24px;
+            left: 12px;
+            color: black;
+            top: 5px;
+        }
+    }
+}
+
+.column {
+    flex-direction: row;
+    @media (max-width: 767px) {
+        flex-direction: column;
+    }
+}

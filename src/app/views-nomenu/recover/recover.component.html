@@ -1,0 +1,9 @@
+<div class="w-full bg-wholesale-principal"><img class="w-full h-full -mb-2" src="/assets/images/curva_profile.svg"></div>
+<div class="w-full max-w-screen-lg p-6 mx-auto font-poppins">
+    <h2 class="uppercase">{{'registracion.recoverPass' | translate}}</h2>
+    <form class="mt-6 flex flex-col w-full">
+        <p class="mb-5 text-sm uppercase text-gris-medio">{{'registracion.ingresaEmail' | translate}}</p>
+        <input [(ngModel)]="data.username" type="text" name="username" class="mb-3 mt-1 w-full bg-gray-100 rounded py-2 px-3" autocomplete="off" placeholder="{{'placeholders.email' | translate}}" required>
+        <button [disabled]="data.username === ''" (click)="send()" class="bg-principal hover:bg-wholesale-principal focus:bg-wholesale-principal text-white hover:text-principal focus:text-principal p-2 rounded border-2 border-principal w-full" id="login" type="submit">{{'buttons.enviar' | translate}}</button>
+    </form>
+</div>

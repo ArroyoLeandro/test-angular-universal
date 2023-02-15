@@ -1,0 +1,130 @@
+<app-modal #modalComponent>
+    <div class="w-full max-h-screen overflow-y-auto ">
+        <button class="block absolute right-2 top-2 md:hidden hover:text-gris-medio" aria-label="close" (click)="close()"><span class="material-icons">close</span> </button>
+        <h2 tabindex="0" class="uppercase font-semibold"> {{'address.ingreseDireccion'| translate}} </h2>
+        <hr class="mt-1 border-t-2 border-principal w-full">
+        <form class="mt-6 grid grid-cols-2 gap-4 w-full">
+            <div class="flex flex-col">
+                <input [(ngModel)]="addressForm.street" type="text" name="street" class="px-3 py-2 w-full focus:border-principal rounded border border-gris-medio outline-none" autocomplete="off" placeholder=" {{'placeholders.calle'| translate}} (*) " required #street="ngModel">
+                <div *ngIf="street.invalid && (street.dirty || street.touched)">
+                    <div *ngIf="street.errors.required" class="py-1 px-2 text-danger bg-principal-medio text-sm" role="alert">
+                        {{'validaciones.calleRequerido' | translate}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col">
+                <input [(ngModel)]="addressForm.number" type="text" name="number" class="px-3 py-2 w-full focus:border-principal rounded border border-gris-medio outline-none" autocomplete="off" placeholder=" {{'placeholders.num'| translate}} (*) " required #number="ngModel">
+
+                <div *ngIf="number.invalid && (number.dirty || number.touched)">
+                    <div *ngIf="number.errors.required" class="py-1 px-2 text-danger bg-principal-medio text-sm" role="alert">
+                        {{'validaciones.numeroRequerido' | translate}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col">
+                <input [(ngModel)]="addressForm.house_number" type="text" name="house_number" class="px-3 py-2 w-full focus:border-principal rounded border border-gris-medio outline-none" autocomplete="off" placeholder="{{'placeholders.casa'| translate}} (*)" required #house_number="ngModel">
+
+                <div *ngIf="house_number.invalid && (house_number.dirty || house_number.touched)">
+                    <div *ngIf="house_number.errors.required" class="py-1 px-2 text-danger bg-principal-medio text-sm" role="alert">
+                        {{'validaciones.numCasa' | translate}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col">
+                <input [(ngModel)]="addressForm.complement" type="text" name="complement" class="px-3 py-2 w-full focus:border-principal rounded border border-gris-medio outline-none" autocomplete="off" placeholder=" {{'placeholders.complemento'| translate}} (*)" required
+                    #complement="ngModel">
+
+                <div *ngIf="complement.invalid && (complement.dirty || complement.touched)">
+                    <div *ngIf="complement.errors.required" class="py-1 px-2 text-danger bg-principal-medio text-sm" role="alert">
+                        {{'validaciones.complemento' | translate}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col">
+                <input [(ngModel)]="addressForm.neighborhood" type="text" name="neighborhood" class="px-3 py-2 w-full focus:border-principal rounded border border-gris-medio outline-none" autocomplete="off" placeholder="{{'placeholders.vecindario'| translate}} (*)" required
+                    #neighborhood="ngModel">
+            </div>
+
+            <div class="flex flex-col">
+                <input [(ngModel)]="addressForm.district" type="text" name="district" class="px-3 py-2 w-full focus:border-principal rounded border border-gris-medio outline-none" autocomplete="off" placeholder="{{'placeholders.distrito'| translate}} (*)" required #district="ngModel">
+
+                <div *ngIf="district.invalid && (district.dirty || district.touched)">
+                    <div *ngIf="district.errors.required" class="py-1 px-2 text-danger bg-principal-medio text-sm" role="alert">
+                        {{'validaciones.distritoRequerido' | translate}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col">
+                <input [(ngModel)]="addressForm.city" type="text" name="city" class="px-3 py-2 w-full focus:border-principal rounded border border-gris-medio outline-none" autocomplete="off" placeholder="{{'placeholders.city'| translate}} (*)" required #city="ngModel">
+
+                <div *ngIf="city.invalid && (city.dirty || city.touched)">
+                    <div *ngIf="city.errors.required" class="py-1 px-2 text-danger bg-principal-medio text-sm" role="alert">
+                        {{'validaciones.ciudadObligatorio' | translate}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col">
+                <select class="px-2 py-2 h-full w-full focus:border-principal rounded border border-gris-medio outline-none" name="state" [(ngModel)]="addressForm.state" #state="ngModel">
+                <option disabled value="">{{'address.state' | translate}} (*)</option>    
+                <option *ngFor="let state of states" [value]="state.state" > {{state.state}} </option>
+                </select>
+            </div>
+
+            <div class="flex flex-col">
+                <label for="lat">{{'placeholders.lat'| translate}} (*)</label>
+                <input id="lat" [(ngModel)]="addressForm.coords.lat" type="number" name="lat" class="px-3 py-2 w-full focus:border-principal rounded border border-gris-medio outline-none" autocomplete="off" placeholder="{{'placeholders.lat'| translate}}" required #lat="ngModel"
+                    pattern="^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$">
+
+                <div *ngIf="lat.invalid && (lat.dirty || lat.touched)">
+                    <div *ngIf="lat.errors.required" class="py-1 px-2 text-danger bg-principal-medio text-sm" role="alert">
+                        {{'validaciones.latRequerido' | translate}}
+                    </div>
+                    <div *ngIf="lat.errors.pattern" class="py-1 px-2 text-danger bg-principal-medio text-sm" role="alert">
+                        {{'validaciones.soloNumeros' | translate}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col">
+                <label for="lng">{{'placeholders.lng'| translate}} (*)</label>
+                <input id="lng" [(ngModel)]="addressForm.coords.lng" type="number" name="lng" class="px-3 py-2 w-full focus:border-principal rounded border border-gris-medio outline-none" autocomplete="off" placeholder="{{'placeholders.lng'| translate}}" required #lng="ngModel"
+                    pattern="^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$">
+
+                <div *ngIf="lng.invalid && (lng.dirty || lng.touched)">
+                    <div *ngIf="lng.errors.required" class="py-1 px-2 text-danger bg-principal-medio text-sm" role="alert">
+                        {{'validaciones.lngRequerido' | translate}}
+                    </div>
+                    <div *ngIf="lng.errors.pattern" class="py-1 px-2 text-danger bg-principal-medio text-sm" role="alert">
+                        {{'validaciones.soloNumeros' | translate}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col">
+                <label for="zip_code">{{'placeholders.postalCode' | translate}} (*)</label>
+                <input id="zip_code" [(ngModel)]="addressForm.zip_code" type="number" name="zip_code" class="px-3 py-2 w-full focus:border-principal rounded border border-gris-medio outline-none" autocomplete="off" placeholder="{{'placeholders.postalCode' | translate}}" required
+                    #zip_code="ngModel" pattern="^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$">
+
+                <div *ngIf="zip_code.invalid && (zip_code.dirty || zip_code.touched)">
+                    <div *ngIf="zip_code.errors.required" class="py-1 px-2 text-danger bg-principal-medio text-sm" role="alert">
+                        {{'validaciones.zipCodeRequerido' | translate}}
+                    </div>
+                    <div *ngIf="zip_code.errors.pattern" class="py-1 px-2 text-danger bg-principal-medio text-sm" role="alert">
+                        {{'validaciones.soloNumeros' | translate}}
+                    </div>
+                </div>
+            </div>
+
+            <button (click)="send()" class="bg-principal hover:bg-wholesale-principal text-white hover:text-principal p-2 rounded border border-principal w-full mb-2" id="login" type="submit"><span> {{'buttons.enviar' | translate}} </span></button>
+        </form>
+    </div>
+</app-modal>
+
+<ng-template #toolbar>
+</ng-template>

@@ -1,0 +1,25 @@
+<!-- pandora -->
+<ngx-spinner *ngIf="spinner === 'pandora'" bdColor="rgba(0,0,0, 0.8)" color="white" [fullScreen]="true" type="null" size="small">
+    <img style="width:90px" src='assets/images/loading.gif' />
+</ngx-spinner>
+<!-- pandora -->
+
+<!-- purina -->
+<ngx-spinner *ngIf="spinner === 'purina'" bdColor="rgba(0,0,0, 0.8)" color="white" [fullScreen]="true" type="null" size="small">
+    <img style="width:90px" src='assets/images/logo-icono.png' />
+</ngx-spinner>
+<!-- purina -->
+
+
+<!-- pepsi -->
+<ngx-spinner *ngIf="spinner === 'pepsi'" bdColor="rgba(0,0,0, 0.8)" color="white" [fullScreen]="true" type="null" size="small">
+    <img style="width:90px" src='assets/images/logo-impact-pepsi.png' />
+</ngx-spinner>
+<!-- pepsi -->
+
+<!-- general -->
+<ngx-spinner *ngIf="spinner === 'general' || spinner === ''" [fullScreen]="true" type="ball-scale-multiple">
+</ngx-spinner>
+<!-- general -->
+
+<router-outlet></router-outlet>

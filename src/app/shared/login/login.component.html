@@ -1,0 +1,15 @@
+<div class="p-6 bg-secundario rounded-md">
+    <h2 class="text-xl font-poppins font-bold uppercase"> {{'login.title' | translate}} </h2>
+    <span class="text-sm block leading-4">{{'login.bajada' | translate}}</span>
+    <span class="text-sm block leading-4"> {{'login.instrucciones' | translate}} </span>
+    <span *ngIf="error" class="text-danger text-sm block leading-4">{{'alerts.salioMal' | translate}}</span>
+
+    <div [@changeState]="currentState" class="formLogin ver text-left w-full overflow-hidden">
+        <form class="flex flex-col mt-3 w-full">
+            <input name="username" [(ngModel)]="login.username" placeholder=" {{'placeholders.userName' | translate}} " type="text" class="bg-white h-10 p-3 my-2">
+            <input name="password" [(ngModel)]="login.password" placeholder="  {{'placeholders.password' | translate}} " type="password" class="bg-white h-10 p-3 my-2">
+            <button (click)="doLogin()" class="bg-secundario border border-principal focus:outline-none hover:bg-principal focus:bg-principal hover:text-white focus:text-white font-poppins p-2 mt-3"> {{'buttons.entrar' | translate}}  </button>
+            <span (click)="open()" class="cursor-pointer transition hover:underline pt-3 text-sm block leading-4"> {{'registracion.recoverPass' | translate}} </span>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,91 @@
+<div *ngIf="objectKeys(service).length > 0">
+    <div class="flex flex-row p-6 max-w-screen-2xl">
+        <div class="w-full flex justify-left text-2xl p-6 tracking-wide font-light">
+            <p class="font-light"> {{'pageTurnos.miReserva' | translate}} </p>
+        </div>
+        <div class="py-4">
+            <button class="flex flex-row bg-principal border border-principal text-center py-2 px-5 place-items-center lg:w-full lg:m-0">
+                <p class="text-white tracking-wide flex-1 lg:w-full mr-4">{{'buttons.volver' | translate}}</p>
+            </button>
+        </div>
+
+    </div>
+
+    <div class="bg-white flex flex-col w-full px-6 py-10 mb-40 justify-center max-w-screen-2xl">
+        <div>
+            <div class="w-full flex justify-center mb-4">
+                <p class="text-3xl"> {{'pageTurnos.casiterminar' | translate}} </p>
+            </div>
+            <div class="w-full flex justify-center  mb-4">
+                <p class="w-9/12 md:w-full md:flex md:justify-center">{{'pageTurnos.confirmarDireccion' | translate}}</p>
+            </div>
+        </div>
+        <div class="w-full flex justify-center">
+            <div class="reserva-intro md:w-9/12 lg:w-6/12 lg:flex lg:flex-col">
+                <div class="flex flex-row space-x-4 pb-4">
+                    <span class="material-icons-outlined self-center text-principal">date_range</span>
+                    <p class="text-principal self-center text-2xl">{{'pageTurnos.tuReserva' | translate}}</p>
+                </div>
+
+                <div>
+                    <p class="text-sm">SERVICIO:</p>
+                    <p class="text-xl font-semibold py-1"> {{category.name}} </p>
+                    <p class="text-sm py-1"> {{service.name}} </p>
+
+                    <div class="flex flex-row space-x-2 mt-5 mb-3">
+                        <span class="material-icons-outlined self-center">date_range</span>
+                        <p class="self-center"> {{dateSelected}} </p>
+                    </div>
+                    <div class="flex flex-row space-x-2 my-3">
+                        <span class="material-icons-outlined self-center">watch</span>
+                        <p class="text-base font-normal sel-center"> {{'pageTurnos.a_las' | translate}} {{hoursSelected.start}} </p>
+                    </div>
+                    <div class="flex flex-row space-x-2 my-3">
+                        <span class="material-icons self-center">timer</span>
+                        <p class="text-base font-normal self-center">{{'pageTurnos.duracion' | translate}}: {{service.duration}} {{'pageTurnos.minutos' | translate}}</p>
+                    </div>
+                    <div class="flex flex-row space-x-2 my-3">
+                        <span class="material-icons-outlined flex self-center">fmd_good</span>
+                        <p class="text-base font-normal self-center">{{store.country | uppercase}}, {{store.city | uppercase}}</p>
+                    </div>
+
+                    <button class="hidden lg:flex lg:flex-row boton-rosa space-x-4 py-2 px-8 h-full lg:w-full lg:m-0">
+                        <span class="material-icons text-white self-center">drive_file_rename_outline</span>
+                        <p class="text-white tracking-wide flex-1 self-center lg:w-full mr-4">{{'buttons.editar' | translate}}</p>
+                    </button>
+
+                    <div class="grid grid-cols-2 grid-rows-2 gap-x-4 gap-y-4 border-t-2 border-black py-6 mt-5">
+                        <div>
+                            <p class="pb-1 text-xs">{{'formCustomer.nombre' | translate}}:</p>
+                            <p class="text-sm"> {{customer.name}} </p>
+                        </div>
+                        <div>
+                            <p class="pb-1 text-xs">{{'formCustomer.apellido' | translate}}:</p>
+                            <p class="text-sm"> {{customer.lastname}} </p>
+                        </div>
+                        <div>
+                            <p class="pb-1 text-xs">{{'formCustomer.email' | translate}}:</p>
+                            <p class="text-sm">{{customer.email}}</p>
+                        </div>
+                        <div>
+                            <p class="pb-1 text-xs">{{'formCustomer.telefono' | translate}}:</p>
+                            <p class="text-sm">{{customer.phone}}</p>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+        <div class="w-full">
+            <button (click)="makeReservation()" class="flex border border-principal text-center py-2 px-5 w-full justify-center mt-8">
+                <p class="text-principal text-sm  self-center lg:w-full mr-4">{{'pageTurnos.confirmarReserva' | translate}}</p>
+            </button>
+
+            <button (click)="changeStepBack()" class="flex bg-white text-center w-full justify-center h-full  mt-4">
+                <p class="text-principal text-sm  self-center lg:w-full mr-4">{{'pageTurnos.previousStep' | translate}}</p>
+            </button>
+        </div>
+    </div>
+</div>

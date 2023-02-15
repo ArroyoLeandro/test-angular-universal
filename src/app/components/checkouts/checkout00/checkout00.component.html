@@ -1,0 +1,910 @@
+<div class="cart">
+  <!-- Datos personanles -->
+  <div class="mb-4 ">
+    <h2
+      class="font-poppins w-full flex justify-between items-center text-left uppercase text-white text-lg sm:text-xl font-semibold py-3 px-4"
+      (click)="changeStep(1)"
+      [ngClass]="
+        step == 1
+          ? 'bg-principal-hover'
+          : 'cursor-pointer mb-2 bg-principal-hover hover:bg-gris-medio focus:bg-gris-medio'
+      "
+    >
+      {{ 'carrito.datosPersonales' | translate }}
+      <span *ngIf="step > 1" class="material-icons-outlined mr-3">done</span>
+    </h2>
+    <div class="grid grid-cols-2 gap-3 py-4 mx-4" *ngIf="step == 1">
+      <div class="col-span-2">
+        <input
+          [readonly]="isAuth"
+          placeholder="{{ 'placeholders.email' | translate }}"
+          type="email"
+          name="email"
+          class="border border-principal-claro py-2 px-4 text-lg sm:text-xl w-full"
+          required
+          [(ngModel)]="orderForm.customer.email"
+          #email="ngModel"
+          (key.enter)="checkMail()"
+          (change)="checkMail()"
+          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+        />
+        <div *ngIf="email.invalid && (email.dirty || email.touched)">
+          <div
+            *ngIf="email.errors.required"
+            class="py-1 px-2 text-danger bg-gris-claro text-sm"
+            role="alert"
+          >
+            {{ 'validaciones.emailObligatorio' | translate }}
+          </div>
+
+          <div
+            *ngIf="email.errors?.pattern"
+            class="py-1 px-2 text-danger bg-gris-claro text-sm"
+            role="alert"
+          >
+            {{ 'validaciones.emailValido' | translate }}
+          </div>
+        </div>
+      </div>
+      <div>
+        <input
+          [readonly]="isAuth"
+          placeholder="{{ 'placeholders.nombre' | translate }}"
+          class="border border-principal-claro py-2 px-4 text-lg sm:text-xl w-full"
+          required
+          [(ngModel)]="orderForm.customer.name"
+          #firstname="ngModel"
+        />
+
+        <div
+          *ngIf="firstname.invalid && (firstname.dirty || firstname.touched)"
+        >
+          <div
+            *ngIf="firstname.errors.required"
+            class="py-1 px-2 text-danger bg-gris-claro text-sm"
+            role="alert"
+          >
+            {{ 'validaciones.nombreObligatorio' | translate }}
+          </div>
+        </div>
+      </div>
+      <div>
+        <input
+          [readonly]="isAuth"
+          placeholder="{{ 'placeholders.apellido' | translate }}"
+          class="border border-principal-claro py-2 px-4 text-lg sm:text-xl w-full"
+          required
+          [(ngModel)]="orderForm.customer.lastname"
+          #lastname="ngModel"
+        />
+
+        <div *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)">
+          <div
+            *ngIf="lastname.errors.required"
+            class="py-1 px-2 text-danger bg-gris-claro text-sm"
+            role="alert"
+          >
+            {{ 'validaciones.apellidosObligatorios' | translate }}
+          </div>
+        </div>
+      </div>
+      <div class="col-span-2">
+        <input
+          type="number"
+          [readonly]="isAuth"
+          placeholder="Country Code + {{ 'placeholders.telefono' | translate }}"
+          class="border border-principal-claro py-2 px-4 text-lg sm:text-xl w-full"
+          [(ngModel)]="orderForm.customer.phone_ws"
+          pattern="^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$"
+          #phone="ngModel"
+          required
+        />
+        <div *ngIf="phone.invalid && (phone.dirty || phone.touched)">
+          <div
+            *ngIf="phone.errors.required"
+            class="py-1 px-2 text-danger bg-gris-claro text-sm"
+            role="alert"
+          >
+            {{ 'validaciones.tlfObligatorio' | translate }}
+          </div>
+          <div
+            *ngIf="phone.errors.pattern"
+            class="py-1 px-2 text-danger bg-gris-claro text-sm"
+            role="alert"
+          >
+            {{ 'validaciones.soloNumeros' | translate }}
+          </div>
+        </div>
+      </div>
+      <div class="checkbox-especial col-span-2 flex pt-2">
+        <label class="control control-checkbox text-sm">
+          <br />
+          <!-- <a href="assets/imgs/POLITICA_DE_PROTECCION_DE_DATOS_PERSONALES_RUA_&_JEWELRY_SAS.pdf" target="_blank" download="POLITICA_DE_PROTECCION_DE_DATOS_PERSONALES_RUA_&_JEWELRY_SAS.pdf"> 
+                            {{'carrito.masInformacion' | translate}}
+                        </a> -->
+          <input
+            type="checkbox"
+            name="checkbox"
+            value="1"
+            checked="checked"
+            [(ngModel)]="tyc"
+          />
+          <div class="control_indicator"></div>
+        </label>
+        <a
+          (click)="open('terms')"
+          class="hover:underline focus:underline cursor-pointer"
+        >
+          {{ 'instrucciones.terms' | translate }}</a
+        >
+      </div>
+
+      <div
+        class="checkbox-especial col-span-2 flex justify-between pt-3 border-t border-gris-medio mt-2"
+      >
+        <label
+          *ngIf="store && store.has_delivery == 1 && listPersonalized.length > 0"
+          class="control control-checkbox text-sm"
+        >
+          Envio
+          <input
+            type="radio"
+            name="radio"
+            value="1"
+            checked="checked"
+            [disabled]="listPersonalized === 0"
+            [(ngModel)]="modoEntrega"
+          />
+          <div class="control_indicator"></div>
+        </label>
+        <ng-container *ngIf="listPersonalized.length === 0">
+          <span class="text-xs"
+            >El costo total del carrito no cumple los requisitos para el
+            envio</span
+          >
+        </ng-container>
+
+        <label
+          *ngIf="store && store.pickup == 1"
+          class="control control-checkbox text-sm whitespace-nowrap"
+        >
+          Recoger en Tienda
+          <input
+            type="radio"
+            name="radio"
+            value="2"
+            checked="checked"
+            [(ngModel)]="modoEntrega"
+          />
+          <div class="control_indicator"></div>
+        </label>
+      </div>
+
+      <div
+        class="checkbox-especial col-span-2 flex mt-1 pt-3 border-t border-gris-medio"
+      >
+        <div
+          *ngIf="modoEntrega == 1 && listPersonalized.length > 0"
+          class="w-full flex gap-3 py-3"
+        >
+          <button
+            class="flex-1 whitespace-nowrap bg-principal border border-principal text-center py-2 px-5 text-white hover:bg-principal-hover hover:border-principal-hover focus:bg-principal-hover focus:border-principal-hover rounded"
+            (click)="goToDeliveryData()"
+          >
+            {{ 'formEntrega.direccion' | translate }}
+          </button>
+        </div>
+
+        <div *ngIf="modoEntrega == 2" class="w-full flex gap-3 py-3">
+          <button
+            (click)="validatePersonalData(true)"
+            class="flex-1 whitespace-nowrap bg-principal border border-principal text-center py-2 px-5 text-white hover:bg-principal-hover hover:border-principal-hover focus:bg-principal-hover focus:border-principal-hover rounded"
+          >
+            {{ 'buttons.siguiente' | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Entrega 1 -->
+  <div
+    *ngIf="store &&  store.has_delivery && modoEntrega == 1"
+    class="my-4 "
+  >
+    <h2
+      *ngIf="!chooseAddress"
+      class="font-poppins w-full flex justify-between items-center text-left uppercase text-white text-lg sm:text-xl font-semibold py-3 px-4"
+      (click)="changeStep(2); chooseAddress = false; showMethods = false"
+      [ngClass]="
+        step == 2
+          ? 'bg-principal-hover'
+          : 'cursor-pointer mb-2 bg-principal-hover hover:bg-gris-medio focus:bg-gris-medio'
+      "
+    >
+      {{ 'carrito.entrega' | translate }}
+      <span *ngIf="step > 2" class="material-icons-outlined mr-3">done</span>
+    </h2>
+
+    <div class="grid grid-cols-2 gap-3 py-4 px-4" *ngIf="step == 2">
+      <div *ngIf="listPersonalized.length === 0" class=" ">
+        <select
+          class="border border-principal-claro py-2 px-4 text-lg sm:text-xl w-full"
+          name="city"
+          [(ngModel)]="deliveryAddress.city"
+          #city="ngModel"
+        >
+          <option disabled value="">
+            {{ 'placeholders.city' | translate }}
+          </option>
+          <option *ngFor="let ciudad of cuidades" [value]="ciudad">
+            {{ ciudad }}
+          </option>
+        </select>
+        <div *ngIf="city.invalid && (city.dirty || city.touched)">
+          <div
+            *ngIf="city.errors.required"
+            class="py-1 px-2 text-danger bg-gris-claro text-sm"
+            role="alert"
+          >
+            {{ 'validaciones.ciudadObligatorio' | translate }}
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="listPersonalized.length > 0" class=" ">
+        <select
+          (change)="id_personalized = $event.target['value']"
+          class="border border-principal-claro py-2 px-4 text-lg sm:text-xl w-full"
+        >
+          <option disabled selected hidden value="">Zona de entrega</option>
+          <option
+            *ngFor="let item of listPersonalized"
+            [value]="item.id_number"
+          >
+            {{ item.description }}
+          </option>
+        </select>
+      </div>
+
+      <div class="">
+        <input
+          placeholder="{{ 'formEntrega.direccion' | translate }}"
+          class="border border-principal-claro py-2 px-4 text-lg sm:text-xl w-full"
+          [(ngModel)]="deliveryAddress.street"
+          #street="ngModel"
+          required
+        />
+
+        <div *ngIf="street.invalid && (street.dirty || street.touched)">
+          <div
+            *ngIf="street.errors.required"
+            class="py-1 px-2 text-danger bg-gris-claro text-sm"
+            role="alert"
+          >
+            {{ 'validaciones.direccionObligatorio' | translate }}
+          </div>
+        </div>
+      </div>
+
+      <div class="">
+        <input
+          type="number"
+          placeholder="{{ 'placeholders.postalCode' | translate }}"
+          class="border border-principal-claro py-2 px-4 text-lg sm:text-xl w-full"
+          [(ngModel)]="deliveryAddress.zip_code"
+          #zip_code="ngModel"
+          required
+        />
+
+        <div *ngIf="zip_code.invalid && (zip_code.dirty || zip_code.touched)">
+          <div
+            *ngIf="zip_code.errors.required"
+            class="py-1 px-2 text-danger bg-gris-claro text-sm"
+            role="alert"
+          >
+            {{ 'validaciones.codigoPostal' | translate }}
+          </div>
+        </div>
+      </div>
+
+      <div class="">
+        <input
+          type="number"
+          placeholder=" {{ 'placeholders.telefono' | translate }} "
+          class="border border-principal-claro py-2 px-4 text-lg sm:text-xl w-full"
+          [(ngModel)]="deliveryAddress.phone"
+          #phone="ngModel"
+          required
+        />
+
+        <div *ngIf="phone.invalid && (phone.dirty || phone.touched)">
+          <div *ngIf="phone.invalid && (phone.dirty || phone.touched)">
+            <div
+              *ngIf="phone.errors.required"
+              class="py-1 px-2 text-danger bg-gris-claro text-sm"
+              role="alert"
+            >
+              {{ 'validaciones.tlfObligatorio' | translate }}
+            </div>
+            <div
+              *ngIf="phone.errors.pattern"
+              class="py-1 px-2 text-danger bg-gris-claro text-sm"
+              role="alert"
+            >
+              {{ 'validaciones.soloNumeros' | translate }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-span-2">
+        <input
+          placeholder="{{ 'formEntrega.destinatario' | translate }}"
+          class="border border-principal-claro py-2 px-4 text-lg sm:text-xl w-full"
+          [(ngModel)]="deliveryAddress.destinatario"
+          #destinatario="ngModel"
+          required
+        />
+        <div
+          *ngIf="
+            destinatario.invalid && (destinatario.dirty || destinatario.touched)
+          "
+        >
+          <div
+            *ngIf="destinatario.errors.required"
+            class="py-1 px-2 text-danger bg-gris-claro text-sm"
+            role="alert"
+          >
+            {{ 'validaciones.destinatarioObligatorio' | translate }}
+          </div>
+        </div>
+      </div>
+
+      <div class="col-span-2 flex flex-col gap-4">
+        <!-- <button *ngIf="isAuth && deliveryAddress.city !== '' && deliveryAddress.street !== '' && deliveryAddress.destinatario !== '' " class="w-full bg-principal border border-principal text-center py-2 px-5 text-white hover:bg-principal-hover hover:border-principal-hover focus:bg-principal-hover focus:border-principal-hover rounded "
+                    (click)="(step == 2 && isAuth) && showMethods = true; step = 4; ; getCost() ">
+                    {{'buttons.siguiente' | translate}}
+                </button> -->
+        <button
+          *ngIf="
+            id_personalized &&
+            deliveryAddress.city !== '' &&
+            deliveryAddress.street !== '' &&
+            !isAuth
+          "
+          class="w-full bg-principal border border-principal text-center py-2 px-5 text-white hover:bg-principal-hover hover:border-principal-hover focus:bg-principal-hover focus:border-principal-hover rounded"
+          (click)="step = 4; getCost()"
+        >
+          {{ 'buttons.siguiente' | translate }}
+        </button>
+      </div>
+
+      <button
+        *ngIf="methodPayment === 'own'"
+        class="w-full bg-principal border border-principal text-center py-2 px-5 text-white hover:bg-principal-hover hover:border-principal-hover focus:bg-principal-hover focus:border-principal-hover rounded"
+        (click)="goToPaymentData()"
+      >
+        {{ 'buttons.pagar' | translate }}
+      </button>
+    </div>
+  </div>
+
+  <!-- escoger direccion inicio -->
+  <div>
+    <div class="my-4 ">
+      <h2
+        *ngIf="chooseAddress"
+        class="font-poppins w-full flex justify-between items-center text-left uppercase text-white text-lg sm:text-xl font-semibold py-3 px-4"
+        (click)="changeStep(3); chooseAddress = true; showMethods = false"
+        [ngClass]="
+          step == 3
+            ? 'bg-principal-hover'
+            : 'cursor-pointer mb-2 bg-principal-hover hover:bg-gris-medio focus:bg-gris-medio'
+        "
+      >
+        {{ 'pagePerfil.direccionesEntrega' | translate
+        }}<span *ngIf="step > 3" class="material-icons-outlined mr-3"
+          >done</span
+        >
+      </h2>
+      <!-- ocultar este div cuando se hace click en pagar -->
+      <div *ngIf="step == 3 && chooseAddress" class="pb-4 px-4">
+        <div
+          tabindex="0"
+          role="button"
+          (click)="
+            id_address = address.id;
+            showMethods = true;
+            step = 4;
+            checkAddress(address)
+          "
+          *ngFor="let address of listAddresses; let i = index"
+          class="grid grid-cols-4 gap-y-1 gap-x-2 p-4 relative border-b border-gris-oscuro bg-principal-claro hover:bg-principal-hover focus-within:bg-principal-hover text-gris-medio hover:text-principal focus:text-principal focus-within:outline-none"
+        >
+          <div class="text-gris-medio">
+            {{ 'formDirecciones.calle' | translate }}
+          </div>
+          <div class="col-span-2 text-gris-oscuro">{{ address.street }}</div>
+          <div class="justify-self-end flex items-center">
+            <span class="material-icons-outlined">done</span>
+          </div>
+          <div class="text-gris-medio">
+            {{ 'formDirecciones.zip' | translate }}
+          </div>
+          <div class="col-span-3 text-gris-oscuro">{{ address.zip_code }}</div>
+          <div class="text-gris-medio">
+            {{ 'formDirecciones.ciudad' | translate }}
+          </div>
+          <div class="col-span-3 text-gris-oscuro">{{ address.city }}</div>
+          <div class="text-gris-medio">
+            {{ 'formDirecciones.estado' | translate }}
+          </div>
+          <div class="col-span-3 text-gris-oscuro">{{ address.state }}</div>
+        </div>
+      </div>
+      <!-- fin div ocultar -->
+    </div>
+  </div>
+  <!-- escoger direccion fin -->
+
+  <!-- escoger metodos pago -->
+  <div *ngIf="store && store.has_delivery" class="my-4 ">
+    <div>
+      <h2
+        class="font-poppins w-full flex justify-between items-center text-left uppercase text-white text-lg sm:text-xl font-semibold py-3 px-4"
+        (click)="changeStep(4); showMethods = true"
+        [ngClass]="
+          showMethods
+            ? 'bg-principal-hover'
+            : 'cursor-pointer mb-2 bg-principal-hover hover:bg-gris-medio focus:bg-gris-medio'
+        "
+      >
+        {{ 'checkout.escogerMetodosPago' | translate }}
+        <span *ngIf="step > 4" class="material-icons-outlined mr-3">done</span>
+      </h2>
+    </div>
+
+    <div
+      *ngIf="step == 4 || showMethods"
+      class="flex flex-wrap gap-4 py-3 mx-4"
+    >
+      <button
+        *ngFor="let method of metodos_payment"
+        (click)="changeStates(method.model, method.name)"
+        class="flex-1 whitespace-nowrap bg-principal border border-principal text-center py-2 px-5 text-white hover:bg-principal-hover hover:border-principal-hover focus:bg-principal-hover focus:border-principal-hover rounded"
+      >
+        {{
+          method.model !== 'custompayment'
+            ? (method.model | translate)
+            : method.name
+        }}
+      </button>
+    </div>
+  </div>
+  <!-- fin metodos pago -->
+
+  <!-- form subir imagen -->
+
+  <div
+    *ngIf="methodPayment === 'transfer'"
+    class="my-4 "
+  >
+    <h2
+      class="font-poppins w-full flex justify-between items-center text-left uppercase text-white text-lg sm:text-xl font-semibold py-3 px-4"
+      (click)="changeStep(5)"
+      [ngClass]="
+        step == 5
+          ? 'bg-principal-hover'
+          : 'cursor-pointer mb-2 bg-principal-hover hover:bg-gris-medio focus:bg-gris-medio'
+      "
+    >
+      {{ 'comprobante' | translate }}
+      <span *ngIf="step > 5" class="material-icons-outlined mr-3">done</span>
+    </h2>
+
+    <div
+      *ngIf="step === 4"
+      class="flex flex-col flex-wrap gap-1 text-sm py-4 px-4 m-4 bg-gris-medio rounded"
+    >
+      <p><strong>Nombre Titular/Empresa:</strong> {{ dataPayment.name }}</p>
+      <p><strong>Cédula o RIF:</strong> {{ dataPayment.rif }}</p>
+      <p><strong>Numero de Cuenta:</strong> {{ dataPayment.number_account }}</p>
+      <p><strong>Banco:</strong> {{ dataPayment.bank_name }}</p>
+    </div>
+
+    <div class="" *ngIf="step === 4">
+      <form class="mx-4 pb-3 flex flex-wrap gap-3 justify-between">
+        <div
+          class="relative mt-5 max-w-full flex bg-white text-lg sm:text-xl border border-principal-claro items-center focus-within:border-principal"
+        >
+          <label for="ref" class="uppercase text-xs absolute -top-5 left-0"
+            >N° Referencía</label
+          >
+          <span class="absolute material-icons-outlined ml-3">payment</span>
+          <input
+            [(ngModel)]="ref"
+            name="ref"
+            id="ref"
+            class="w-full py-2 pl-12 focus:outline-none"
+            type="text"
+            placeholder="N° Referencía"
+          />
+        </div>
+
+        <img
+          class="object-contain flex justify-center align-center rounded"
+          *ngIf="!isPdf && url_comprobante !== ''"
+          [src]="url_comprobante"
+          alt=""
+        />
+
+        <embed
+          *ngIf="isPdf && url_comprobante !== ''"
+          [src]="url_comprobante"
+          width="400"
+          height="200"
+          type="application/pdf"
+        />
+
+        <div class="">
+          <button
+            (click)="simulateClick()"
+            class="w-full my-8 bg-principal border border-principal text-center py-2 px-5 text-white hover:bg-principal-hover hover:border-principal-hover focus:bg-principal-hover focus:border-principal-hover rounded"
+          >
+            Cargar comprobante
+          </button>
+          <input
+            class="hidden"
+            type="file"
+            #inputFile
+            (change)="handleImg($event)"
+          />
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- fin form subir imagen -->
+
+  <!-- metodo de pago personalizado -->
+
+  <div
+    *ngIf="methodPayment === 'custompayment'"
+    class="my-4 "
+  >
+    <div [innerHTML]="dataPayment.description"></div>
+    <img
+      style="width: 20%; margin: 8px auto"
+      *ngIf="dataPayment.image !== '-'"
+      [src]="dataPayment.image"
+      alt=""
+    />
+
+    <img
+      class="object-contain flex justify-center align-center rounded"
+      *ngIf="!isPdf && url_comprobante !== ''"
+      [src]="url_comprobante"
+      alt=""
+    />
+
+    <embed
+      *ngIf="isPdf && url_comprobante !== ''"
+      [src]="url_comprobante"
+      width="400"
+      height="200"
+      type="application/pdf"
+    />
+
+    <div
+      *ngIf="dataPayment.voucher_required === 1 && dataPayment.voucher_required"
+      class=""
+    >
+      <button
+        (click)="simulateClick()"
+        class="w-full my-8 bg-principal border border-principal text-center py-2 px-5 text-white hover:bg-principal-hover hover:border-principal-hover focus:bg-principal-hover focus:border-principal-hover rounded"
+      >
+        Cargar comprobante
+      </button>
+      <input
+        class="hidden"
+        type="file"
+        #inputFile
+        (change)="handleImg($event)"
+      />
+    </div>
+  </div>
+
+  <!-- fin personaliazdo -->
+
+  <!-- metodo agreement -->
+
+  <ng-container *ngIf="methodPayment === 'agreement'">
+    <div class="flex flex-col">
+      <p class="text-center">{{ dataPayment.texto1 }}</p>
+      <p class="text-center">{{ dataPayment.texto2 }}</p>
+      <button
+        class="m-4 bg-principal border border-principal text-center py-2 px-5 text-white hover:bg-principal-hover hover:border-principal-hover focus:bg-principal-hover focus:border-principal-hover rounded"
+        (click)="methodPayment !== '' ? makeOrder() : goToPaymentData()"
+      >
+        {{ 'buttons.pagar' | translate }}
+      </button>
+    </div>
+  </ng-container>
+
+  <!-- fin metodo agreement -->
+
+  <!-- form de stripe -->
+
+  <div
+    *ngIf="methodPayment === 'stripe'"
+    class="my-4 "
+  >
+    <h2
+      class="font-poppins w-full flex justify-between items-center text-left uppercase text-white text-lg sm:text-xl font-semibold py-3 px-4"
+      (click)="changeStep(5)"
+      [ngClass]="
+        step == 5
+          ? 'bg-principal-hover'
+          : 'cursor-pointer mb-2 bg-principal-hover hover:bg-gris-medio focus:bg-gris-medio'
+      "
+    >
+      {{ 'checkout.formPago' | translate }}
+      <span *ngIf="step > 5" class="material-icons-outlined mr-3">done</span>
+    </h2>
+    <div class="w-full" *ngIf="step === 5">
+      <div class="flex justify-center p-4 bg-white rounded">
+        <form class="w-full flex flex-wrap gap-y-3 justify-between">
+          <div
+            class="relative mt-5 w-full flex bg-white text-lg sm:text-xl border border-principal-claro items-center focus-within:border-principal"
+          >
+            <label
+              for="card-number"
+              class="uppercase text-xs absolute -top-5 left-0"
+            >
+              {{ 'formStripe.cardNumber' | translate }}
+            </label>
+            <span class="absolute material-icons-outlined ml-3">payment</span>
+            <input
+              class="w-full py-2 pl-12 focus:outline-none"
+              type="text"
+              id="card-number"
+              name="card-number"
+              placeholder="{{ 'formStripe.cardNumber' | translate }}"
+              [(ngModel)]="cardForm.cardNumber"
+              [maxlength]="cardForm.maxLength"
+              (keyup)="validate()"
+              [imask]="cardForm.imask"
+              [unmask]="true"
+            />
+          </div>
+          <div
+            class="relative mt-5 w-full flex bg-white text-lg sm:text-xl border border-principal-claro items-center focus-within:border-principal"
+          >
+            <label
+              for="name"
+              class="uppercase text-xs absolute -top-5 left-0"
+              >{{ 'formStripe.nombre' | translate }}</label
+            >
+            <span class="absolute material-icons-outlined ml-3">person</span>
+            <input
+              name="name"
+              class="w-full py-2 pl-12 focus:outline-none"
+              type="text"
+              id="name"
+              [(ngModel)]="cardForm.name"
+              placeholder="{{ 'formStripe.nombre' | translate }}"
+            />
+          </div>
+          <div
+            class="relative mt-5 w-max flex bg-white text-lg sm:text-xl border border-principal-claro items-center focus-within:border-principal"
+          >
+            <label
+              for="expirationDate"
+              class="uppercase text-xs absolute -top-5 left-0"
+              >{{ 'formStripe.expiracion' | translate }}</label
+            >
+            <span class="absolute material-icons-outlined ml-3">today</span>
+            <input
+              name="expirationDate"
+              [(ngModel)]="cardForm.expirationDate"
+              class="w-36 py-2 pl-12 focus:outline-none"
+              type="text"
+              id="validity-date"
+              placeholder="00/0000"
+              [imask]="{ mask: '00/0000' }"
+            />
+          </div>
+
+          <div
+            class="relative mt-5 w-1/2 flex bg-white text-lg sm:text-xl border border-principal-claro items-center focus-within:border-principal"
+          >
+            <label
+              for="securityCode"
+              class="uppercase text-xs absolute -top-5 left-0 whitespace-nowrap"
+              >{{ 'formStripe.cod' | translate }}</label
+            >
+            <span class="absolute material-icons-outlined ml-3">lock</span>
+            <input
+              type="text"
+              id="cvv"
+              name="cvv"
+              [(ngModel)]="cardForm.cvv"
+              [maxlength]="cardForm.maxCvvLength"
+              placeholder="000"
+              type="text"
+              class="w-28 py-2 pl-12 focus:outline-none"
+            />
+          </div>
+        </form>
+      </div>
+      <div class="mt-4 mb-8">
+        <button
+          class="w-full bg-principal border border-principal text-center py-2 px-5 text-white hover:bg-principal-hover hover:border-principal-hover focus:bg-principal-hover focus:border-principal-hover rounded"
+          (click)="methodPayment !== '' ? makeOrder() : goToPaymentData()"
+        >
+          {{ 'buttons.pagar' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- fin form stripe -->
+
+  <!-- pagar por transfer -->
+  <div class="col-span-2 flex gap-4 mt-4">
+    <button
+      *ngIf="methodPayment === 'transfer' && url_comprobante !== ''"
+      class="m-4 w-full bg-principal border border-principal text-center py-2 px-5 text-white hover:bg-principal-hover hover:border-principal-hover focus:bg-principal-hover focus:border-principal-hover rounded"
+      (click)="methodPayment !== '' ? makeOrder() : goToPaymentData()"
+    >
+      {{ 'buttons.pagar' | translate }}
+    </button>
+
+    <button
+      *ngIf="methodPayment === 'custompayment'"
+      class="m-4 w-full bg-principal border border-principal text-center py-2 px-5 text-white hover:bg-principal-hover hover:border-principal-hover focus:bg-principal-hover focus:border-principal-hover rounded"
+      (click)="methodPayment !== '' ? makeOrder() : goToPaymentData()"
+    >
+      {{ 'buttons.pagar' | translate }}
+    </button>
+  </div>
+  <!-- fin pagar por transfer -->
+
+  <!-- pagar por agreement -->
+  <div class="col-span-2 flex gap-4 mt-4">
+    <button
+      *ngIf="methodPayment === 'agreement' && url_comprobante !== ''"
+      class="m-4 w-full bg-principal border border-principal text-center py-2 px-5 text-white hover:bg-principal-hover hover:border-principal-hover focus:bg-principal-hover focus:border-principal-hover rounded"
+      (click)="methodPayment !== '' ? makeOrder() : goToPaymentData()"
+    >
+      {{ 'buttons.pagar' | translate }}
+    </button>
+  </div>
+  <!-- fin pagar por agreement -->
+
+  <!-- Entrega 2-->
+  <div class="my-4 " *ngIf="store && modoEntrega == 2">
+    <h2
+      class="font-poppins w-full flex justify-between items-center text-left uppercase text-white text-lg sm:text-xl font-semibold py-3 px-4"
+      [ngClass]="
+        modoEntrega == 2
+          ? 'bg-principal-hover'
+          : 'cursor-pointer mb-2 bg-principal-hover hover:bg-gris-medio focus:bg-gris-medio'
+      "
+    >
+      {{ 'carrito.direccionTienda' | translate }}
+    </h2>
+    <div class="px-3 py-3 flex flex-col">
+      <div>
+        <label>{{ store.cep }} , {{ store.city }}</label>
+      </div>
+      <div>
+        <label>{{ store.address }}</label>
+      </div>
+      <div>
+        <label>{{ store.phone }}</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Carro -->
+  <div class="my-4 ">
+    <div>
+      <h2
+        class="font-poppins w-full flex justify-between items-center text-left uppercase text-white text-lg sm:text-xl font-semibold py-3 px-4"
+        (click)="changeStep(6)"
+        [ngClass]="
+          step == 6
+            ? 'bg-principal-hover'
+            : 'cursor-pointer mb-2 bg-principal-hover hover:bg-gris-medio focus:bg-gris-medio'
+        "
+      >
+        {{ 'carrito.miPedido' | translate }}
+      </h2>
+    </div>
+    <div *ngIf="step == 6" class="flex flex-col pb-4 px-4">
+      <div
+        class="product flex gap-3 py-4 border-b border-gris-medio"
+        *ngFor="let productCart of cart; let i = index"
+      >
+        <div class="w-28 h-28 flex items-stretch relative">
+          <img
+            [src]="
+              productCart.variation.images.length > 0
+                ? productCart.variation.images[0].url
+                : default_photo
+            "
+            class="w-full h-full object-cover"
+          />
+        </div>
+
+        <div class="flex-1 flex flex-col gap-3 justify-between">
+          <p class="text-sm uppercase font-semibold leading-4">
+            {{ productCart.variation.name }}
+          </p>
+          <div class="flex h-8 items-center self-end">
+            <span class="mr-3">{{ productCart.variation.quantity }} x</span>
+            <p
+              class="uppercase text-right text-lg h-8 flex items-center px-4 font-bold"
+            >
+              {{ productCart.variation.price | currencyPersonalized }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="grid grid-cols-2 gap-y-2 justify-between px-4 pt-4 items-center"
+      *ngIf="confirmFlete == true"
+    >
+      <div>Subtotal</div>
+      <div class="justify-self-end">
+        {{ cartTotal | currencyPersonalized }}
+      </div>
+      <!-- <hr class="col-span-2 border-principal-medio">
+            <div>
+                {{'carrito.envio' | translate}}
+            </div>
+            <div *ngIf="envio <= 0" class="justify-self-end">
+                {{'carrito.gratis' | translate}}
+            </div>
+            <div *ngIf="envio > 0" class="justify-self-end">
+                {{envio| currencyPersonalized}}
+            </div>
+            <hr class="col-span-2 border-principal-medio"> -->
+    </div>
+
+    <div
+      class="grid grid-cols-2 gap-2 justify-between p-4 items-center "
+    >
+      <ng-container *ngIf="modoEntrega == '1' && step == 4">
+        <p>
+          {{ 'carrito.envio' | translate }}
+        </p>
+        <p class="justify-self-end">
+          {{ envio > 0 ? (envio | currencyPersonalized) : 'Gratis' }}
+        </p>
+        <hr class="col-span-2 border-t border-gris-claro" />
+      </ng-container>
+      <p>
+        {{ 'carrito.subtotal' | translate }}
+      </p>
+      <p class="justify-self-end">
+        {{ cartTotal | currencyPersonalized }}
+      </p>
+      <hr class="col-span-2 border-t border-gris-claro" />
+      <p class="uppercase font-bold text-2xl">
+        {{ 'carrito.total' | translate }}
+      </p>
+      <p class="font-semibold text-2xl justify-self-end">
+        {{
+          envio === 0
+            ? (cartTotal | currencyPersonalized)
+            : (cartTotal + envio | currencyPersonalized)
+        }}
+      </p>
+      <hr class="col-span-2 border-t border-gris-claro" />
+    </div>
+  </div>
+</div>

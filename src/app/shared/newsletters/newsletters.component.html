@@ -1,0 +1,22 @@
+<div class="bg-principal-claro w-full h-auto mt-0 p-8 flex flex-col text-center">
+    <p class="font-semibold text-3xl">{{'newsletter.subscribete' | translate}}</p>
+    <p class="py-3 hidden">{{'newsletter.sumate' | translate}} <span class="font-bold">{{'newsletter.descuento' | translate}} </span> {{'newsletter.primeraCompra' | translate}} </p>
+    <div class="flex flex-row justify-center py-6">
+        <div [formGroup]="form" class="bg-white">
+            <input type="email" name="email" formControlName="email" class="font-poppins font-normal text-grey1 text-sm border border-principal-claro h-10 px-6" placeholder="{{'newsletter.email' | translate}}" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+
+            <div class="text-danger" *ngIf="email">
+                <br> {{'validaciones.emailValido' | translate}}
+            </div>
+        </div>
+        <button [disabled]="!email ? false : true" (click)="saveEmail()" class="h-10 pl-2 pr-1 focus:bg-principal-claro hover:bg-principal-claro bg-secundario">
+            <img class="p-3" src="assets/images/icon-arrow.svg" alt="">
+        </button>
+    </div>
+    <!-- redes
+    <div class="flex flex-row justify-center p-4 gap-14">
+        <a href="https://www.facebook.com/" target="_blank" aria-label="Facebook" class="mx-1 w-9 h-9 opacity-70 hover:opacity-100 focus:opacity-100 focus:outline-none"><img src="/assets/images/facebook_bco.svg" alt="Facebook" class="m-auto"></a>
+        <a href="https://www.instagram.com/" target="_blank" aria-label="Instagram" class="mx-1 w-9 h-9 opacity-70 hover:opacity-100 focus:opacity-100 focus:outline-none"><img src="/assets/images/instagram_bco.svg" alt="Instagram" class="m-auto"></a>
+    </div>
+    -->
+</div>

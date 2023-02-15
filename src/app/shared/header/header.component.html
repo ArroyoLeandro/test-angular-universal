@@ -1,0 +1,196 @@
+<!-- HEADER categorias con / sin scroll automaticas -->
+<header id="header" class="flex flex-col w-full font-poppins bg-white" [ngClass]="menuAbierto ? 'menuAbierto' : ' '">
+    <!-- <div [innerHTML]="processHTML(text)" class="w-full flex bg-principal-claro justify-center leading-4 p-2 text-sm">
+    </div> -->
+    <div class="w-full flex bg-principal-claro justify-center items-center gap-8 md:gap-4 leading-4 p-2 relative">
+        <button class="flex items-center gap-2 group focus:outline-none">
+            <span class="material-icons-outlined text-base">email</span>
+            <span class="text-xs md:text-sm opacity-0 md:opacity-100 group-hover:opacity-100 group-focus:opacity-100 absolute left-1/2 transform -translate-x-1/2 md:left-auto md:transform-none top-9 md:top-auto md:relative z-50 bg-principal-claro md:bg-transparent rounded-full p-2 md:p-0">info@tecnoweb.com.uy</span>
+        </button>
+        <button class="flex items-center gap-2 group focus:outline-none">
+            <span class="material-icons-outlined text-base">phone</span>
+            <span class="text-xs md:text-sm opacity-0 md:opacity-100 group-hover:opacity-100 group-focus:opacity-100 absolute left-1/2 transform -translate-x-1/2 md:left-auto md:transform-none top-9 md:top-auto md:relative z-50 bg-principal-claro md:bg-transparent rounded-full p-2 md:p-0">2708-1129 / 099-118-550</span>
+        </button>
+        <button class="flex items-center gap-2 group focus:outline-none">
+            <span class="material-icons-outlined text-base">schedule</span>
+            <span class="text-xs md:text-sm opacity-0 md:opacity-100 group-hover:opacity-100 group-focus:opacity-100 absolute w-full md:w-auto left-1/2 transform -translate-x-1/2 md:left-auto md:transform-none top-9 md:top-auto md:relative z-50 bg-principal-claro md:bg-transparent rounded-full p-2 md:p-0">Lunes a viernes de 10:00 a 13:30 y de 15:00 a 19:00</span>
+        </button>
+    </div>
+
+    <div class="relative flex-none w-full max-w-screen-xl flex flex-row items-center px-3 sm:px-4 py-1 md:py-2 mx-auto justify-between">
+        <!-- <button (click)="hideMenu()" [routerLink]="'/'+id_store_current" aria-label="Home" class="hidden lg:block text-sm 2lg:text-base uppercase hover:text-principal-hover focus:text-principal-hover focus:outline-none"><span class="material-icons-outlined">home</span>{{'header.home' | translate}}</button> -->
+        <!-- <button routerLink="/" class="block text-2xl lg:text-3xl material-icons-outlined hover:text-principal-hover focus:text-principal-hover focus:outline-none">location_on</button> -->
+        <div class="relative flex-none flex flex-row items-center px-3 sm:px-4 py-1 md:py-2 h-20 md:h-24">
+            <a (click)="hideMenu() " [routerLink]="'/'+id_store_current" aria-label="Tecnoweb " class="block h-full z-30 border-transparent  outline-0 focus:outline-0 focus-within:border-gris-medio outline-none focus:outline-none focus-within:outline-none">
+                <img [src]="!logo ? '/assets/images/flexystore-logo.svg' : logo" alt="{{ 'header.marca' | translate}}" class="h-full w-auto object-contain outline-0 focus:outline-0 ">
+            </a>
+            <div class="flex flex-row items-center z-30 gap-8 md:gap-4">
+                <!-- <button class="flex items-center gap-4 group focus:outline-none" [routerLink]="'/'+id_store_current">
+                    <span class="text-base font-semibold uppercase pointer">Home</span>
+                </button> -->
+                <button class="focus:outline-none flex items-center gap-4 group" (click)="toggleService.comprimida = !toggleService.comprimida">
+                    <svg *ngIf="toggleService.comprimida == false" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                    <svg *ngIf="toggleService.comprimida == true" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16" />
+                    </svg>
+                    <span class="hidden sm:block text-base font-semibold uppercase pointer focus:outline-none">
+                        Categorías
+                    </span>
+                </button>
+            </div>
+        </div>
+        <!-- logo -->
+     
+        <div class="flex flex-row items-center gap-2 z-30" >
+            <!-- Buscador -->
+            <div class="relative h-10 lg:w-10">
+                <span class="material-icons-outlined absolute right-2 top-2 pointer-events-none z-20">search</span>
+                <div class="absolute top-0 right-0 max-h-10 focus-within:max-h-96 w-12 focus-within:w-auto md:focus-within:w-72 focus-within:fixed md:focus-within:absolute focus-within:top-28 md:focus-within:top-0 focus-within:left-2 md:focus-within:left-auto focus-within:right-2 md:focus-within:right-0 opacity-0 focus-within:opacity-100 border flex flex-col">
+                    <input autocomplete="none" name="searchTerm" type="text" [(ngModel)]="searchTerm" (keyup)="search()" class="flex-none px-4 py-2 border-b focus:outline-none w-full" placeholder="Buscar">
+                    <!-- resultados instantaneos buscador -->
+                    <div *ngIf="list.length > 0" class="flex-1 flex flex-col w-full h-full bg-white overflow-x-hidden overflow-y-auto text-sm focus:outline-none" tabindex="0">
+                        <div class="flex items-center justify-between border-b mx-2 py-2">
+                            <h2>Productos</h2>
+                            <a routerLink="/{{id_store_current}}/search" class="text-xs hover:underline focus:underline focus:outline-none">Ver todo</a>
+                        </div>
+                        <!-- Producto 1 -->
+                        <div *ngFor="let product of list" class="flex items-center gap-2 border-b py-2 mx-2 cursor-pointer hover:bg-principal-claro focus:bg-principal-claro" tabindex="0" routerLink="/{{id_store_current}}/product/{{product.product}}">
+                            <div class="w-16 h-16">
+                                <img class="max-w-full max-h-full object-contain" alt="" [src]="product.variants[0].images.length > 0 ? product.variants[0].images[0].url : default_photo">
+                            </div>
+                            <div class="flex flex-col">
+                                <h2>{{product.variants[0].name}}</h2>
+                                <p class="text-xs">{{product.variants[0] | descVariants | slice:0:32}}</p>
+                            </div>
+                        </div>
+                        <!-- footer -->
+                        <div class="flex justify-end m-2">
+                            <a routerLink="/{{id_store_current}}/search" class="text-xs hover:underline focus:underline focus:outline-none">Ver más resultados</a>
+                        </div>
+                    </div>
+                    <div *ngIf="list.length === 0 && searchReady" class="flex-1 flex flex-col w-full h-full bg-white overflow-x-hidden overflow-y-auto text-sm focus:outline-none" tabindex="0">
+                        <p class="text-center">Sin resultados</p>
+                    </div>
+                </div>
+            </div>
+            <!-- nav icos escritorio -->
+            <div class="hidden sm:flex items-center ">
+                <button (click)="open()" aria-label="Shooping Cart" class="relative group flex focus:outline-none " [ngClass]="!isAuth ? ' ' : ' hover:text-wholesale-principal focus:text-wholesale-principal'">
+                    <span class="material-icons-outlined">shopping_bag</span>
+                    <span class="cdk-visually-hidden"></span> 
+                    <span class="absolute text-xs inline-flex w-5 h-5 items-center justify-center bg-principal-medio rounded-full mt-3 text-white group-hover:bg-principal-hover group-focus:bg-principal-hover -right-1">{{ cartCount }}</span>
+                </button>
+            </div>
+            <!-- burger -->
+            <button *ngIf="headerType == '1'" id="burgerBtn" aria-label="Menu" (click)="abrirMenu()" class="relative sm:hidden flex flex-col gap-1.5 w-10 h-8 z-30 focus:outline-none hover:opacity-75 focus:opacity-75" [ngClass]="!isAuth ? '  ' : ' mr-10 sm:mr-0'">
+                <div class="block w-5 absolute left-1/2 top-1/2  transform -translate-x-1/2 -translate-y-1/2">
+                    <span aria-hidden="true" class="block absolute h-0.5 w-5 bg-info transform transition-transform duration-500 ease-in-out"></span>
+                    <span aria-hidden="true" class="block absolute h-0.5 w-5 bg-info transform transition-opacity duration-500 ease-in-out"></span>
+                    <span aria-hidden="true" class="block absolute h-0.5 w-5 bg-info transform transition-transform duration-500 ease-in-out"></span>
+                </div>
+            </button>
+
+        </div>
+        <!-- para colocar mas de un icono
+            <ul class="sm:flex sm:flex-row items-center bg-principal-hover sm:bg-white text-principal sm:m-0 sm:ml-2 lg:ml-3 sm:p-0 sm:gap-2 lg:gap-5 z-20 fixed sm:static bottom-0 m-4 p-3 inset-x-4 sm:inset-x-auto rounded shadow-base sm:shadow-none flex justify-around sm:justify-end gap-4 ">
+            <li class="sm:hidden "><button aria-label="Home" routerLink="/home" class="flex items-center material-icons-outlined focus:outline-none " [ngClass]="!isAuth ? ' hover:text-principal-claro focus:text-principal-claro lg:hover:text-principal-medio lg:focus:text-principal-medio ' : ' hover:text-wholesale-principal focus:text-wholesale-principal' ">home</button></li>
+            <li *ngIf="!isAuth " class="lg:hidden fixed sm:static top-2 right-2 "><button aria-label="Wholesale " (click)="redirectwholesale() " class="flex items-center material-icons-outlined text-wholesale-principal hover:text-principal-hover focus:text-principal-hover px-1 focus:outline-none ">lock</button></li>
+            <li *ngIf="isAuth "><button aria-label="My Account " routerLink="/home/wholesales/profile " class="flex items-center material-icons-outlined hover:text-wholesale-principal focus:text-wholesale-principal focus:outline-none ">account_circle</button></li>
+            <li *ngIf="!isAuth "><button routerLink="/ " class="material-icons-outlined ">location_on</button></li>
+            <li class="sm:hidden "><button aria-label="how-works " routerLink="/how-works " class="flex items-center material-icons-outlined focus:outline-none " [ngClass]="!isAuth ? ' hover:text-principal-hover focus:text-principal-hover ' : ' hover:text-wholesale-principal focus:text-wholesale-principal' ">info</button></li>
+            <li (click)="logout()" *ngIf="isAuth" class="fixed top-2 right-2 sm:static flex items-center"><button aria-label="Logout" class="material-icons-outlined hover:text-wholesale-principal focus:text-wholesale-principal focus:outline-none">logout</button></li>
+            </ul>-->
+
+    </div>
+
+    <!-- categorias sin scroll -->
+    <!-- <nav *ngIf="headerType == '1'" class="relative w-full h-full order-2"> -->
+        
+        <!-- nav categorias -->
+        <!-- <ul class="menu absolute bg-gris-oscuro sm:bg-white text-white sm:text-info left-0 top-0 transition h-0 sm:h-full sm:justify-center sm:static z-20 flex flex-col sm:flex-row align-center gap-2 sm:pb-2 sm:pt-2 items-center w-full overflow-hidden sm:overflow-visible flex-wrap"
+            [ngClass]="menuAbierto ? 'h-full pt-8 pb-2 justify-start overflow-y-auto' : 'pt-0 pb-0'">
+            <ng-container *ngIf="categories.length > 0">
+                <li *ngFor="let category of categories" class="whitespace-nowrap relative">
+                    <button *ngIf="category.sub_categories.length === 0" (click)="redirectCtg(category.slug, category, false); hideMenu(); show = false" class="rounded-xl px-2 text-sm bg-principal-claro hover:bg-principal focus:bg-principal hover:text-white focus:text-white focus:outline-none uppercase flex items-center"> {{category.name}} </button>
+                    <button *ngIf="category.sub_categories.length > 0" (click)="toggleCtg(category)" class="group flex items-center w-full justify-center sm:justify-start rounded-xl pl-2 text-sm bg-principal-claro hover:bg-principal focus:bg-principal hover:text-white focus:text-white focus:outline-none uppercase "> 
+                        <span>{{category.name}}</span>
+                        <span class="flex-none material-icons-outlined group-focus:text-principal-medio text-xl mx-1" [ngClass]="show ? 'text-principal-medio' : ''">expand_more</span>
+                    </button>
+                    <ul *ngIf="category.show && category.sub_categories.length > 0" class="absolute left-0 rounded-xl bg-principal-claro flex flex-col gap-1 pt-2 pb-3 px-3 min-w-full" [ngClass]="show ? '' : ''">
+                        <li *ngFor="let item of category.sub_categories">
+                            <button (click)="redirectCtg(item.slug, category, true); hideMenu(); show = !show" class="flex items-center w-full justify-start text-sm hover:text-principal-medio focus:text-principal-medio focus:outline-none">
+                            {{item.name}}
+                            </button>
+                        </li>
+                    </ul>
+                </li>
+            </ng-container>
+        </ul> -->
+    <!-- </nav> -->
+    <app-sidebar class="z-50" [isMobile]="isMobile" [categories]="categories" [ngClass]="toggleService.comprimida ? '' : 'hidden'"></app-sidebar>
+
+    <!-- categorias CON scroll -->
+    <!-- <nav *ngIf="headerType == '2'" class="flex-none lg:flex-1 overflow-hidden w-full h-full relative order-2"> -->
+        <!-- nav categorias -->
+        <!-- <div class="overflow-y-auto flex justify-start lg:justify-center py-2 px-4 ">
+            <ul class="transition h-full flex flex-row flex-nowrap lg:flex-wrap justify-start lg:justify-center align-center gap-2 items-center w-auto whitespace-nowrap ">
+                <ng-container *ngIf="categories.length > 0">
+                    <li *ngFor="let category of categories" class="whitespace-nowrap">
+                        <button (click)="redirectCtg(category.slug, isAuth)" class="rounded-xl px-2 text-sm 2lg:text-base bg-principal-claro hover:bg-principal focus:bg-principal hover:text-white focus:text-white focus:outline-none uppercase"> {{category.name}} </button>
+                    </li>
+                </ng-container>
+            </ul>
+        </div>
+    </nav> -->
+    <!-- nav icos mobile -->
+    <ul class="flex sm:hidden flex-row items-center mb-4 p-3 gap-3 justify-around z-20 fixed bottom-0 inset-x-4 text-white rounded shadow-base sm:shadow-none " [ngClass]="menuAbierto ? 'bg-black bg-opacity-80' : 'bg-gris-oscuro '">
+        <li><button aria-label="Home" routerLink="/home" class="flex flex-col text-sm items-center focus:outline-none" [ngClass]="!isAuth ? ' hover:text-principal focus:text-principal ' : ' hover:text-wholesale-principal focus:text-wholesale-principal'">
+            <span class="text-3xl material-icons-outlined">home</span>
+            <span> {{'header.home' | translate}} </span></button>
+        </li>
+        <li (click)="contactWhatsapp()"><button aria-label="Whatsapp" class="flex flex-col text-sm items-center focus:outline-none hover:text-principal focus:text-principal">
+            <span class="text-3xl material-icons-outlined">whatsapp</span>
+            <span> whatsapp </span>
+        </button></li>
+        <li class="flex items-center">
+            <!--le elimino este comando para que muestre siempre el cart *ngIf="cartCount > 0" -->
+            <button (click)="open()" aria-label="Shooping Cart" class="relative group flex flex-col text-sm items-center focus:outline-none" [ngClass]="!isAuth ? ' hover:text-principal focus:text-principal ' : ' hover:text-wholesale-principal focus:text-wholesale-principal'">
+            <span>
+                <span class="material-icons-outlined text-3xl">shopping_bag</span>
+                <span class="cdk-visually-hidden"></span> 
+                <span class="absolute text-xs inline-flex w-5 h-5 items-center justify-center bg-principal-medio rounded-full mt-3 text-white group-hover:bg-principal-hover group-focus:bg-principal-hover -right-1">{{ cartCount }}</span>
+            </span>
+            <span> {{'header.mycart' | translate}}  </span>
+        </button>
+        </li>
+        <!--
+        <li *ngIf="isAuth"><button href="/" class="flex flex-col text-sm items-center text-principal-hover hover:text-white focus:text-white focus:outline-none">
+            <span class="text-3xl material-icons-outlined">store</span>
+            <span> {{'header.retail' | translate}}  </span> 
+            </button></li>
+        <li *ngIf="isAuth"><button aria-label="My Account" routerLink="/home/wholesales/profile" class="flex flex-col text-sm items-center hover:text-wholesale-principal focus:text-wholesale-principal focus:outline-none">
+            <span class="text-3xl material-icons-outlined">account_circle</span>
+            <span> {{'header.account' | translate}} </span>
+        </button></li>
+        <li *ngIf="!isAuth"><button (click)="redirectwholesale()" class="flex flex-col text-sm items-center text-wholesale-principal hover:text-principal-hover focus:text-principal-hover focus:outline-none">
+            <span class="text-3xl material-icons-outlined">store</span>
+            <span> {{'header.wholesale' | translate}}  </span> 
+        </button></li>
+        -->
+    </ul>
+    <!-- HISTORIAS -->
+    <!-- <div class="bg-white h-27 flex flex-row justify-between p-3">
+              <div> <div><img class="border-2 border-principal rounded-full p-0.5" src="assets/images/anillos.jpg" alt=""> </div> <p class="text-center historias">Anillos</p></div>
+              <div> <div><img class="border-2 border-principal rounded-full p-0.5" src="assets/images/brazaletes.jpg" alt=""> </div> <p class="text-center historias">Brazaletes</p></div>
+              <div> <div><img class="border-2 border-principal rounded-full p-0.5" src="assets/images/novedades.jpg" alt=""> </div> <p class="text-center historias">Novedades</p></div>
+              <div> <div><img class="border-2 border-principal rounded-full p-0.5" src="assets/images/materiales.png" alt=""> </div> <p class="text-center historias">Materiales</p></div>
+              <div> <div><img class="border-2 border-principal rounded-full p-0.5" src="assets/images/oferta.jpg" alt=""> </div> <p class="text-center historias">Oferta</p></div>
+          </div> -->
+
+</header>
+
+
+<!-- whatsap button flotante -->
+<button (click)="contactWhatsapp()" aria-label="whatsapp" class="hidden sm:flex items-center justify-center m-4 bg-whatsapp rounded-full focus:outline-none text-white hover:bg-success-hover focus:bg-success-hover fixed right-0 bottom-0 z-60"><span class="material-icons-outlined text-5xl p-1.5">whatsapp</span></button>

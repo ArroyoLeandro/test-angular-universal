@@ -1,0 +1,68 @@
+<div *ngIf="objectKeys(service).length > 0">
+    <div class="flex flex-row p-6">
+        <div class="w-full flex justify-left text-2xl p-6 tracking-wide font-light">
+            <p class="font-light"> {{'pageTurnos.miReserva' | translate}} </p>
+        </div>
+        <div class="py-4">
+            <button class="flex flex-row border border-principal text-center py-2 px-5 place-items-center lg:w-full lg:m-0">
+                <p class="text-principal tracking-wide flex-1 lg:w-full mr-4">{{'buttons.volver' | translate}}</p>
+            </button>
+        </div>
+    </div>
+    <div class="bg-white flex flex-col p-6 mb-40 lg:mx-20 lg:grid lg:grid-cols-3 max-w-screen-2xl">
+        <div class="">
+            <div class="px-6 py-4 reserva-intro flex flex-row space-x-2">
+                <span class="material-icons-outlined">date_range</span>
+                <div class="text-sm	self-center flex flex-wrap space-x-1">
+                    <p class="">{{'pageTurnos.reservandopara' | translate}}</p>
+                    <p class="text-principal"> {{service.name}} </p>
+                </div>
+            </div>
+
+            <div class="w-full flex flex-row justify-center space-x-10 lg:space-x-2 py-5">
+                <div class="numero-paso-completado flex justify-center">
+                    <p class="self-center text-white ">1</p>
+                </div>
+                <div class="numero-paso-rosa flex justify-center">
+                    <p class="self-center text-principal">2</p>
+                </div>
+                <div class="numero-paso-gris flex justify-center">
+                    <p class="self-center text-gray-400">3</p>
+                </div>
+                <div class="numero-paso-gris flex justify-center">
+                    <p class="self-center text-gray-400">4</p>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="lg:px-6 lg:py-4 lg:col-span-2">
+            <div class="px-6 py-6 border border-gray-400">
+                <div class="flex flex-row pb-4">
+                    <div class="pr-2">
+                        <p>2</p>
+                    </div>
+                    <div class="text-base">
+                        <p>{{'pageTurnos.seleccioneDia' | translate}}</p>
+                    </div>
+                </div>
+                <div class="w-full p-20 text-sm lg:p-4 lg:flex lg:justify-center">
+                    <!-- VER COMO HACER CALENDARIO REAL -->
+
+                    <app-calendar></app-calendar>
+
+                </div>
+
+            </div>
+            <div class="w-full">
+                <button (click)="changeStep()" class="flex border border-principal text-center py-2 px-5 w-full justify-center mt-8">
+                    <p class="text-principal text-sm  self-center lg:w-full mr-4">{{'pageTurnos.nextStep' | translate}}</p>
+                </button>
+
+                <button (click)="changeStepBack()" class="flex bg-white text-center w-full justify-center h-full  mt-4">
+                    <p class="text-principal text-sm  self-center lg:w-full mr-4">{{'pageTurnos.previousStep' | translate}}</p>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

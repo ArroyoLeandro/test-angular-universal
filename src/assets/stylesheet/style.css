@@ -1,0 +1,390 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap'); */
+@import "../node_modules/angular-calendar/css/angular-calendar.css";
+
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;
+
+
+
+p{
+    font-family: poppins;
+}
+.basic-text{
+    font-family: poppins;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 21px;
+}
+.card-copy{
+    width: 295px;
+    height: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.nav-add{
+    width: 63px;
+    height: 9px;
+    border-radius: 4.5px;
+    margin-top: 2.8rem;
+    margin-bottom: 2.8rem;
+    margin-left: 35%;
+
+}
+.form-news{
+    height: 38px;
+    
+    left: 67px;
+    top: 223px;
+    border-radius: 0px;
+   
+}
+.form-mail{
+    line-height: 21px;
+    letter-spacing: 0.35px;
+    height: 38px;
+    padding-top: 9px;
+    padding-left: 9px;
+}
+.rectangle{
+    height: 38px;
+    width: 52px;
+}
+
+.pago-img{
+    padding-top: 2%;
+    padding-bottom: 2%;
+}
+.tarjetas-img{
+    height: 58px;
+    width: 345px;
+    top: 283px;
+}
+
+.footer-text{
+   font-family: poppins;
+   font-size: 12px;
+   font-weight: 400;
+   color: white;
+   text-align: center;
+}
+.historias{
+    font-family: poppins;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 17px;
+    letter-spacing: 0.20000000298023224px;
+    color: #666666
+
+}
+.menu-rosa{
+    font-family: Poppins;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 36px;
+    letter-spacing: 0.7885714173316956px;
+    text-align: center;
+    color: #E58290;
+}
+
+.menu-blanco{
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 45px;
+    letter-spacing: 1.2857142686843872px;
+    text-align: center;
+    color: white;
+}
+.header-categorias{
+    line-height: 45px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 45px;
+    letter-spacing: 1.4285714626312256px;
+}
+.product-txt{
+    line-height: 30px;
+    letter-spacing: 0.6571428775787354px;
+}
+.product-txt2{
+    line-height: 18px;
+    letter-spacing: 1.7142857313156128px;
+    
+}
+.box-product{
+    height: 92px;
+    top: 537px;
+    border-top: 1px solid #CCCCCC;
+    margin-top: 40px;
+}
+.boton-rosa{
+    height: 48px;
+    left: 21px;
+    top: 926px;
+    background-color: #E58290;
+    
+
+}
+.txt-boton-rosa{
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0.4px;
+    text-align: center;
+}
+
+.text-large{
+    font-size: 28px;
+}
+.cart-box{
+    border-bottom: 1px solid #CCCCCC;
+}
+.cart-text{
+    font-family: Poppins;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 27px;
+    letter-spacing: 0.6px;
+
+}
+.add-2{
+    font-family: poppins;
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: 3px;
+}
+.boton-color{
+    border-radius: 100%;
+    height: 22px;
+    width: 22px;
+}
+.select-color{
+    border: 1px solid #E58290;
+    border-radius: 100%;
+    height: 28px;
+    width: 28px;
+}
+.boton-tamaño{
+    width: 38px;
+    height: 38px;
+    justify-self: center;
+    vertical-align: middle;
+
+}
+.rotacion{
+    position: absolute;
+}
+.caja-catego{
+    height: 21px;
+    width: 21px;
+    margin: 0px 10px 0px 0px;
+}
+.opciones-filtro{ 
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 18px;
+    letter-spacing: 1.7142857313156128px;
+    text-align: left;
+}
+.title-landing{
+    font-size: 33px;
+    font-weight: 300;
+    line-height: 47px;
+    letter-spacing: 0.20000000298023224px;
+
+}
+.numeros-landing{
+    font-size: 27px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 41px;
+    letter-spacing: 0.16875000298023224px;
+
+}
+.pie-landing{
+    color: #45494E;
+}
+.terminos{
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 14px;
+    letter-spacing: 0.0833333358168602px;
+    text-align: justify;
+
+}
+.producto-lanza{
+    border-radius: 9999px;
+    width: 462px;
+    height: 462px;
+}
+.titulo-lanzam{
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 54px;
+    letter-spacing: 1.7142857313156128px;
+    text-align: center;
+
+}
+.footer-menu{
+    position: fixed;
+    bottom: 0px;
+    object-fit: none;
+
+}
+.lanzamiento-fondo{
+    background-image: url('../images/lanzamientos-2.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.estilo-fondo{
+    background-image: url('../images/colours-hero.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.home-fondo{
+    background-image: url('../images/header.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+/* @media (min-width: 342px){
+    height: ;
+} */
+.material-icons-outlined.white{
+    color:white
+}
+
+/* Arreglos css de angular */
+.box-product .mat-button-toggle-button{
+    width: 38px;
+    height: 38px;
+    justify-self: center;
+    vertical-align: middle;
+    border: #E58290;
+}
+.box-product .mat-button-toggle-label-content {
+    vertical-align: sub;
+    padding: 0px
+}
+.box-product .mat-button-toggle-group{
+    border: none;
+    box-shadow: none;
+}
+
+.box-product .mat-typography {
+    margin: 0px
+}
+.box-product p {
+    margin: 0px
+}
+.box-product .mat-typography p{
+    margin: 0px
+}
+.box-product .mat-body p, .mat-body-1 p, .mat-typography p{
+    margin: 0px
+}
+
+input[type="radio"] + label span {
+    transition: background .2s,
+      transform .2s;
+}
+
+input[type="radio"] + label span:hover,
+input[type="radio"] + label:hover span{
+  transform: scale(1.2);
+} 
+
+input[type="radio"]:checked + label span {
+    background-color: #E58290; 
+    box-shadow: 0px 0px 0px 2px white inset;
+}
+
+input[type="radio"]:checked + label{
+   color: #E58290; 
+}
+.dropdown:hover .dropdown-menu {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    right: 0;
+}
+
+.subtitle-turno{
+    background-color: #F3F2F2;
+    color: #E58290;
+    padding: 1rem 1.5rem;
+}
+.subtitle-gris{
+    color: #999999;
+
+}
+.flecha-gris{
+    color: #999999;
+}
+.font-light{
+    font-weight: 300;
+}
+.reserva-intro{
+    background-color: #FEDEE3;
+    padding: 1.5rem 1rem;
+    
+}
+
+.numero-paso-rosa{
+    border: 0.1rem solid #E58290;
+    border-radius: 100%;
+    height: 50px;
+    width: 50px;
+    background-color: #FEDEE3;
+    
+}
+.numero-paso-gris{
+    border: 0.1rem solid #CCCCCC;
+    border-radius: 100%;
+    height: 50px;
+    width: 50px;
+    background-color: #F3F2F2;
+    
+}
+.numero-paso-completado{
+    border-radius: 100%;
+    background-color: #E58290;
+    height: 50px;
+    width: 50px;
+}
+.input-text{
+    border: 1px solid #CCCCCC;
+}
+.hora-no{
+    border: 1px solid #CCCCCC;
+    border-radius: 5px;
+    background: #FFFFFF;
+    padding: 10px;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.147509);
+    font-size: 10px;
+}
+.hora-si{
+    border: 1px solid #E58290;
+    border-radius: 5px;
+    background: #E58290;
+    padding: 10px;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.147509);
+    font-size: 10px;
+    color: white;
+}
+
+.check{
+    height: 64px;
+    width: 64px;
+}

@@ -1,0 +1,209 @@
+<app-modal #modalComponent>
+  <div *ngIf="!carrito" class="w-full flex flex-col mb-4">
+    <div class="flex flex-row items-center -mx-6 -mt-6 bg-principal-hover text-white">
+      <button
+        (click)="carrito = true; checkout = false"
+        class="flex flex-row py-2 px-6 w-full hover:text-principal-medio focus:text-principal-medio text-left focus:outline-none"
+      >
+        <!-- <span class="material-icons-outlined">shopping_bag</span> -->
+        <span
+          class="flex-1 lg:w-full font-poppins font-semibold text-base tracking-3xsmall uppercase"
+          >{{ 'buttons.carrito' | translate }}
+        </span>
+      </button>
+      <button
+        aria-label="Close"
+        (click)="close()"
+        class="flex items-center text-center py-4 px-3 hover:text-principal-medio focus:text-principal-medio focus:outline-none"
+      >
+        <span class="material-icons">close</span>
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="carrito" class="bg-white h-full w-full flex flex-col">
+    <div class="flex flex-row items-center -mx-6 -mt-6 bg-principal-hover text-white">
+      <!-- <span class="material-icons-outlined">shopping_bag</span> -->
+      <h2
+        tabindex="0"
+        class="flex-1 font-poppins font-semibold text-base tracking-3xsmall uppercase py-2 px-6 focus:outline-none"
+      >
+        {{ 'carrito.title' | translate }}
+      </h2>
+      <button
+        aria-label="Close"
+        (click)="close()"
+        class="flex items-center text-center py-4 px-3 hover:text-principal-medio focus:text-principal-medio focus:outline-none"
+      >
+        <span class="material-icons">close</span>
+      </button>
+    </div>
+
+    <div class="w-full overflow-y-auto mt-4">
+      <div
+        *ngFor="let product of cart; let i = index"
+        class="bg-whitecart-box flex gap-3 py-3 mb-4 border-b"
+      >
+        <div class="w-24 h-24 flex items-stretch relative bg-principal-claro border border-gris-claro">
+          <div
+            *ngIf="sales_price_products[i] != 0"
+            class="transform rotate-90 absolute top-2 -right-4 bg-principal font-semibold flex justify-center items-center text-white text-xs font-poppins w-20 h-8 uppercase"
+          >
+            {{ promotionInfo.name }}
+          </div>
+          <img class="w-full h-full object-contain"
+            [src]="
+              product.variation.images.length > 0
+                ? product.variation.images[0].url
+                : default_photo
+            "
+            alt=""
+          />
+          <!-- <img
+            *ngIf="
+              product.variation.images.length === 0 || !product.variation.images
+            "
+            class="w-full h-full object-contain"
+            [src]="
+              product.variation.image ? product.variation.image : default_photo
+            "
+            alt=""
+          /> -->
+        </div>
+        <div class="flex-1 flex flex-wrap gap-3 justify-between">
+          <div class="w-full text-sm capitalize">
+            <p class="font-semibold">{{ product.variation.name }}</p>
+            <span> {{  product.variation.product_sku  }}</span>
+            <!-- {{infoVar |json}} -->
+              <ul *ngFor="let variant of infoVar[i]; let j = index"class="flex flex-column w-full">
+                <!-- {{i}} - {{variant | json}}  -->
+                {{variant.length | json}}
+                <li *ngIf="variant != []"> 
+                  <b>{{variant.name}}</b>: {{variant.value}}
+                </li>
+              </ul>        
+
+          </div>
+
+          <div class="flex justify-between gap-3 items-center self-end w-full">
+            <div class="flex h-8 items-center self-end">
+              <div
+                class="border border-gris-medio flex justify-between h-8 w-22 items-center font-semibold"
+              >
+                <button
+                  aria-label="Remove one"
+                  (click)="removeCantidad(i)"
+                  class="flex items-center justify-center hover:text-principal-medio focus:text-principal-medio w-8 h-full"
+                >
+                  <span class="material-icons-outlined text-md">remove</span>
+                </button>
+                <div class="w-6 text-center">
+                  <p class="text-sm">{{ product.variation.quantity }}</p>
+                </div>
+                <button
+                  aria-label="Add one more"
+                  (click)="addCantidad(product)"
+                  class="flex items-center justify-center hover:text-principal-medio focus:text-principal-medio w-8 h-full"
+                >
+                  <span class="material-icons-outlined text-md">add</span>
+                </button>
+              </div>
+              <button
+                (click)="removeItem(i)"
+                class="material-icons-outlined hover:text-principal-medio focus:text-principal-medio w-8 h-8 rounded ml-2"
+              >
+                delete
+              </button>
+            </div>
+            <div class="flex h-8 items-center self-end">
+              <p
+                class="uppercase text-right text-lg flex items-center px-2 font-semibold whitespace-nowrap"
+              >
+                {{
+                  product.variation.sale_price != 0
+                    ? (product.variation.sale_price | currencyPersonalized)
+                    : (product.variation.price | currencyPersonalized)
+                }}
+              </p>
+            </div>
+          </div>
+          <!-- <button (click)="ver(product.product)">ver</button> -->
+ 
+          <div class="w-full flex flex-col gap-4 self-end" *ngIf="product.product.variants_options && product.product.variants_options.length > 0 ">
+            <div class="flex h-6 items-center" >
+              <button (click)="changeVariati(product); changeVar=!changeVar;"
+              class="capitalize bg-principal text-center text-sm h-6 flex items-center px-3 text-white font-normal whitespace-nowrap">
+              Cambiar Variante
+             </button> 
+            </div>
+            <div *ngIf="changeVar">
+              <ul *ngFor="let variation of varPropiedades; let i = index" class="flex flex-col w-full gap-x-3 mb-6 mt-8 md:mt-0 max-w-screen-xl mx-auto">
+                  <li class="capitalize w-full">{{variation.name}}</li>
+                  <li class="tracking-4xsmall flex flex-wrap w-full gap-x-1">
+                      <button *ngFor="let value of variation.values; let j = index"
+                      class="hover:bg-principal focus:bg-principal hover:text-white focus:outline-none border border-principal-hover px-2 "
+                      [ngClass]="{'text-white bg-principal-hover border-principal-hover':varSelected[variation.name] == value}"
+                      (click)="selected(variation,value,product.product); changeVar=!changeVar;">
+                          {{value}}
+                      </button>
+                  </li>                        
+              </ul>
+           </div>
+          </div>
+        </div>
+        
+      </div>
+      <!-- fin for -->
+    </div>
+
+    <div class="w-full max-w-xl">
+      <div
+        class="w-full flex flex-row justify-between my-4 text-2xl md:text-3xl py-2 border-b border-t border-gris-claro"
+      >
+        <p class="uppercase font-bold">
+          {{ 'carrito.total' | translate }}
+        </p>
+        <p class="font-semibold">{{ TotalCart | currencyPersonalized }}</p>
+      </div>
+      <div class="w-full">
+        <p class="font-poppins text-xs text-center font-semibold">
+          {{ 'carrito.calcularEnvio' | translate }}
+        </p>
+      </div>
+      <div class="text-center mt-4 mb-2 place-items-center w-full">
+        <button
+          (click)="carrito = false; checkout = true"
+          class="flex flex-row bg-principal-hover border border-principal-hover text-center py-2 px-5 text-white hover:bg-principal hover:border-principal focus:border-principal focus:bg-principal w-full lg:m-0"
+        >
+          <p class="tracking-wide flex-1 lg:w-full">
+            {{ 'buttons.iniciarCompra' | translate }}
+          </p>
+          <span class="material-icons-outlined">shopping_bag</span
+          ><!-- ver color icono -->
+        </button>
+      </div>
+      <div class="text-center mt-2 mb-2 place-items-center w-full">
+        <button
+          (click)="close()"
+          class="border border-principal-hover text-center py-2 px-5 hover:bg-principal hover:text-white focus:border-principal focus:bg-principal focus:text-white w-full"
+        >
+          <p class="text-sm tracking-wide">
+            {{ 'buttons.continuarComprando' | translate }}
+          </p>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <app-checkout
+    (emitCloseModal)="getEvent($event)"
+    *ngIf="checkout"
+    class="w-full overflow-y-auto"
+  ></app-checkout>
+
+  <app-purchase-detail
+    *ngIf="objectKeys(detail).length > 0"
+  ></app-purchase-detail>
+</app-modal>
+
+<ng-template #toolbar> </ng-template>

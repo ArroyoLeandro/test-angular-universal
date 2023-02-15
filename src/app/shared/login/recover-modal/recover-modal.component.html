@@ -1,0 +1,13 @@
+<app-modal #modalComponent>
+    <button class="block absolute right-2 top-2 md:hidden hover:text-gris-medio" aria-label="close" (click)="close()"><span class="material-icons">close</span> </button>
+    <h2 tabindex="0" class="uppercase font-semibold">{{'registracion.recoverPass' | translate}}</h2>
+    <hr class="mt-1 border-t-2 border-principal w-full">
+    <form class="mt-6 flex flex-col w-full">
+        <p class="mb-5 text-sm uppercase text-gris-medio">{{'registracion.ingresaEmail' | translate}}</p>
+        <input [(ngModel)]="data.username" type="text" name="username" class="mb-3 mt-1 px-3 py-2 w-full focus:border-principal rounded border border-gris-medio outline-none" autocomplete="off" placeholder="{{'placeholders.email' | translate}}" required>
+        <button [disabled]="data.username === ''" (click)="send()" class="bg-principal hover:bg-wholesale-principal text-white hover:text-principal p-2 rounded border border-principal w-full" id="login" type="submit">{{'buttons.enviar' | translate}}</button>
+    </form>
+</app-modal>
+
+<ng-template #toolbar>
+</ng-template>

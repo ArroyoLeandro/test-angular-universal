@@ -1,0 +1,43 @@
+<app-modal #modalComponent>
+  <ng-container *ngIf="type === 'politics'">
+    <section class="flex flex-col justify-center align-center">
+        <div [innerHtml]="processHTML(privacy)" class="w-full max-w-screen-lg flex flex-col px-10 xs:px-14 lg:px-0 mx-auto">
+        </div>
+      <button
+      (click)="close()"
+      class="flex-1 whitespace-nowrap bg-principal border border-principal text-center py-2 px-5 text-white hover:bg-principal-hover hover:text-principal hover:border-principal-medio focus:bg-principal-hover focus:text-principal rounded"
+    >
+      Cerrar
+    </button>
+  </section>
+  </ng-container>
+
+  <ng-container *ngIf="type === 'about'">
+    <section class="relative overflow-hidden border-b border-principal-claro md:pb-24 lg:pb-64">
+        <div [innerHtml]="processHTML(privacy)" class="w-full max-w-screen-lg px-10 lg:px-0 mt-10 mx-auto font-poppins">
+        </div>
+  
+      <button
+      (click)="close()"
+      class="flex-1 whitespace-nowrap bg-principal border border-principal text-center py-2 px-5 text-white hover:bg-principal-hover hover:text-principal hover:border-principal-medio focus:bg-principal-hover focus:text-principal rounded"
+    >
+      Cerrar
+    </button>
+  </section>
+  </ng-container>
+
+  <ng-container *ngIf="type === 'terms'">
+    <section class="flex flex-col justify-center align-center">
+        <div [innerHtml]="processHTML(terms)" class="w-full max-w-screen-lg flex flex-col px-10 xs:px-14 lg:px-0 mx-auto">
+        </div>
+      <button
+      (click)="close()"
+      class="flex-1 whitespace-nowrap bg-principal border border-principal text-center py-2 px-5 text-white hover:bg-principal-hover hover:text-principal hover:border-principal-medio focus:bg-principal-hover focus:text-principal rounded"
+    >
+      Cerrar
+    </button>
+  </section>
+  </ng-container>
+</app-modal>
+
+<ng-template #toolbar> </ng-template>

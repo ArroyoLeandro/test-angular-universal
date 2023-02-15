@@ -1,0 +1,17 @@
+.flex{
+    display: flex;
+}
+
+.flex-row{
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+
+.text-center{
+    text-align: center;
+}
+
+.center{
+    justify-content: space-between;
+}

@@ -1,0 +1,9 @@
+.grid-2{
+    grid-template-rows: auto 1fr;
+}
+
+@media (min-width: 576px) { 
+    .grid-2{
+        grid-template-columns: auto 1fr;
+    }
+}

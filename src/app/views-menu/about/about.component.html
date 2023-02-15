@@ -1,0 +1,42 @@
+<section>
+    <!--  wish paginas aqui -->
+    <div class="relative h-40 md:h-56 lg:h-60 w-full flex flex-col p-6 justify-center gap-y-6 overflow-hidden">
+        <img [src]="url" class="overflow-hidden absolute left-0 top-0 w-full h-full object-cover object-right z-0" alt="">
+    </div>
+    <!-- curva titulo -->
+    <div class="z-10 relative grid grid-cols-12 lg:h-40 -mt-10 sm:-mt-20 lg:-mt-32 xl:-mt-40 pt-10 lg:pt-14 px-5 sm:px-10 pb-5 sm:pb-10 bg-no-repeat" style="background-image: url(/assets/images/curva.svg);background-size: 100%;">
+        <div class="col-start-1 col-span-4 row-start-1 w-full text-center pl-4 md:pl-14">
+            <!--<h1 class="p-2 text-sm md:text-xl font-semibold font-poppins uppercase whitespace-nowrap"> {{'pageAbout.title' | translate}} </h1>-->
+        </div>
+    </div>
+
+    <div class="w-full max-w-screen-lg flex flex-col lg:flex-row items-center px-6 lg:px-0 my-10 mx-auto font-poppins">
+        <div class="lg:w-3/5 relative sm:pl-56">
+            <img src="/assets/images/oopsie-howItwork.jpg" alt="Spray - Poo - Flush" class="max-w-full absolute -left-4 sm:left-0 lg:-left-6 -top-12 sm:-top-16 max-h-48 sm:max-h-80 lg:max-h-96" style="z-index: -1;">
+            <h2 class="font-bold pl-28 sm:pl-0 mx-auto sm:mx-0 pb-4 sm:pb-0 max-w-md xs:max-w-none">Oopsie Poopsie is your go-to, pre-poo, toilet odor eliminator</h2>
+            <h2 class="pt-6 xs:pt-0 pl-0 xs:pl-28 md:pl-0 text-center xs:text-left font-bold text-2xl sm:text-3xl lg:text-4xl"> {{'pageAbout.subtitulo' | translate}} </h2>
+        </div>
+        <div class="lg:w-2/5 mt-10 lg:mt-0"><img src="/assets/images/spray-poo-flush.svg" alt="Spray - Poo - Flush" class="w-96 max-w-full mx-auto"></div>
+    </div>
+    <div class="flex flex-col sm:flex-row gap-6 lg:gap-10 p-10 lg-px-0 justify-center max-w-screen-lg mx-auto">
+        <div class="">
+            <div class="rounded-full bg-secundario w-48 h-48 md:w-52 md:h-52 mx-auto p-3.5 leading-tight flex flex-col items-center justify-center text-center">
+                <h4 class="font-extrabold text-2xl md:text-3xl uppercase"> {{'instrucciones.spray' | translate}} </h4>
+                <p class="text-sm font-bold pb-10 "> {{'instrucciones.sprayDesc' | translate}} </p>
+            </div>
+        </div>
+        <div class="">
+            <div class="rounded-full bg-wholesale-secundario w-48 h-48 md:w-52 md:h-52 mx-auto p-3.5 leading-tight flex flex-col items-center justify-center text-center">
+                <h4 class="font-extrabold text-2xl md:text-3xl uppercase">{{'instrucciones.slay' | translate}}</h4>
+                <p class="text-sm font-bold ">{{'instrucciones.slayDesc' | translate}}</p>
+            </div>
+        </div>
+        <div class="">
+            <div class="rounded-full bg-terciario w-48 h-48 md:w-52 md:h-52 mx-auto p-3.5 leading-tight flex flex-col items-center justify-center text-center">
+                <h4 class="font-extrabold text-2xl md:text-3xl uppercase">{{'instrucciones.hooray' | translate}}</h4>
+                <p class="text-sm font-bold ">{{'instrucciones.hoorayDesc' | translate}}</p>
+            </div>
+        </div>
+    </div>
+
+</section>

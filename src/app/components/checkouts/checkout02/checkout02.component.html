@@ -1,0 +1,320 @@
+<div class="container  cart" *ngIf="store">
+    <div class="">
+        <div class="row noPadding ">
+            <div class="col-12 col-md-12 col-xl-8">
+                <div class="list-tag">
+                    <div class="tag tag1">
+                        <div class="tag-title" (click)="changeStep(1)">
+                            {{'carrito.datosPersonales' | translate}} <i class="fas fa-check" *ngIf="step>1"></i>
+
+                        </div>
+
+                        <div class="tag-info" *ngIf="step==1">
+                            <div class="row-line">
+                                <div class="container-input container75">
+                                    <input 
+                                        placeholder="Email" 
+                                        type="email" 
+                                        name="email" 
+                                        class="input-tag" 
+                                        required
+                                        [(ngModel)]="orderForm.customer.email" 
+                                        #email="ngModel" 
+                                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                                    >
+
+                                    <div *ngIf="email.invalid && (email.dirty || email.touched)">
+                                        <br>
+                                        <div *ngIf="email.errors.required" class="alert alert-danger" role="alert">
+                                            {{'validaciones.emailObligatorio' | translate}}
+                                        </div>
+                                        <div *ngIf="email.errors?.pattern" class="alert alert-danger" role="alert">
+                                            {{'validaciones.emailValido' | translate}}
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row-line">
+                                <div class="container-input container50">
+                                    <input placeholder=" {{'placeholders.nombre' | translate}} " class="input-tag" required [(ngModel)]="orderForm.customer.name" #firstname="ngModel">
+
+                                    <div *ngIf="firstname.invalid && (firstname.dirty || firstname.touched)">
+                                        <br>
+                                        <div *ngIf="firstname.errors.required" class="alert alert-danger" role="alert">
+                                            {{'validaciones.nombreObligatorio' | translate}}
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="container-input container50">
+                                    <input placeholder=" {{'placeholders.apellido' | translate}} " class="input-tag" required [(ngModel)]="orderForm.customer.lastname" #lastname="ngModel">
+
+                                    <div *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)">
+                                        <br>
+                                        <div *ngIf="lastname.errors.required" class="alert alert-danger" role="alert">
+                                            {{'validaciones.apellidosObligatorios' | translate}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row-line">
+                                <div class="container-input container50">
+                                    <input placeholder=" {{'placeholders.nit' | translate}} " class="input-tag" required [(ngModel)]="orderForm.customer.cpf" #cpf="ngModel">
+                                    <div *ngIf="cpf.invalid && (cpf.dirty || cpf.touched)">
+                                        <br>
+                                        <div *ngIf="cpf.errors.required" class="alert alert-danger" role="alert">
+                                            {{'validaciones.nitObligatorio' | translate}}
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                                <div class="container-input container50">
+                                    <input 
+                                        placeholder=" {{'placeholders.telefono' | translate}} " 
+                                        class="input-tag" [(ngModel)]="orderForm.customer.phone" pattern="^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$" #phone="ngModel" required>
+                                    <div *ngIf="phone.invalid && (phone.dirty || phone.touched)">
+                                        <br>
+                                        <div *ngIf="phone.errors.required" class="alert alert-danger" role="alert">
+                                            {{'validaciones.tlfObligatorio' | translate}}
+                                        </div>
+                                        <div *ngIf="phone.errors.pattern" class="alert alert-danger" role="alert">
+                                            {{'validaciones.soloNumeros' | translate}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row-line">
+                                <div class="container-input checkbox-especial">
+                                    <div class="control-group">
+                                        <label class="control control-checkbox text-tyc">
+                                            {{'carrito.condicionescarrito' | translate}}<br><a href="assets/imgs/POLITICA_DE_PROTECCION_DE_DATOS_PERSONALES_RUA_&_JEWELRY_SAS.pdf" target="_blank" download="POLITICA_DE_PROTECCION_DE_DATOS_PERSONALES_RUA_&_JEWELRY_SAS.pdf">{{'carrito.masInformacion' | translate}}</a>
+                                                <input type="checkbox" name="checkbox" value="1" checked="checked" [(ngModel)]="tyc" />
+                                            <div class="control_indicator"></div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row-line">
+                                <div class="container-input container50 checkbox-especial">
+                                    <div class="control-group">
+                                        <label class="control control-radio" *ngIf="store.has_delivery == 1 ">
+                                            {{'carrito.envio' | translate}}
+                                                <input type="radio" name="radio" value="1" checked="checked" [(ngModel)]="modoEntrega" />
+                                            <div class="control_indicator"></div>
+                                        </label>
+                                        <label class="control control-radio text-nowrap" *ngIf="store.pickup == 1">
+                                            {{'carrito.recoger' | translate}}
+                                                <input type="radio" name="radio" value="2"  [(ngModel)]="modoEntrega" />
+                                            <div class="control_indicator"></div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="botones-tag">
+                                <div class="btn-type" *ngIf="modoEntrega==1" (click)="goToDeliveryData()">
+                                    {{'formEntrega.direccion' | translate}}
+                                </div>
+                                <div class="btn-type" *ngIf="modoEntrega==2" (click)="goToPaymentDataPick()">
+                                    {{'buttons.pagar' | translate}}
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="tag tag2" *ngIf="store.has_delivery && modoEntrega==1">
+                        <div class="tag-title">
+                            {{'carrito.entrega' | translate}} <i class="fas fa-check" *ngIf="step>2"></i>
+                        </div>
+                        <div class="tag-info" *ngIf="step==2">
+                            <div class="row-line">
+
+                                <div class="container-input container50">
+                                    <select class="input-tag" [(ngModel)]="deliveryAddress.state" #state="ngModel" required (change)="changeState(state.value)">
+                                        <option *ngFor="let estado of provincias;let j = index" value="{{estado.iso_code}}">{{estado.state}}</option>
+                                    </select>
+                                    <div *ngIf="state.invalid && (state.dirty || state.touched)">
+                                        <br>
+                                        <div *ngIf="state.errors.required" class="alert alert-danger" role="alert">
+                                            {{'validaciones.estadoObligatorio' | translate}}
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="container-input container50">
+                                    <select class="input-tag" [(ngModel)]="deliveryAddress.city" #city="ngModel" > required>
+                                        <option *ngFor="let ciudad of ciudades;let j = index" value="{{ciudad.code}}">{{ciudad.name}}</option>
+                                    </select>
+                                    <div *ngIf="city.invalid && (city.dirty || city.touched)">
+                                        <br>
+                                        <div *ngIf="city.errors.required" class="alert alert-danger" role="alert">
+                                            {{'validaciones.ciudadObligatorio' | translate}}
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="row-line">
+                                <div class="container-input container100">
+                                    <input placeholder=" {{'placeholders.direccion' | translate}} " class="input-tag" [(ngModel)]="deliveryAddress.street" #street="ngModel" required>
+
+                                    <div *ngIf="street.invalid && (street.dirty || street.touched)">
+                                        <br>
+                                        <div *ngIf="street.errors.required" class="alert alert-danger" role="alert">
+                                            {{'validaciones.direccionObligatorio' | translate}}
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row-line">
+                                <div class="container-input container50">
+                                    <input placeholder=" {{'placeholders.destinatario' | translate}} " class="input-tag" [(ngModel)]="deliveryAddress.destinatario" #destinatario="ngModel" required>
+                                    <div *ngIf="destinatario.invalid && (destinatario.dirty || destinatario.touched)">
+                                        <br>
+                                        <div *ngIf="destinatario.errors.required" class="alert alert-danger" role="alert">
+                                            {{'validaciones.destinatarioObligatorio' | translate}}
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="botones-tag">
+
+                                <div class="btn-type" (click)="goToPaymentData()">
+                                    {{'buttons.pagar' | translate}}
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="tag" *ngIf="modoEntrega==2">
+                        <div class="tag-title">
+                            {{'carrito.direccionTienda' | translate}} <i class="fas fa-check"></i>
+                        </div>
+                        <div class="tag-info">
+
+                            <div class="row-line text-left">
+                                <label>{{store.cep}} , {{store.city}}</label>
+                            </div>
+                            <div class="row-line text-left">
+                                <label>{{store.address}}</label>
+                            </div>
+                            <div class="row-line text-left">
+                                <label>{{store.phone}}</label>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="col-12 col-md-12 col-xl-4 ">
+                <div class="cont-carrito">
+                    <div class="cart-title">
+                        <div class="cart-title-label">
+                            {{'carrito.miPedido' | translate}}
+                        </div>
+
+
+                    </div>
+                    <div class="product-list">
+                        <div class="product" *ngFor="let productCart of cart; index as i">
+                            <div class="row">
+                                <div class="product-img" #prodList (window:resize)="0" [ngStyle]="{'height.px': prodList.offsetWidth }">
+                                    <img class="img-fluid" [src]="productCart.variation.image">
+                                </div>
+                                <div class="product-title">
+                                    {{productCart.product.name}}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="text-right" *ngIf="sales_price_products[i]>0 && promotionActive " style="width:100%;position:relative;">
+                                    {{productCart.variation.quantity}} x {{sales_price_products[i]| currency}}
+                                    <span class="sale-price">
+                                        {{productCart.variation.price| currency}}
+                                      </span>
+
+                                </div>
+
+                                <div class="text-right" *ngIf="sales_price_products[i]==0 || !promotionActive " style="width:100%;position:relative;">
+                                    {{productCart.variation.quantity}} x {{productCart.variation.price| currency}}
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cart-total bgRose bgGr">
+                        <div class="cart-info2 bgRose bgGr" *ngIf="confirmFlete==true">
+                            <div class="cart-total-label">
+                                {{'carrito.envio' | translate}}
+                            </div>
+                            <div class="cart-total-mount" *ngIf="envio <= 0">
+                                {{'carrito.gratis' | translate}}
+                            </div>
+                            <div class="cart-total-mount" *ngIf="envio > 0">
+                                {{envio| currency}}
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cart-total bgRose">
+                        <div class="cart-info bgRose">
+                            <div class="cart-total-label">
+                                {{'carrito.total' | translate}}
+                            </div>
+                            <div class="cart-total-mount">
+                                {{(cartTotal + envio)| currency}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template *ngIf="modalThanks">
+
+    <div class="modal fade show" style="display: block;" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg  modal-dialog-centered ">
+            <div class="modal-content modal-1">
+                <div class="modal-body modal-2">
+                    <div class="text1">
+                        Gracias por su compra!
+                        <div class="texto2">
+                            Pago realizado satisfactoriamente
+
+                            <div class="text-center" *ngIf="modoEntrega==2">
+                                <br>
+                                <b>Direccion de tienda:</b><br> {{store.cep}} , {{store.city}}<br> {{store.address}}
+                                <br> {{store.phone}}
+                            </div>
+
+                            <div class="cerrar-btn" (click)="irAHome()">
+                                Cerrar
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-backdrop fade show"></div>
+</ng-template>
+

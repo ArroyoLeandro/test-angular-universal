@@ -1,0 +1,43 @@
+/*section{
+  .flex {
+    .align-bottom{
+      div {
+        width: 100% !important;
+      }
+    }
+  }
+}
+  
+*/
+
+@media only screen and (min-width: 480px) {
+    section {
+        visibility: hidden;
+        opacity: 0;
+        &.open {
+            visibility: inherit;
+            opacity: 1;
+        }
+        transition: opacity 250ms ease-in;
+    }
+    .align-left {
+        position: relative;
+        left: 25%;
+    }
+    /*
+  section{
+    .flex {
+      .align-bottom{
+        div {
+          width: 50% !important;
+        }
+      }
+    }
+  }
+*/
+}
+
+.popUp{
+  height: 100%;
+  overflow: auto;
+}

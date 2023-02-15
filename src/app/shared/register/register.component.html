@@ -1,0 +1,36 @@
+<div class="p-6 mt-4 bg bg-wholesale-secundario rounded-md">
+    <h2 class="text-xl font-poppins font-bold uppercase"> {{'registracion.title' | translate}}</h2>
+    <span class="text-sm block leading-4"> {{'registracion.bajada' | translate}}</span>
+    <span class="text-sm block leading-4"> {{'registracion.registrate' | translate}}</span>
+
+    <div [@changeState]="currentState" class="formRegistro text-left w-full overflow-hidden">
+        <span class="text-sm block leading-4 pt-3 pb-5"> {{'registracion.instrucciones' | translate}}</span>
+        <form [formGroup]="registerForm" class="grid grid-cols-2 sm:grid-cols-4 gap-4 items-center ">
+            <input formControlName="name" placeholder=" {{'placeholders.nombre' | translate}} *" type="text" class="col-span-2 bg-white h-10 p-3">
+            <input formControlName="lastname" placeholder="{{'placeholders.apellido' | translate}} *" type="text" class="col-span-2 bg-white h-10 p-3">
+            <div class="relative col-span-2 ">
+                <input formControlName="email" placeholder="{{'placeholders.email' | translate}} *" type="text" class="w-full bg-white h-10 p-3">
+                <span *ngIf="email" class="absolute w-auto rounded bottom-2 right-2 bg-secundario px-1 py-0.5 text-xs"> {{'validaciones.emailValido' | translate}} </span>
+            </div>
+            <input formControlName="company" placeholder="{{'placeholders.company' | translate}} *" type="text" class="col-span-2 bg-white h-10 p-3">
+            <input formControlName="cpf" placeholder="{{'placeholders.id' | translate}} *" type="text" class="col-span-2 bg-white h-10 p-3">
+            <div class="relative col-span-2">
+                <input formControlName="phone" placeholder="{{'placeholders.telefono' | translate}} *" type="number" class="w-full bg-white h-10 p-3">
+                <span *ngIf="onlyNumbers" class="absolute w-auto rounded bottom-2 right-2 bg-secundario px-1 py-0.5 text-xs"> {{'validaciones.soloNumeros' | translate}} </span>
+            </div>
+            <input formControlName="street" placeholder="{{'placeholders.calle' | translate}} *" type="text" class="bg-white h-10 p-3">
+            <input formControlName="zip_code" placeholder="{{'placeholders.postalCode' | translate}} *" type="text" class="bg-white h-10 p-3">
+            <select id="state" class="bg-white h-10 px-2" name="state" formControlName="state">
+            <option disabled value=""> {{'address.state' | translate}} </option>    
+            <option *ngFor="let state of states" [value]="state.state" > {{state.state}} </option>
+        </select>
+            <input formControlName="city" placeholder="{{'placeholders.city' | translate}} *" type="text" class="bg-white h-10 p-3">
+            <div class="col-span-2 sm:col-span-4">
+                <label for="accept" class="text-sm"><input formControlName="accept" type="checkbox" name="" id="accept"></label>
+                <a href="/#/home/terms" target="_blank" class="hover:text-gris-medio focus:text-gris-medio cursor-pointer"> {{'registracion.aceptarTerminos' | translate}} </a>
+            </div>
+            <button (click)="send()" class="col-span-2 sm:col-span-4 bg-wholesale-secundario border border-principal focus:outline-none hover:bg-principal focus:bg-principal hover:text-white focus:text-white font-poppins p-2 rounded mt-3">  {{'buttons.enviar' | translate}}  </button>
+        </form>
+    </div>
+
+</div>

@@ -1,0 +1,3 @@
+<ng-container *ngIf="objectKeys(promotionInfo).length == 0">
+    <app-checkout00 (emitCloseModal)="getEvent($event)" [id_store_current]="id_store_current" *ngIf="objectKeys(promotionInfo).length == 0"></app-checkout00>
+</ng-container>

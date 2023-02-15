@@ -1,0 +1,30 @@
+.wave {
+    height: 100px;
+    width: 100%;
+    background: transparent;
+    /* fallback for old browsers */
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    padding-top: 20px;
+}
+
+.h-1\/3 {
+    height: 30vh;
+}
+
+@media (min-width: 640px) {
+    .h-1\/3 {
+        height: 40vh;
+    }
+}
+
+@media (min-width: 1024px) {
+    .h-1\/3 {
+        height: 55vh;
+    }
+}
+
+@media (min-width: 1536px) {
+    .h-1\/3 {
+        height: 65vh;
+    }
+}

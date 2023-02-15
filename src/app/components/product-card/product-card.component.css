@@ -1,0 +1,92 @@
+/* estilos de la libreria swiper */
+
+.swiper-container {
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    overflow: hidden;
+    list-style: none;
+    /*padding: 0;*/
+    width: 100%;
+    height: auto;
+    /* Fix of Webkit flickering */
+    z-index: 1;
+}
+
+.swiper-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    display: flex;
+    transition-property: transform;
+    /*box-sizing: content-box;*/
+}
+
+.swiper-container-android .swiper-slide,
+.swiper-wrapper {
+    transform: translate3d(0px, 0, 0);
+}
+
+.swiper-container-pointer-events {
+    touch-action: pan-y;
+}
+
+.swiper-slide {
+    flex-shrink: 0;
+    /* width: 100%;*/
+    height: 100%;
+    position: relative;
+    transition-property: transform;
+}
+
+.swiper-slide-invisible-blank {
+    visibility: hidden;
+}
+
+.swiper-pagination {
+    position: relative;
+    text-align: center;
+    z-index: 10;
+    height: 20px;
+    width: 100%;
+}
+
+.swiper-pagination span.swiper-pagination-bullet {
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+    border-radius: 100%;
+    background: #000;
+    opacity: 0.2;
+}
+
+.swiper-pagination span.swiper-pagination-bullet-active {
+    opacity: 1;
+    background: #007aff;
+}
+
+.disabled:before {
+    display: block;
+    content: "";
+    border-top-width: inherit;
+    border-top-style: solid;
+    border-top-color: inherit;
+    width: 100%;
+    transform: rotate( 45deg);
+    margin-left: -.1rem;
+    margin-top: .6rem;
+    position: absolute;
+}
+
+
+/* flechas deshabilitadas */
+
+.swiper-button-disabled {
+    opacity: .2;
+    cursor: auto;
+}
+
+.swiper-button-disabled:hover {
+    background-color: white;
+}

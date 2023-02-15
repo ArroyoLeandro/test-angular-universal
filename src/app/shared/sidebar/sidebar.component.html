@@ -1,0 +1,32 @@
+    <div class="fixed flex flex-col top-0 left-0 sm:w-80 w-48 bg-white h-full border-r dark:border-dark-botonera navBotonera">
+        <div class="bg-black flex items-center justify-between h-auto dark:bg-dark-botonera logoNav overflow-hidden">
+            <h3 class="h-10 pl-10 flex items-center uppercase font-semibold text-white">Categorías</h3>
+            <button class="w-14 h-14 relative flex mr-1" (click)="toggleService.toggle()">
+                <span class="z-30 w-4 h-1 bg-white absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform rotate-45 origin-center"></span>
+                <span class="z-30 w-4 h-1 bg-white absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform -rotate-45 origin-center"></span>
+            </button>
+        </div>
+        <nav class="overflow-y-auto overflow-x-hidden flex-grow bg-white dark:bg-dark-botonera">
+            <ul class="flex flex-col py-4 h-full">
+                <li class="nav-item mb-2 focus:outline-none" *ngFor="let ctg of categories" (click)="select('main', ctg.name);" [ngClass]="{active: isActive('main', ctg.name)}" >
+                    <a (click)="(isMobile && ctg.sub_categories.length == 0) && toggleService.comprimida = true" class="w-full">
+                        <button *ngIf="ctg.sub_categories.length === 0" (click)="redirectCtg(ctg.slug, ctg, false); hideMenu(); show = false" [ngClass]="isActive('main', ctg.name) ? 'bg-principal-claro text-gray-800' : ''" class="w-full pl-2 sm:pl-4 text-sm hover:bg-principal-claro focus:bg-principal-claro hover:text-gray-800 focus:text-gray-800 focus:outline-none sm:uppercase flex items-center"> 
+                            {{ctg.name}} 
+                        </button>
+                        <button *ngIf="ctg.sub_categories.length > 0" (click)="toggleCtg(ctg)" [ngClass]="isActive('main', ctg.name) ? 'bg-principal-claro text-gray-800' : ''" class="focus:outline-none group flex items-center w-full justify-between pl-2 sm:pl-4 text-sm sm:uppercase hover:bg-principal-claro focus:bg-principal-claro hover:text-gray-800 focus:text-gray-800"> 
+                            <span>{{ctg.name}}</span>
+                            <span class="material-icons-outlined group-focus:text-principal-medio text-xl mx-1 px-5 transform origin-center" [ngClass]="ctg.show ? 'text-gray-800 flex rotate-90' : '-rotate-90'">expand_more</span>
+                        </button>
+                    </a>
+                    <ul *ngIf="ctg.show && ctg.sub_categories.length > 0" class="absolute top-14 -right-full h-full bg-principal-claro flex flex-col gap-1 pt-2 pb-3 px-3 min-w-full" [ngClass]="show ? '' : ''">
+                        <li class="capitalize font-semibold">{{ctg.name}}</li>
+                        <li *ngFor="let item of ctg.sub_categories" class="hover:bg-principal-oscuro p-2">
+                            <button (click)="redirectCtg(item.slug, ctg, true); hideMenu(); show = !show" class="flex items-center w-full justify-start text-sm  focus:outline-none">
+                                {{item.name}}
+                            </button>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div>

@@ -1,0 +1,64 @@
+<!-- PAGOS -->
+<div>
+    <div class="bg-white h-full">
+
+        <div class="pago bg-white py-12 px-6 sm:px-0 sm:grid sm:grid-flow-col auto-cols-auto sm:gap-20">
+            <div class="w-full">
+                <div class="w-full sm:ml-12 flex justify-center">
+                    <p class="basic-text tracking-tight text-center"> {{'footer.pagoProtegido' | translate}} </p>
+                </div>
+
+                <div class="w-full flex justify-center pago-img sm:pl-20"><img src="assets/images/pago.jpg" alt="Pago protegido" class="h-28"></div>
+            </div>
+            <div class="sm:mr-20">
+                <div class="pt-10 sm:pt-0 pb-2 flex justify-center">
+                    <p class="basic-text tracking-tight text-center">{{'footer.pasarela' | translate}}:</p>
+                </div>
+                <div class="w-full flex justify-center"><img src="assets/images/powered-by-stripe.png" alt="Pasarela de pago" class="w-96 mt-4 max-w-full"></div>
+            </div>
+
+        </div>
+    </div>
+    <div class="bg-white w-full relative pb-2">
+        <div class="max-w-screen-xl mx-auto py-10 md:py-0 px-5 sm:px-10 flex flex-wrap gap-4 md:gap-10  justify-center md:justify-between items-center text-center md:text-left">
+            <!-- <div class="w-full md:w-max">
+                <app-second-newsletter></app-second-newsletter>
+            </div> -->
+            <div class="">
+                <ul>
+                    <li class="w-full md:w-max"><a (click)="open('terms')" class="hover:underline focus:underline focus:outline-none"> {{'footer.terminos' | translate}} </a></li>
+                    <li class="w-full md:w-max"><a (click)="open('politics')" class="hover:underline focus:underline focus:outline-none"> {{'footer.politicas' | translate}} </a></li>
+                    <li class="w-full md:w-max">FDA Disclaimer</li>
+                </ul>
+            </div>
+            <div class="">
+                <ul>
+                    <li class="w-full md:w-max">Shipping </li>
+                    <li class="w-full md:w-max">Returns & Refunds</li>
+                    <li class="w-full md:w-max"><a routerLink="/home/terms" class="hover:underline focus:underline focus:outline-none"> {{'header.contacto' | translate}} </a></li>
+                </ul>
+            </div>
+            <div class="">
+                <ul>
+                    <li><a href="https://www.instagram.com/flexystorelatam/" target="_blank" class="hover:underline focus:underline focus:outline-none">Instagram</a></li>
+                    <li><a href="https://www.facebook.com/FlexyStoreLA/" target="_blank" class="hover:underline focus:underline focus:outline-none">Facebook</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer bg-gris-oscuro lg:pl-8 lg:pr-24 w-auto lg:flex lg:flex-row z-50 sm:z-20 relative">
+        <div class="w-full flex justify-center lg:justify-start lg:w-auto lg:flex-1">
+            <img src="assets/images/flexystore-blanco.svg" alt=" {{'header.marca' | translate}} " class="p-3 h-16 object-contain">
+        </div>
+
+        <div class="lg:self-center">
+            <p class="footer-text pb-4 lg:pb-0">{{'footer.copyright' | translate}} © {{year}} FlexyStore. {{'footer.derechos' | translate}}</p>
+        </div>
+        <!--
+        <div class="lg:self-center flex gap-4 justify-center">
+            <a routerLink="/home/terms" class="footer-text py-4 lg:py-0 hover:text-principal-hover focus:text-principal-hover focus:outline-none"> {{'footer.terminos' | translate}} </a>
+            <a routerLink="/home/politics" class="footer-text py-4 lg:py-0 hover:text-principal-hover focus:text-principal-hover focus:outline-none"> {{'footer.politicas' | translate}} </a>
+        </div>
+        -->
+    </div>
+</div>

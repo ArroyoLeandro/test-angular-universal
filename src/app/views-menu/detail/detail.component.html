@@ -1,0 +1,229 @@
+<main>
+    <!--  wish paginas aqui 
+    <app-pandora-wish [oneImg]="true" [height]="250"></app-pandora-wish>
+    Encabezado tipo opsi
+    <div class="relative h-40 md:h-56 lg:h-60 w-full flex flex-col p-6 justify-center gap-y-6 overflow-hidden">
+        <img src="/assets/images/header-paginas.jpg" class="overflow-hidden absolute left-0 top-0 w-full h-full object-cover object-center z-0" alt="">
+    </div>
+    -->
+
+
+    <section *ngIf="objectKeys(product).length > 0" class="py-4 md:py-10 px-4 xs:px-10">
+        <ul class="flex flex-wrap gap-x-3 mb-6 mt-8 md:mt-0 max-w-screen-xl mx-auto">
+            <li><button routerLink="/home" class="text-gris-medio tracking-4xsmall">
+                Home</button>
+            </li>
+            <li class="text-gris-medio tracking-4xsmall">/</li>
+            <li *ngIf="category !== ''">
+                <button class="text-gris-oscuro tracking-4xsmall">
+                    <span class="text-gris-oscuro tracking-4xsmall capitalize">{{category}}</span>
+                </button>
+            </li>
+            <li *ngIf="category !== ''" class="text-gris-medio tracking-4xsmall">/</li>
+            <li>{{product[0].name}} </li>
+            <!-- 
+            <a (click)="back()">
+                <button class="flex flex-rows place-items-center justify-center w-20">
+                    <img class="" src="assets/images/icon-arrow3(left).svg" alt="">
+                    <p class="flex-1 text-right basic-text  tracking-4xsmall"> {{'buttons.volver' | translate}} </p>
+            </button>
+            </a>-->
+
+        </ul>
+        <!-- PRODUCT -->
+        <div #top class="w-full lg:grid lg:grid-cols-2 pb-6 pt-6 lg:pb-8 lg:pt-8 justify-center bg-white border border-gris-medio my-6 box-shadow shadow-md max-w-screen-xl mx-auto">
+
+            <div #tooltipContent class="relative flex w-full max-w-xl lg:max-w-none mx-auto cursor-pointer tooltipContent" style="max-height: 67vh;" (mousemove)="showTooltip($event)">
+                <div #tooltip *ngIf="statusTooltip" class="tooltip absolute z-20 transform -translate-x-1/2 -translate-y-1/2 flex flex-col justify-center pointer-events-none">
+                    <span class="px-2 py-0.5 whitespace-nowrap text-xs rounded-lg bg-secundario text-black">Doble clic para zoom</span>
+                    <span class="material-icons-outlined mx-auto mt-1 pointer-events-none text-black text-3xl">search</span>
+                </div>
+                <!-- Slider main container -->
+                <app-carousel (emitTooltip)="getEvent($event)" *ngIf="!loading" [images]="images.length > 0 ? images : default_photo" [index]="imageActive" class="w-full h-full px-4 flex-none lg:place-self-center lg:py-auto"></app-carousel>
+
+                <div *ngIf="promoActive" class="absolute -top-3 -right-40 transform rotate-90 w-40 h-8/9 origin-top-left z-10">
+                    <button class="bg-principal font-bold tracking-widest inline-flex justify-center items-center text-white text-sm font-poppins w-auto h-full uppercase px-2 py-0.5"> {{promotionProduct.name}} </button>
+                </div>
+
+            </div>
+            <div class="pt-5 px-6 lg:pl-4 lg:pr-12">
+                <div class="text-center lg:text-left">
+                    <h2 *ngIf="product[0].categories.length > 0 " class="basic-text tracking-small ">
+                        <ng-container *ngFor="let ctg of product[0].categories">
+                            {{ ctg.category && ctg.category.name}}
+                        </ng-container>
+                    </h2>
+                    <h1 class="font-semibold leading-6 text-2xl product-txt lg:text-3xl mb-3">{{product[0].name}}</h1>
+                    <p class="sm:text-lg italic">{{product.description}}</p>
+                    <h3 class="font-normal text-xs product-txt2 text-gris-medio my-4">SKU: {{current_product.product_sku}} </h3>
+                </div>
+                <!-- <div class="text-center lg:text-left mt-2">
+                    <div class="lg:w-full lg:flex lg:mx-auto lg:space-x-4">
+                        <p class="font-semibold leading-6">STOCK: {{current_product.stock }}</p>
+                    </div>
+                </div> -->
+                <div *ngIf="current_product.price > 0" class="text-center lg:text-left mt-2 text-4xl">
+                    <p class="font-semibold line-through leading-6" *ngIf="current_product.sale_price > 0">{{current_product.price | currencyPersonalized}}</p>
+                    <div class="lg:w-full lg:flex lg:mx-auto lg:space-x-4">
+                        <p class="font-semibold leading-6" *ngIf="current_product.sale_price > 0">{{current_product.sale_price | currencyPersonalized}}</p>
+                        <p class="font-semibold leading-6" *ngIf="current_product.sale_price == 0">{{current_product.price | currencyPersonalized}}</p>
+                    </div>
+                </div>
+
+                <!-- comento lo del color mientras                 -->
+                <!-- 
+                <div class="box-product flex flex-col lg:flex-row">
+                    <div class="w-full text-center mb-4 lg:self-center"><p class=" font-normal text-xs product-txt2 pt-4 w-full lg:text-left">COLOR:</p></div>
+
+                    <div class=" justify-center sm:w-full lg:align-items-center lg:self-center lg:justify-center">
+                        <div  class="flex flex-row justify-center space-x-4">
+ 
+                            <div  class="flex items-center" aria-label="Select an option">
+                                <input [(ngModel)]="selectedColor" value="Gris"  id="radio1" type="radio" name="radio" class="hidden" checked />
+                                <label  for="radio1" class="flex items-center cursor-pointer text-xl boton-color">
+                                    <span  class="boton-color bg-grey4"></span>
+                                </label>
+                            </div>
+                          
+                            <div class="flex items-center">
+                                <input [(ngModel)]="selectedColor" value="Dorado" id="radio2" type="radio" name="radio" class="hidden" />
+                                <label for="radio2" class="flex items-center cursor-pointer text-xl boton-color">
+                                 <span  class="boton-color bg-gold1"></span>
+                                </label>
+                            </div>
+                            
+                            <div class="flex items-center">
+                                <input [(ngModel)]="selectedColor" value="Marrón" id="radio3" type="radio" name="radio" class="hidden" />
+                                <label for="radio3" class="flex items-center cursor-pointer text-xl">
+                                    <span  class="boton-color bg-brown1"></span>
+                                </label>
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+                 <div class="w-full text-center flex flex-row justify-center lg:justify-start">
+                    <p class="self-center font-normal text-xs product-txt2 pt-4 lg:text-left">Color seleccionado: {{selectedColor}} </p>
+                </div> 
+                -->
+<!-- <pre>{{product | json}}</pre> -->
+                <div *ngIf="product.length >= 2" class="border-t border-principal-claro my-5 py-4 w-full lg:flex lg:flex-row flex-wrap items-center justify-between">
+                    <!-- <div class="text-center lg:text-left lg:self-center py-5 pr-5">
+                        <p class=" font-normal text-xs product-txt2">{{'pageDetail.size' | translate}}</p>
+                    </div> -->
+
+
+                    <div *ngIf="product.length >= 2" class="w-content flex justify-center items-center">
+                        <div class="flex justify-center rounded gap-x-3 gap-y-3 text-lg flex-wrap" role="group">
+                            <!-- <ng-container *ngFor="let variation of product; let i = index">
+                                <button [ngClass]=" {' hover:bg-principal focus:bg-principal outline-none': variation.stock > 0 && variation.product_sku != current_product.product_sku, 'bg-principal-hover border-principal-hover': variation.product_sku === current_product.product_sku && variation.stock > 0, 'border-gris-medio text-gris-medio disabled': variation.stock === 0 }"
+                                    class="border border-principal py-2 px-4 text-info" (click)="selected(variation); setVariation(variation, i)">
+                                    {{variation.product_sku | slice:0:4}}
+                                    //{{variation.info_options[0].value}} 
+
+                                </button>
+                            </ng-container> -->
+                            <ng-container *ngFor="let variation of varPropiedades; let i = index">
+                                <!-- <div class="text-center lg:text-left lg:self-center py-5 pr-5">
+                                    <p class=" font-normal text-xs product-txt2">{{variation.name}}</p>
+                                </div> -->
+                                <!-- <button *ngFor="let value of variation.values"
+                                class="hover:bg-principal focus:bg-principal outline-none border border-principal py-2 px-4 text-info" (click)="selected(variation); setVariation(variation, i)">
+                                    {{value}}
+                                </button> -->
+                                <ul class="flex flex-wrap w-full gap-x-3 mb-6 mt-8 md:mt-0 max-w-screen-xl mx-auto">
+                                    <li class="capitalize w-full">{{variation.name}}</li>
+                                    <li class="tracking-4xsmall">
+                                        <button *ngFor="let value of variation.values; let j = index"
+                                        [ngClass]="{'text-white bg-principal-hover border-principal-hover hover:bg-principal-hover focus:bg-principal-hover':varSelect[variation.name] == value, ' ml-2': j!=0}"
+                                        class="hover:bg-principal focus:bg-principal hover:text-white focus:text-white outline-none border border-principal-hover py-2 px-4" (click)="selected(variation,value);">
+                                            {{value}}
+                                        </button>
+                                    </li>                        
+                                </ul>
+                                
+                                <!-- necesito que sea el armado de shopiffy -->
+                                <!-- <button [ngClass]=" {' hover:bg-principal focus:bg-principal outline-none': variation.stock > 0 && variation.product_sku != current_product.product_sku, 'bg-principal-hover border-principal-hover': variation.product_sku === current_product.product_sku && variation.stock > 0, 'border-gris-medio text-gris-medio disabled': variation.stock === 0 }"
+                                    class="border border-principal py-2 px-4 text-info" (click)="selected(variation); setVariation(variation, i)">
+                                    {{variation.product_sku | slice:0:4}}
+                                </button> -->
+                            </ng-container>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- <div *ngIf="objectKeys(selectedSize).length > 0" class="w-full mt-2 text-center lg:text-left flex flex-row justify-center lg:justify-start">
+                    <p class="self-center font-normal text-xs product-txt2">{{'pageDetail.tamañoseleccionado' | translate}}</p>
+                </div> -->
+
+                <div *ngIf="objectKeys(selectedSize).length > 0" class="border-t border-principal-claro my-5 py-4 w-full lg:flex lg:flex-row">
+                    <div class="w-full text-center lg:text-left lg:self-center">
+                        <p class=" font-normal text-xs product-txt2 pt-4 w-full mb-4">{{'pageDetail.cantidad' | translate}}:</p>
+                    </div>
+
+                    <div class="flex justify-center lg:justify-end h-10 w-full self-center">
+                        <div class="flex justify-around h-10 w-28 items-center border border-black">
+                            <button (click)="less()" class="text-black w-6 h-6"> - </button>
+                            <div>
+                                <p class="text-black "> {{cantidad}} </p>
+                            </div>
+                            <button (click)="add()" class="text-black w-6 h-6"> + </button>
+
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="objectKeys(selectedSize).length > 0" class="text-center h-100 mt-2 mb-2 place-items-center px-2 flex justify-center lg:w-full lg:p-0">
+                    <button *ngIf="disabled == 0" (click)="addItemTocart()" class="w-full flex flex-row bg-principal-hover text-center justify-center gap-2 py-2 px-5 text-white font-semibold text-lg uppercase hover:bg-principal focus:bg-principal focus:outline-none rounded whitespace-nowrap h-full lg:w-full lg:m-0 border-2 border-principal-hover hover:border-principal focus:border-principal">
+                        <p class="">{{'buttons.agregarCarrito' | translate}} </p>
+                        <!-- <span class="material-icons-outlined">shopping_bag</span> -->
+                    </button>
+                    <button *ngIf="disabled == 1" class="w-full flex flex-row bg-principal-hover text-center justify-center gap-2 py-2 px-5 text-white font-semibold text-lg uppercase hover:bg-principal focus:bg-principal focus:outline-none rounded whitespace-nowrap h-full lg:w-full lg:m-0 border-2 border-principal-hover hover:border-principal focus:border-principal">
+                        <p class="">No disponible</p>
+                        <!-- <span class="material-icons-outlined">shopping_bag</span> -->
+                    </button>
+                    <button *ngIf="disabled == 2" class="w-full flex flex-row bg-principal-hover text-center justify-center gap-2 py-2 px-5 text-white font-semibold text-lg uppercase hover:bg-principal focus:bg-principal focus:outline-none rounded whitespace-nowrap h-full lg:w-full lg:m-0 border-2 border-principal-hover hover:border-principal focus:border-principal">
+                        <p class="">{{ 'alerts.noStock'| translate}}</p>
+                        <!-- <span class="material-icons-outlined">shopping_bag</span> -->
+                    </button>
+                </div>
+
+                <!-- <div class="text-center lg:text-left mt-10">
+                    <p class="text-xs product-txt2">Descripción corta:</p>
+                    <p class="py-3 text-sm"> {{current_product | descVariants}} </p>
+                </div> -->
+
+                <!-- esta long description va mas abajo, habilitarla cuando esté el precio y eliminarla de aquí 
+                <div *ngIf="current_product.description" class="py-6">
+                    <p class="text-xs product-txt2">{{'pageDetail.descripcion' | translate}}:</p>
+                    <div [innerHtml]="processHTML(current_product.description)" class="">
+                    </div>
+                </div>-->
+                <!-- fin eliminar long description -->
+
+            </div>
+
+            <!-- aqui va la long description la oculto ahora porque la puse más arriba hasta se habilite la venta-->
+            <div *ngIf="current_product.description" class="p-6 col-span-full">
+                <hr class="border-gris-medio mb-8">
+                <h4 class="text-sm font-semibold product-txt2 mx-auto max-w-screen-md py-3">{{'pageDetail.descripcion' | translate}}:</h4>
+                <div [innerHtml]="processHTML(current_product.description)" class="mx-auto max-w-screen-md text-sm descripcion">
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- <section>  -->
+    <!-- PUEDE QUE TAMBIEN... -->
+    <!-- <app-productsrandom [nameproduct]="product.name" [sku]="product.sku">
+    </app-productsrandom> -->
+    <!-- </section> -->
+
+    <section>
+        <!-- Newsletters -->
+        <app-newsletters></app-newsletters>
+    </section>
+
+</main>

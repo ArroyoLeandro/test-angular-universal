@@ -1,0 +1,28 @@
+<div class="gallery-top swiper-container" [swiper]="swiperAutoplayConfig">
+    <div class="swiper-wrapper">
+        <div *ngFor="let product of products" class="swiper-slide p-3 pb-6 w-full bg-white cursor-pointer h-full flex flex-col sm:hover:box-shadow sm:hover:shadow sm:w-auto">
+
+            <div routerLink="/{{id_store_current}}/product/{{product.id}}" class="relative flex-1">
+                <img class="" [src]="product.variants[0].images.length > 0 ? product.variants[0].images[0].url : default_image  " alt="{{product.name}}">
+
+                <div *ngIf="product.promoActive" class="transform rotate-90 absolute top-7 right-2 w-22 h-8/9">
+                    <span class="bg-principal font-bold flex justify-center items-center text-white text-sm font-poppins w-full h-full uppercase">{{promotionInfo.name}}</span>
+                </div>
+            </div>
+
+            <p routerLink="/{{id_store_current}}/product/{{product.id}}" class="text-center mt-2 font-poppins font-normal leading-6"> {{product.variants[0].name}} </p>
+
+            <div class="text-center mt-2">
+                <p class="font-poppins font-normal text-info leading-6">{{product.variants[0].price === 0 ? '' : product.variants[0].price | currencyPersonalized}}</p>
+                <div class="text-center mt-2 mb-2 place-items-center"></div>
+                <button routerLink="/{{id_store_current}}/product/{{product.id}}" class="border border-principal text-white font-poppins font-normal text-sm tracking-wide bg-principal hover:bg-principal-hover hover:border-principal-hover focus:bg-principal-hover focus:border-principal-hover text-center place-items-center py-2 px-5 w-45">
+                    {{'buttons.verMas' | translate}}
+                </button>
+            </div>
+
+        </div>
+    </div>
+    <div class="swiper-pagination"></div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+</div>

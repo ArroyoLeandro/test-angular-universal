@@ -1,0 +1,72 @@
+<a *ngIf="id_store_current !== 'null' && id_store_current !== null ">
+    <div class="flex flex-col mx-auto sm:w-auto max-w-sm h-full text-center font-poppins rounded-lg overflow-hidden border border-gris-claro hover:border-gris-medio focus-within:border-gris-medio">
+
+        <div (click)="redirect(product.product ? product.product : product.id)" class="w-full relative cursor-pointer focus:outline-none bg-principal-claro" style="padding-top: 100%;" tabindex="0">
+            <img class="absolute w-full h-full top-0 left-0 object-contain " *ngIf="product.images && product.images.length == 0"
+            [src]="product.variants[0].images.length > 0 ? product.variants[0].images[0].url : default_image  " alt="{{product.variants[0].name}}">
+            <img class="absolute w-full h-full top-0 left-0 object-contain " *ngIf="product.images && product.images.length > 0"
+            [src]="product.images[0].url" alt="{{product.variants[0].name}}">
+            <div *ngIf="promoActive" class="absolute transform rotate-90 top-9 mt-1.5 -right-7 w-28">
+                <div class="bg-principal font-semibold text-white text-sm px-2 py-1 uppercase w-24">{{promotionInfo.name}}</div>
+            </div>
+        </div>
+        <!-- titulo y sintesis content -->
+        <div class="mt-4 h-full px-3">
+            <!-- <h3 *ngIf="product.categories.length > 0 " class="text-secundario uppercase text-xl font-bold"> {{ product.categories[0].category.name }} </h3> -->
+            <h2 class="font-semibold leading-5">{{product.variants[0].name}}</h2>
+        </div>
+
+        <div *ngIf="product.variants.length === 1" class="text-center mt-3 flex flex-col gap-y-4">
+            <p class="font-bold"> {{ product.variants[0].sale_price != 0 ? (product.variants[0].sale_price| currencyPersonalized) : (product.variants[0].price | currencyPersonalized) }} </p>
+        </div>
+
+        <div *ngIf="false" class="text-center mt-3 flex flex-col gap-y-4" >
+            <!-- <div *ngIf="product.variants && product.variants.length >= 2 " class="text-center mt-3 flex flex-col gap-y-4" > -->
+            <!-- <p> {{variation.price | currencyPersonalized}} </p> -->
+            <div class="pt-2 pb-4 border-t border-b border-principal-medio">
+                <span class="text-sm">Variaciones</span>
+                <div class="swiper-container px-10 h-full" [swiper]="swiperAutoplayConfig">
+                    <div class="swiper-wrapper flex max-w-full box-border justify-start h-full">
+                        <div *ngFor="let variationProduct of product.variants" class="swiper-slide py-0.5 h-full">
+
+                            <!-- <button (click)="variation = variationProduct" [ngClass]="variation === variationProduct && variation.stock > 0 ? 'bg-principal' : ((variationProduct.stock === 0 || variationProduct.stock < 0 ) && 'border-gris-medio text-gris-medio disabled')"
+                                class="w-auto px-2 h-6 overflow-hidden relative font-poppins text-sm border border-principal hover:bg-principal focus:bg-principal "> 
+                               {{ variationProduct.info_options[0].value}}
+                            </button> -->
+                                <button class="w-full" (click)="variation = variationProduct" [ngClass]="variation === variationProduct && variation.stock > 0 ? 'bg-principal text-white' : ((variationProduct.stock === 0 || variationProduct.stock < 0 ) && 'border-gris-medio text-gris-medio disabled')"
+                                class="w-full pointer flex flex-col items-center px-2 h-full overflow-hidden relative font-poppins text-sm border border-principal hover:bg-principal focus:bg-principal "> 
+                                    <span *ngFor="let elem of variationProduct.variants_options" class="pointer">
+                                        {{elem.name}}: {{elem.value}}
+                                    </span>       
+                                </button>
+                        </div>
+                    </div>
+                    <div class="absolute top-1/2 right-0 bg-white transform -translate-y-1/2 z-10 flex items-center py-1 pl-2">
+                        <button class="swiper-button-next px-2 focus:bg-principal-medio focus:outline-none hover:bg-principal-medio rounded" aria-label="Next" tabindex="0">&#10095;</button>
+                    </div>
+                    <div class="absolute top-1/2 left-0 bg-white transform -translate-y-1/2 z-10 flex items-center py-1 pr-2">
+                        <button class="swiper-button-prev px-2 focus:bg-principal-medio focus:outline-none hover:bg-principal-medio rounded" aria-label="Prev" tabindex="0">&#10094;</button>
+                    </div>
+                </div>
+
+            </div>
+            
+
+        </div>
+
+        <div class="flex gap-4 my-4 px-4 items-center flex-col justify-center">
+            <div class="w-full flex gap-2 items-center justify-between"[ngClass]="{'w-3/4 ':product.variants.length > 1}">
+                <button *ngIf="!catalogo" (click)="redirect(product.product ? product.product : product.id)" class="relative group text-xs flex text-center items-center flex-1 whitespace-nowrap text-principal-hover hover:text-principal focus:text-principal focus:outline-none rounded"[ngClass]="{'w-full':product.variants.length > 1}">
+                    <p class="left-1/2 transform -translate-x-1/2 absolute bg-principal-hover text-white font-bold uppercase runded-full p-1 -top-7 sr-only">{{'buttons.verMas' | translate}}</p>
+                    <span class="material-icons-outlined mx-auto">search</span>
+                </button>
+                <button (click)="addToCart()" class="uppercase bg-principal text-center py-2 px-3 flex-1 text-white font-semibold hover:bg-principal-hover focus:bg-principal-hover focus:outline-none rounded place-items-center whitespace-nowrap mx-auto" *ngIf="product.variants.length == 1">
+                    {{'buttons.agregarCarrito' | translate}}
+                </button>
+                <button (click)="redirect(product.product ? product.product : product.id)"  class="uppercase bg-principal text-center py-2 px-3 flex-1 text-white font-semibold hover:bg-principal-hover focus:bg-principal-hover focus:outline-none rounded place-items-center whitespace-nowrap mx-auto w-full" *ngIf="product.variants.length > 1">
+                    {{'buttons.verMas' | translate}}
+                </button>
+            </div>
+        </div>
+    </div>
+</a>

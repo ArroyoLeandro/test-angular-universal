@@ -1,0 +1,71 @@
+::-webkit-scrollbar {
+    background: transparent;
+    width: 5px;
+    height: 5px;
+}
+
+ ::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+ ::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.show {
+    display: flex !important;
+}
+
+.notShow {
+    display: none !important;
+}
+
+.accordion {
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+.active,
+.accordion:hover {}
+
+.active:after {
+    transform: rotate(-90deg);
+}
+
+.accordion .tracking-wide {
+    margin-left: .5rem;
+}
+
+.comprimida .accordion .tracking-wide {
+    margin-left: 0;
+}
+
+
+/*
+ul.left-menu{
+  padding:0;
+}
+ul.left-menu li{
+  cursor:pointer;
+  list-style: none;
+  padding: 5px;
+  margin-bottom: 2px
+}
+ul.left-menu li a{
+  display: block;
+}
+li.active > a{
+  --tw-bg-opacity: 1;
+  background-color: rgba(25, 119, 223, var(--tw-bg-opacity));
+}
+.left-menu ul{
+  padding: 0;
+}
+.left-menu ul li a{
+  padding: 5px 5px 5px 15px;
+  display: block;
+}
+.active ul {
+    display: block !important;
+}
+*/

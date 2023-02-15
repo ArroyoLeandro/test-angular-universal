@@ -1,0 +1,74 @@
+<!--  wish paginas aqui -->
+<!-- <div class="relative h-40 md:h-56 lg:h-60 w-full flex flex-col p-6 justify-center gap-y-6 overflow-hidden">
+    <img [src]="url" class="overflow-hidden absolute left-0 top-0 w-full h-full object-cover object-right z-0" alt="">
+</div> -->
+
+
+<section class="px-5 xl:px-0 max-w-screen-xl mx-auto mt-2 xl:mt-6">
+
+    <img *ngIf="currentCategory.image && currentCategory.image != undefined" class="min-w-full max-h-60 my-5" [src]="currentCategory.image">
+    <!--  titulo -->
+    <h3 *ngIf="!subCat" class="text-xl md:text-2xl font-bold uppercase whitespace-nowrap"> {{category_slug | categorySlug}} </h3>
+    <h3 *ngIf="subCat" class="text-xl md:text-2xl font-bold uppercase whitespace-nowrap"> {{category_slug | categorySlug}} / {{ sub_category_slug | categorySlug}} </h3>
+    <div *ngIf="products.length > 0" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 pt-6 pb-16 gap-y-6 gap-x-6">
+        <div *ngFor="let product of products">
+            <app-product-card [category]="category_slug" [product]="product"></app-product-card>
+        </div>
+
+    </div>
+</section>
+<!-- ORDENAR POR -->
+<!-- <div class="hidden w-full lg:bg-principal-medio2 lg:flex lg:flex-row lg:w-full lg:h-auto lg:px-10 lg:justify-end lg:pt-10">
+    <div class="self-center w-auto mr-2">
+        <p class="basic-text ">Ordenar por</p>
+    </div>
+    <div class="border border-principal px-4 w-40 h-9 flex justify-center"><button class="w-full h-full flex flex-row"><p class="text-left font-poppins text-principal text-sm flex-1 self-center">Menor precio</p><img class="self-center" src="/assets/images/flecha-rosa-b.svg" alt=""></button></div>
+</div> -->
+
+<!-- revisa esto
+    <div class="flex flex-col-2 w-auto">
+ FILTRAR POR -->
+<!-- VER QUE QUEDE AL LADO DE PRODUCTS -->
+<!-- <div class=" hidden lg:grid lg:grid-col lg:h-full lg:w-3/12 lg:ml-20 lg:mt-36">
+        <div class="w-auto my-5">
+            <p class="font-poppins font-semibold text-base tracking-3xsmall">Filtrar por:</p>
+        </div>
+        <div>
+            <p class="text-xs tracking-widest">MATERIAL:</p>
+            <div class="flex flex-row mt-4">
+                <button class="border border-principal caja-catego flex justify-center"><img class="self-center" src="/assets/images/tick-rosa2.svg" alt=""></button>
+                <p class="opciones-filtro">Oro</p>
+            </div>
+            <div class="flex flex-row mt-4">
+                <button class="border border-principal-claro caja-catego"></button>
+                <p class="opciones-filtro">Plata</p>
+            </div>
+            <div class="flex flex-row mt-4">
+                <button class="border border-principal-claro caja-catego"></button>
+                <p class="opciones-filtro">Bronce</p>
+            </div>
+        </div>
+
+        <div class="mt-16">
+            <p class="text-xs tracking-widest">TAMAÑO:</p>
+            <div class="flex flex-row mt-4">
+                <button class="border border-principal caja-catego flex justify-center"><img class="self-center" src="/assets/images/tick-rosa2.svg" alt=""></button>
+                <p class="opciones-filtro">16</p>
+            </div>
+            <div class="flex flex-row mt-4">
+                <button class="border border-principal-claro caja-catego"></button>
+                <p class="opciones-filtro">18</p>
+            </div>
+            <div class="flex flex-row mt-4">
+                <button class="border border-principal-claro caja-catego"></button>
+                <p class="opciones-filtro">20</p>
+            </div>
+        </div>
+    </div> -->
+
+<!-- PRODUCTS 
+
+</div>-->
+
+
+<app-newsletters></app-newsletters>

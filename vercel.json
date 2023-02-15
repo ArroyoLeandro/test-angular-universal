@@ -1,0 +1,13 @@
+{
+    "version": 2,
+    "public": true,
+    "name": "Pandora-angular",
+    "rewrites": [
+      { "source": "/(.*)", "destination": "/api" }
+    ],
+    "functions": {
+      "api/index.js": {
+        "includeFiles": "dist/Pandora-angular/browser/**"
+      }
+    }
+  }

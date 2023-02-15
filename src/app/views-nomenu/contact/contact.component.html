@@ -1,0 +1,31 @@
+<!--  wish paginas aqui -->
+<!-- <div class="relative h-40 md:h-56 lg:h-60 w-full flex flex-col p-6 justify-center gap-y-6 overflow-hidden">
+    <img [src]="url" class="overflow-hidden absolute left-0 top-0 w-full h-full object-cover object-right z-0" alt="">
+</div> -->
+
+
+<div class="w-full max-w-screen-lg p-6 mx-auto text-center">
+    <h1 class="p-2 text-sm md:text-xl font-semibold font-poppins uppercase whitespace-nowrap"> {{'pageContact.title' | translate}} </h1>
+    <p>{{'pageContact.description' | translate}} </p>
+    <div class="w-full flex flex-col md:flex-row max-w-screen-lg mt-10 md:mt-16 mx-auto text-center">
+        <div class="flex-1 text-center md:text-left">
+            <p class="font-semibold">{{'pageContact.addressTitle' | translate}} </p>
+            <p class="">{{'pageContact.address' | translate}} </p>
+            <p class="font-semibold pt-3 md:pt-5">{{'pageContact.phone' | translate}} </p>
+            <p class="">{{'pageContact.phonenumber' | translate}} </p>
+            <p class="font-semibold pt-3 md:pt-5">{{'pageContact.emailTitle' | translate}}</p>
+            <p class="">{{'pageContact.email' | translate}}</p>
+        </div>
+        <form [formGroup]="contactForm" class="flex-1 flex flex-col gap-4 text-left w-96 max-w-full px-10 mx-auto mt-10 md:mt-0 items-center">
+            <input formControlName="name" type="text" class="w-full rounded py-2 px-3 border border-gris-medio" placeholder="{{'placeholders.nombre' | translate}}">
+            <input formControlName="lastname" type="text" class="w-full rounded py-2 px-3 border border-gris-medio" placeholder="{{'placeholders.apellido' | translate}}">
+            <input formControlName="email" type="text" class="w-full rounded py-2 px-3 border border-gris-medio" placeholder="{{'placeholders.email' | translate}}">
+            <span *ngIf="email" class="w-auto self-end rounded mb-2 bg-secundario px-1 py-0.5 -mt-10 mr-1 text-xs">{{'validaciones.emailValido' | translate}}</span>
+            <input formControlName="phone" type="text" class="w-full rounded py-2 px-3 border border-gris-medio" placeholder="{{'placeholders.telefono' | translate}}">
+            <span *ngIf="onlyNumbers" class="w-auto self-end rounded mb-2 bg-secundario px-1 py-0.5 -mt-10 mr-1 text-xs">{{'validaciones.soloNumeros' | translate}}</span>
+            <textarea formControlName="message" class="w-full rounded py-2 px-3 border border-gris-medio" placeholder="{{'placeholders.msg' | translate}}"></textarea>
+            <button (click)="send()" class="w-full text-xl rounded col-start-2 bg-principal text-white py-1 px-3 border-2 border-principal hover:bg-principal-medio focus:bg-principal-medio hover:text-principal focus:text-principal">{{'buttons.enviar' | translate}}</button>
+            <button (click)="back()" class="w-full text-xl rounded col-start-2 bg-green-400 text-white py-1 px-3 border-2 border-principal hover:bg-principal-medio focus:bg-principal-medio hover:text-principal focus:text-principal">{{'buttons.volver' | translate}}</button>
+        </form>
+    </div>
+</div>

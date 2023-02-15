@@ -1,0 +1,14 @@
+<div routerLink="/home/{{category}}" class="grid grid-cols-2 justify-between pb-6 h-full text-center border border-gris-medio bg-white cursor-pointer hover:shadow-2xl sm:w-auto ">
+
+    <div class="w-full relative col-span-2 border-b border-gris-medio" style="padding-top: 65%;">
+        <img class="absolute w-full h-full top-0 left-0 object-contain " [src]="product.images.length > 0 ? product.images[0].url : default_image  " alt="{{product.name}}">
+    </div>
+    <div class="py-2 px-4 text-left">
+        <h4 class="leading-6 font-normal"> {{product.name}} </h4>
+    </div>
+    <p *ngIf="!catalogo" class="font-normal leading-6 px-5 self-center" [ngClass]="isAuth ? 'text-left' : 'col-span-2 pb-3 '">{{product.variations.lenght > 0 ? product.variations[0].price : ( isAuth ? (product.wholesale_price | currencyPersonalized) : ( product.price | currencyPersonalized ) ) }}</p>
+    <button *ngIf="!catalogo" routerLink="/home/{{category}}" class="border border-principal hover:text-white hover:bg-principal text-center place-items-center py-2 px-5 whitespace-nowrap ml-auto mr-5 self-end row-span-2 col-start-2 row-start-2 min-w-content">
+        <span class="font-poppins font-normal text-sm tracking-wide"> {{'buttons.verMas' | translate}} </span>
+    </button>
+
+</div>

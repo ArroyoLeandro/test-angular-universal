@@ -1,0 +1,22 @@
+<app-modal #modalComponent>
+
+    <div class="w-full py-2 flex justify-center flex-direction-column">
+        <div class="text-xl flex justify-center py-2 tracking-wide">
+            <h2 tabindex="0"> {{'pageTurnos.personalDeseado' | translate}} </h2>
+        </div>
+
+        <div class="flex justify-center">
+            <select (change)="selectedStaff($event.target.value)" class="border border-pink3 bg-white flex justify-center py-3 w-100 pl-5" style="appearance: none; width: 100%;" name="" id="">
+                <option *ngFor="let staff of staffs" class="text-center mx-auto" [value]="staff.staff.id"> {{staff.staff.name}} {{staff.staff.lastname}} </option> 
+            </select>
+        </div>
+    </div>
+
+    <button (click)="close()" class="border border-principal text-principal hover:text-white hover:bg-principal text-center place-items-center py-2 px-5 w-45">
+        <p class="font-poppins font-normal text-sm tracking-wide"> {{'buttons.listo' | translate}} </p>
+    </button>
+
+</app-modal>
+
+<ng-template #toolbar>
+</ng-template>

@@ -1,0 +1,10 @@
+<!-- etiqueta para cambiar la imagen segun el ancho -->
+<picture>
+    <!--
+    <source media="(min-width:650px)" srcset="{{banner.bannerTablet}}">
+    <source media="(min-width:465px)" srcset="{{banner.bannerMovil}}">
+    <img class="mx-auto" src="{{banner.bannerDesktop}}" alt="Banner Promoción" width="auto">
+  -->
+    <source media="(min-width:640px)" [srcset]="banner.bannerDesktop">
+    <img class="mx-auto" [src]="banner.bannerDesktop" alt="Banner Promoción" width="auto">
+</picture>

@@ -1,0 +1,21 @@
+.disabled:before {
+    display: block;
+    content: "";
+    border-top-width: inherit;
+    border-top-style: solid;
+    border-top-color: inherit;
+    width: 3.8rem;
+    transform: rotate( 45deg);
+    margin-left: -.6rem;
+    margin-top: .8rem;
+    position: absolute;
+}
+
+.descripcion p {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+}
+
+.tooltipContent .tooltip {
+    display: none;
+}

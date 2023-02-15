@@ -1,0 +1,127 @@
+<div class="bg-white">
+    <!--
+        <app-banner *ngIf="objectKeys(datosLanding).length > 0" [banner]="datosLanding"></app-banner>
+    -->
+    <header class="flex justify-between w-full max-w-screen-xl mx-auto p-6 mt-4 sm:mt-6">
+        <button routerLink="/" aria-label="FlexyStore" class="rounded-full bg-principal border-2 border-transparent px-4 h-12 w-36 flex-center focus:border-gris-medio focus:outline-none"><img src="/assets/images/flexystore-blanco.svg" alt="FlexyStore" class="w-auto h-full"></button>
+        <div class="flex gap-4">
+            <button routerLink="/contact" class="font-bold text-info rounded-full bg-principal-claro border-2 border-transparent px-4 w-auto h-10 md:h-12 flex items-center justify-center hover:bg-principal focus:border-gris-medio focus:outline-none">Consultanos</button>
+            <a (click)="contactWhatsapp()" aria-label="Whatsapp" class="cursor-pointer text-info font-semibold rounded-full bg-principal border-2 border-transparent w-10 md:w-12 h-10 md:h-12 flex items-center justify-center hover:bg-principal-medio focus:border-gris-medio focus:outline-none material-icons-outlined">whatsapp</a>
+        </div>
+    </header>
+    <div class="flex flex-col w-full max-w-screen-xl mx-auto p-6">
+        <div class="w-full max-w-3xl mx-auto">
+            <h1 class="text-center text-3xl sm:text-5xl font-poppins"> {{'landing.text1' | translate}} <span class="font-semibold">{{'landing.text1b' | translate}}</span> {{'landing.text1c' | translate}}</h1>
+        </div>
+
+        <div class="relative mt-10">
+            <p class="text-center font-light text-3xl">{{'landing.tiendacercana' | translate}}</p>
+            <p class="text-center basic-text">{{'landing.tiendacercana2' | translate}}</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 md:grid-rows-3 my-3 rounded-2xl overflow-hidden items-stretch">
+                <div class="px-5 pt-5 pb-5 md:pb-0 flex flex-row md:flex-col gap-2 items-stretch justify-evenly bg-gris-medio text-white">
+                    <div class="form-group bg-white focus-within:border-principal border-2 border-transparent flex gap-2 rounded-lg text-lg">
+                        <input type="text" class="form-control p-2 w-full focus:outline-none rounded-lg" (keydown.enter)="searchMap($event)" placeholder="{{'landing.eligetienda' | translate}}" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
+                        <span class="material-icons-outlined p-2" aria-label="Search">search</span>
+                    </div>
+                </div>
+                <div class="p-5 overflow-y-auto row-span-3 bg-gris-medio text-white">
+                    <h5 class="font-bold text-2xl" *ngIf="tiendas_cercanas.length > 0">{{'landing.tiendasCercanas' | translate}}</h5>
+
+                    <div class="tienda-list" *ngIf="tiendas_cercanas.length > 0">
+                        <div class="distance flex justify-between border-t border-principal mt-2 pt-2 cursor-pointer hover:text-principal focus:text-principal" *ngFor="let tienda of tiendas_cercanas;  index as j" (click)="selectMarker(tienda)">
+                            <span class="font-semibold">{{tienda.title}}</span>
+                            <div class="text-xs flex gap-1 items-center">
+                                <img class="h-4" src="assets/images/marker.png" alt="">
+                                <span>{{tienda.distance}}km</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p *ngIf="tiendas_cercanas.length == 0">
+                        {{'landing.nohayTiendas' | translate}}
+                    </p>
+
+                </div>
+
+                <!-- MAPA -->
+                <div class="mapa-container w-full h-full row-start-2 md:row-start-1 md:row-span-full md:col-start-2 md:col-span-2 opacity-80" style="min-height:400px; max-height: 100%;">
+                    <app-ol-map #map [lat]="lat" [lon]="lng" [zoom]="zoom" width="100%" height="500px" class="max-h-full" [markers]="markers" (centroMap)="procesarData($event)"></app-ol-map>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Ver pasos -->
+        <div class="w-full my-6">
+            <p class="text-center font-normal text-base">{{'landing.text2' | translate}}</p>
+        </div>
+        <div class="h-full grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-x-6 gap-y-10 pt-6 mt-10 mx-4 lg:mx-auto max-w-screen-md xl:max-w-screen-xl">
+            <div class="max-w-sm mx-auto h-full flex gap-3">
+                <div class="relative h-36 flex"><img src="assets/images/01-tienda-cercana.png" alt="" class="object-contain">
+                    <div class="rounded-full h-8 w-8 absolute -top-1 ml-1 -translate-x-1/2 font-bold flex items-center justify-center bg-principal">1</div>
+                </div>
+                <div class="flex-1 flex items-center">
+                    <p class="">{{'landing.textimg1' | translate}} <span class="font-bold text-flexy">{{'landing.textimg1Resaltado' | translate}}</span> </p>
+                </div>
+            </div>
+            <div class="max-w-sm mx-auto h-full flex gap-3">
+                <div class="relative h-36 flex"><img src="assets/images/02-contacto.png" alt="" class="object-contain">
+                    <div class="rounded-full h-8 w-8 absolute -top-1 ml-1 -translate-x-1/2 font-bold flex items-center justify-center bg-principal">2</div>
+                </div>
+                <div class="flex-1 flex items-center">
+                    <p class="">{{'landing.textimg2' | translate}} <span class="font-bold text-flexy">{{'landing.textimg2Resaltado' | translate}}</span></p>
+                </div>
+            </div>
+            <div class="max-w-sm mx-auto h-full flex gap-3">
+                <div class="relative h-36 flex"><img src="assets/images/03-metodo-pago.png" alt="" class="object-contain">
+                    <div class="rounded-full h-8 w-8 absolute -top-1 ml-1 -translate-x-1/2 font-bold flex items-center justify-center bg-principal">3</div>
+                </div>
+                <div class="flex-1 flex items-center">
+                    <p class="">{{'landing.textimg3' | translate}} <span class="font-bold text-flexy">{{'landing.textimg3Resaltado' | translate}}</span></p>
+                </div>
+            </div>
+            <div class="max-w-sm mx-auto h-full flex gap-3">
+                <div class="relative h-36 flex"><img src="assets/images/04-retirar.png" alt="" class="object-contain">
+                    <div class="rounded-full h-8 w-8 absolute -top-1 ml-1 -translate-x-1/2 font-bold flex items-center justify-center bg-principal">4</div>
+                </div>
+                <div class="flex-1 flex items-center">
+                    <p class=""><span class="font-bold text-flexy">{{'buttons.listo' | translate}}!</span> {{'landing.textimg4' | translate}}</p>
+                </div>
+            </div>
+
+
+        </div>
+
+        <!-- <div *ngIf="isBrowser && objectKeys(catalogo).length > 0 " class="mx-4 lg:mx-6">
+            <div class="my-10">
+                <p class="text-center text-3xl font-light">{{'landing.universo' | translate}}</p>
+            </div>
+            <div class="w-3/5 mx-auto my-10">
+                <p class="text-center text-base font-normal">{{'landing.descargapdf' | translate}} <a class="text-secundario" target="_blank" href={{catalogo.changingThisBreaksApplicationSecurity}}>{{'landing.click' | translate}}</a></p>
+            </div>
+            <div class="w-auto flex justify-center my-10 ">
+                <iframe allowfullscreen style="border: 0; width: 100%; height: 60vh;" [src]="catalogo"></iframe>
+            </div>
+            <div class="lg:mx-12">
+                <p *ngIf="datosLanding.editorText" [innerHtml]="processHTML(datosLanding.editorText)" class="terminos"></p>
+            </div>
+        </div> -->
+
+    </div>
+    <div class="footer text-sm p-8 lg:px-0 w-full max-w-screen-xl mx-auto lg:flex lg:flex-row border-t-2 border-gray-medio ">
+        <div class="w-full flex justify-center lg:justify-start lg:w-auto lg:flex-1">
+            <p> {{'footer.copyright' | translate}} © {{year}} FlexyStore. {{'footer.derechos' | translate}} <a (click)="open()" class="py-4 lg:py-0 hover:underline focus:underline focus:outline-none"> {{'footer.politicas' | translate}} </a></p>
+        </div>
+
+        <div class="lg:self-center pr-4">
+            <p>Powered by <a href="https://www.wiperagency.com/" target="_blank" class="text-secundario font-bold hover:underline focus:underline focus:outline-none"> Wiper </a></p>
+        </div>
+
+        <div class="lg:self-center">
+            <ul>
+                <li><a href="https://www.instagram.com/flexystorelatam/" target="_blank" class="hover:underline focus:underline focus:outline-none">Instagram</a></li>
+                <li><a href="https://www.facebook.com/FlexyStoreLA/" target="_blank" class="hover:underline focus:underline focus:outline-none">Facebook</a></li>
+            </ul>
+        </div>
+    </div>
+</div>

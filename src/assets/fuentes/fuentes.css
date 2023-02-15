@@ -1,0 +1,55 @@
+@font-face {
+    font-family: 'Century Schoolbook';
+    src: url('CenturySchoolbook.woff2') format('woff2'), url('CenturySchoolbook.woff') format('woff'), url('CenturySchoolbook.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Century Schoolbook';
+    src: url('CenturySchoolbook-Bold.woff2') format('woff2'), url('CenturySchoolbook-Bold.woff') format('woff'), url('CenturySchoolbook-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Century Schoolbook';
+    src: url('CenturySchoolbook-BoldItalic.woff2') format('woff2'), url('CenturySchoolbook-BoldItalic.woff') format('woff'), url('CenturySchoolbook-BoldItalic.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Century Schoolbook';
+    src: url('CenturySchoolbook-Italic.woff2') format('woff2'), url('CenturySchoolbook-Italic.woff') format('woff'), url('CenturySchoolbook-Italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Frutiger';
+    src: url('Frutiger.woff2') format('woff2'), url('Frutiger.woff') format('woff'), url('Frutiger.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Frutiger';
+    src: url('FrutigerBold.woff2') format('woff2'), url('FrutigerBold.woff') format('woff'), url('FrutigerBold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Frutiger LT Std';
+    src: url('FrutigerLTStd-LightCn.woff2') format('woff2'), url('FrutigerLTStd-LightCn.woff') format('woff'), url('FrutigerLTStd-LightCn.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}

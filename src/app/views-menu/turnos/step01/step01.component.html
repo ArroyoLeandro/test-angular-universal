@@ -1,0 +1,116 @@
+<div class="flex flex-col">
+    <div>
+        <div class="w-full flex justify-center text-2xl py-6 tracking-wide font-light">
+            <p> {{'pageTurnos.title' | translate}} </p>
+        </div>
+    </div>
+    <div class="bg-white flex flex-col p-6 mb-40 lg:mx-20 lg:grid lg:grid-cols-3 max-w-screen-2xl">
+        <!-- lista tiendas - mapa - info tienda -->
+        <div class="bg-principal-medio flex flex-col justify-start px-6 py-4">
+            <div class="text-xl flex justify-center py-2 tracking-wide">
+                <p> {{'pageTurnos.eligasucursal' | translate}}</p>
+            </div>
+            <div class="w-full py-2">
+                <select (change)="getStore($event.target.value)" class="border border-principal bg-white flex justify-center py-3 w-full pl-5" style="appearance: none;" name="" id="">
+                    <option class="text-center mx-auto" *ngFor="let store of stores" [value]="store.id"> {{store.name}} </option> <img class="self-center" src="/assets/images/flecha-rosa-b.svg" alt="">
+                </select>
+            </div>
+            <div class="lg:w-auto">
+                <div id="map">
+                    <div class="mapa-container">
+                        <app-ol-map #map [lat]="lat" [lon]="lng" [zoom]="zoom" width="100%" height="300px" [markers]="markers"></app-ol-map>
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-col justify-center py-2 lg:hidden">
+                <div class="w-full flex justify-center pb-2">
+                    <p class="text-principal text-sm">Ampliar información de sucursal</p>
+                </div>
+                <div class="w-full flex justify-center"><img class="self-center w-auto" src="/assets/images/flecha-rosa-b.svg" alt=""> </div>
+            </div>
+            <div class="hidden lg:flex lg:flex-col lg:space-y-3 lg:pt-6">
+                <div>
+                    <p class="text-base font-semibold"> {{store.name}} </p>
+                </div>
+                <div class="flex flex-row space-x-2">
+                    <span class="material-icons-outlined flex self-start">fmd_good</span>
+                    <p class="text-base font-normal"> {{store.address}} </p>
+                </div>
+                <div class="flex flex-row space-x-2">
+                    <span class="material-icons-outlined self-start">call</span>
+                    <p class="text-base font-normal"> T: {{store.phone}} </p>
+                </div>
+                <div class="flex flex-row space-x-2">
+                    <span class="material-icons-outlined self-start">watch</span>
+                    <div *ngIf="schedules.length > 0" class="grid grid-cols-2">
+                        <p class="text-base font-normal col-start-1"> {{'days.lunes' | translate}}: </p>
+                        <p *ngFor="let monday of schedules[0].monday"> {{monday.open}} - {{monday.close}} </p>
+
+
+                        <p class="text-base font-normal col-start-1"> {{'days.martes' | translate}}: </p>
+                        <p *ngFor="let tuesday of schedules[0].tuesday"> {{tuesday.open}} - {{tuesday.close}} </p>
+
+                        <p class="text-base font-normal col-start-1"> {{'days.miercoles' | translate}}: </p>
+                        <p *ngFor="let wednesday of schedules[0].wednesday"> {{wednesday.open}} - {{wednesday.close}} </p>
+
+                        <p class="text-base font-normal col-start-1"> {{'days.jueves' | translate}}: </p>
+                        <p *ngFor="let thursday of schedules[0].thursday"> {{thursday.open}} - {{thursday.close}} </p>
+
+                        <p class="text-base font-normal col-start-1"> {{'days.viernes' | translate}}: </p>
+                        <p *ngFor="let friday of schedules[0].friday"> {{friday.open}} - {{friday.close}} </p>
+
+                        <p class="text-base font-normal col-start-1"> {{'days.sabado' | translate}}: </p>
+                        <p *ngFor="let saturday of schedules[0].saturday"> {{saturday.open}} - {{saturday.close}} </p>
+
+                        <p class="text-base font-normal col-start-1"> {{'days.domingo' | translate}}: </p>
+                        <p *ngFor="let sunday of schedules[0].sunday"> {{sunday.open}} - {{sunday.close}} </p>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <!-- categorias, servicios -->
+        <div class=" lg:px-6 lg:py-4 lg:col-span-2">
+            <div>
+                <p> {{'pageTurnos.texto1' | translate}} </p>
+            </div>
+
+            <div *ngFor="let category of categories" class="flex flex-col w-full my-4 border border-2-black">
+
+                <ng-container *ngIf="category.services !== undefined && category.services.length > 0">
+                    <div class="subtitle-turno flex flex-row text-xs">
+                        <p class="flex-1 justify-left self-center"> {{category.name}} </p>
+                        <span class="material-icons flex self-center flecha-gris">keyboard_arrow_down</span>
+                    </div>
+                    <div *ngFor="let service of category.services" class="px-4 border border-b-1 py-2">
+                        <ng-container *ngIf="service.service.staffs.length > 0">
+
+                            <div class="py-2 text-lg">
+                                <p> {{service.service.name}} </p>
+                            </div>
+                            <div class="subtitle-gris text-xs py-2">
+                                <p> {{service.service.description}} </p>
+                            </div>
+                            <div class="text-xs py-2">
+                                <p> {{'pageTurnos.duracion' | translate}} : {{service.service.duration}} MIN.</p>
+                            </div>
+                            <div class="py-4">
+                                <button (click)="open(service.service, category)" class="flex flex-row bg-principal border border-principal text-center py-2 px-5 place-items-center lg:w-full lg:m-0">
+                                    <p class="text-white tracking-wide flex-1 lg:w-full mr-4">{{'pageTurnos.reservar' | translate}}</p>
+                                </button>
+                            </div>
+
+                        </ng-container>
+                    </div>
+                </ng-container>
+
+            </div>
+        </div>
+
+
+
+    </div>
+
+</div>
