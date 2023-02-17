@@ -3,9 +3,7 @@ import { CommonModule } from '@angular/common';
 import { CarouselComponent } from './carousel/carousel.component';
 import { CarouselModule as Carousel } from 'ngx-owl-carousel-o';
 import { BannerComponent } from './banner/banner.component';
-import { OlControlComponent } from './ol-maps/ol-control/ol-control.component';
-import { OlMapComponent } from './ol-maps/ol-map/ol-map.component';
-import { OlMapMarkerComponent } from './ol-maps/ol-map-marker/ol-map-marker.component';
+
 import { SlidersComponent } from './sliders/sliders.component';
 import { ProductCardComponent } from './product-card/product-card.component';
 import { RouterModule } from '@angular/router';
@@ -32,9 +30,6 @@ registerLocaleData(localeEs, 'es');
   declarations: [
     CarouselComponent,
     BannerComponent,
-    OlControlComponent,
-    OlMapComponent,
-    OlMapMarkerComponent,
     SlidersComponent,
     ProductCardComponent,
     CarouselSliderComponent,
@@ -44,9 +39,6 @@ registerLocaleData(localeEs, 'es');
   exports: [
     CarouselComponent,
     BannerComponent,
-    OlControlComponent,
-    OlMapComponent,
-    OlMapMarkerComponent,
     SlidersComponent,
     ProductCardComponent,
     CartModalComponent,
