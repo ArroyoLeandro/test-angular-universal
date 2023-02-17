@@ -22,7 +22,7 @@ export class Step01Component implements OnInit {
   latTemp = 0;
   lngTemp = 0;
   zoom=13;
-  @ViewChild('map') public olMap: OlMapComponent;
+  // @ViewChild('map') public olMap: OlMapComponent;
   markers:any[] = []
   schedules:any[] = []
 
@@ -73,7 +73,7 @@ export class Step01Component implements OnInit {
         openInfoWindow: true,
         title: this.store.name
       }]
-      this.olMap.setView(this.lng, this.lat);
+      // this.olMap.setView(this.lng, this.lat);
       this.getCategories(this.store.id)
       this.spinner.hide()
       this.cd.detectChanges()
@@ -104,7 +104,7 @@ export class Step01Component implements OnInit {
           openInfoWindow: true,
           title: this.store.name
           }]
-        this.olMap.setView(this.lng, this.lat);
+        // this.olMap.setView(this.lng, this.lat);
         this.getCategories(this.store.id)
         this.spinner.hide();
       })

@@ -38,7 +38,7 @@ export class LandingComponent implements OnInit {
 
 
   @ViewChild('map')
-  public olMap: OlMapComponent;
+  // public olMap: OlMapComponent;
   phoneNumber: number | any = '+54 9 11 57515008'
   api_whatsapp:string = 'https://api.whatsapp.com/send?'
   msg:string = '¡Hola! Quisiera conversar con Flexy'
@@ -160,7 +160,7 @@ export class LandingComponent implements OnInit {
           this.latTemp = position.coords.latitude;
           this.lngTemp = position.coords.longitude;
           this.zoom = 14
-          this.olMap.setView(this.lat, this.lng);
+          // this.olMap.setView(this.lat, this.lng);
         })
       }
     }
@@ -206,7 +206,7 @@ export class LandingComponent implements OnInit {
     .then(res => {
       if(res.data.length > 0){
         let coord = res.data[0].geometry.coordinates
-        this.olMap.setView(coord[1], coord[0]);
+        // this.olMap.setView(coord[1], coord[0]);
       }
     })
   }
