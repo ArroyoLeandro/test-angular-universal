@@ -7,7 +7,7 @@ import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
 import { StoresService } from 'src/app/services/stores/stores.service';
-import { OlMapComponent } from 'src/app/components/ol-maps/ol-map/ol-map.component';
+// import { OlMapComponent } from 'src/app/components/ol-maps/ol-map/ol-map.component';
 import { HttpService } from 'src/app/services/http/http.service';
 import Swal from 'sweetalert2';
 import { TranslateService } from '@ngx-translate/core';

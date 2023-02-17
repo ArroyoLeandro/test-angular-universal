@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { OlMapComponent } from 'src/app/components/ol-maps/ol-map/ol-map.component';
+// import { OlMapComponent } from 'src/app/components/ol-maps/ol-map/ol-map.component';
 import { AlertsService } from 'src/app/services/alerts/alerts.service';
 import { ModalService } from 'src/app/services/modal/modal.service';
 import { ReservaService } from 'src/app/services/reserva/reserva.service';
