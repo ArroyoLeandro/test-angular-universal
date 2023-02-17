@@ -3,12 +3,11 @@ import { DOCUMENT, isPlatformBrowser,isPlatformServer } from '@angular/common';
 import { PLATFORM_ID, Inject } from '@angular/core';
 
 
-import 'ol/ol.css';
+// import 'ol/ol.css';
 import Map from 'ol/Map';
 import OSM from 'ol/source/OSM';
 import TileLayer from 'ol/layer/Tile';
 import View from 'ol/View';
-
 
 import {
   defaults as defaultControls,

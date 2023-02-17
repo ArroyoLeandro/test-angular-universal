@@ -7,7 +7,6 @@ import { Subscription } from 'rxjs';
 import {TranslateService} from "@ngx-translate/core";
 import { isEmpty } from 'rxjs/operators'; 
 import { isPlatformBrowser } from '@angular/common';
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

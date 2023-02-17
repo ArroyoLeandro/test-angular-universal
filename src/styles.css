@@ -423,11 +423,6 @@ input::-moz-placeholder, textarea::-moz-placeholder {
   color: #9ca3af;
 }
 
-input:-ms-input-placeholder, textarea:-ms-input-placeholder {
-  opacity: 1;
-  color: #9ca3af;
-}
-
 input::placeholder,
 textarea::placeholder {
   opacity: 1;
@@ -1663,7 +1658,6 @@ video {
 }
 
 .min-w-min{
-  min-width: -webkit-min-content;
   min-width: -moz-min-content;
   min-width: min-content;
 }
@@ -2434,7 +2428,6 @@ video {
 .select-none{
   -webkit-user-select: none;
      -moz-user-select: none;
-      -ms-user-select: none;
           user-select: none;
 }
 
@@ -2551,7 +2544,6 @@ video {
 }
 
 .w-max{
-  width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
 }
@@ -2838,22 +2830,9 @@ video {
   transition-delay: 150ms;
 }
 
-@-webkit-keyframes spin{
-  to{
-    transform: rotate(360deg);
-  }
-}
-
 @keyframes spin{
   to{
     transform: rotate(360deg);
-  }
-}
-
-@-webkit-keyframes ping{
-  75%, 100%{
-    transform: scale(2);
-    opacity: 0;
   }
 }
 
@@ -2864,43 +2843,21 @@ video {
   }
 }
 
-@-webkit-keyframes pulse{
-  50%{
-    opacity: .5;
-  }
-}
-
 @keyframes pulse{
   50%{
     opacity: .5;
   }
 }
 
-@-webkit-keyframes bounce{
-  0%, 100%{
-    transform: translateY(-25%);
-    -webkit-animation-timing-function: cubic-bezier(0.8,0,1,1);
-            animation-timing-function: cubic-bezier(0.8,0,1,1);
-  }
-
-  50%{
-    transform: none;
-    -webkit-animation-timing-function: cubic-bezier(0,0,0.2,1);
-            animation-timing-function: cubic-bezier(0,0,0.2,1);
-  }
-}
-
 @keyframes bounce{
   0%, 100%{
     transform: translateY(-25%);
-    -webkit-animation-timing-function: cubic-bezier(0.8,0,1,1);
-            animation-timing-function: cubic-bezier(0.8,0,1,1);
+    animation-timing-function: cubic-bezier(0.8,0,1,1);
   }
 
   50%{
     transform: none;
-    -webkit-animation-timing-function: cubic-bezier(0,0,0.2,1);
-            animation-timing-function: cubic-bezier(0,0,0.2,1);
+    animation-timing-function: cubic-bezier(0,0,0.2,1);
   }
 }
 
@@ -3924,7 +3881,6 @@ app-categories, app-home, app-detail {
   }
 
   .md\:w-max{
-    width: -webkit-max-content;
     width: -moz-max-content;
     width: max-content;
   }

@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AlertsService } from 'src/app/services/alerts/alerts.service';
@@ -15,13 +15,13 @@ import { StoresService } from 'src/app/services/stores/stores.service';
 export class NewslettersComponent implements OnInit {
 
   id_store_current:string = ''
-  form: FormGroup
+  form: UntypedFormGroup
   isAuth: boolean = false
   constructor(
     private newsletter: NewsletterService,
     private spinner: NgxSpinnerService,
     private stores: StoresService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private alerts: AlertsService,
     private translate: TranslateService,
     private auth: AuthService,

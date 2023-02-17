@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, OnDestroy, OnInit  } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { AlertsService } from 'src/app/services/alerts/alerts.service';
@@ -16,7 +16,7 @@ import { NewsletterService } from 'src/app/services/newsletter/newsletter.servic
 
 export class ContactComponent implements OnInit, OnDestroy {
 
-  contactForm: FormGroup
+  contactForm: UntypedFormGroup
   id_store_current:string = ''
   url:string
   isAuth:boolean = false
@@ -24,7 +24,7 @@ export class ContactComponent implements OnInit, OnDestroy {
   constructor(
     private homeservice: HomeService,
     private auth: AuthService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private alerts: AlertsService,
     private newsletter: NewsletterService,
     private translate: TranslateService,

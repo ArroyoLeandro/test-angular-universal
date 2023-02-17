@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Subscription } from 'rxjs';
@@ -27,7 +27,7 @@ import { ModalPasswordComponent } from './modalPassword/modal-password.component
 export class ProfileComponent implements OnInit, OnDestroy {
   @ViewChild('inputName') inputName: ElementRef
   disabled:boolean = true
-  dataCustomer:FormGroup
+  dataCustomer:UntypedFormGroup
   id_store_current: string = 'oopsie'
   myOrders:any[] = []
   mostrarCompra = false;
@@ -40,7 +40,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   constructor(
     private modalService: ModalService<ModalPasswordComponent>,
     private wholesaleservice: WholesaleService,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private modalAddress: ModalService<ModalAddressComponent>,
     private spinner: NgxSpinnerService,
     private alerts: AlertsService,

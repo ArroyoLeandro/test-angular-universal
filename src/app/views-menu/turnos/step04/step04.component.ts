@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AlertsService } from 'src/app/services/alerts/alerts.service';
@@ -12,12 +12,12 @@ import { StoresService } from 'src/app/services/stores/stores.service';
 })
 export class Step04Component implements OnInit {
   @Output() status: EventEmitter<any> = new EventEmitter()
-  Customer: FormGroup
+  Customer: UntypedFormGroup
   service:any = {}
   id_store_current:string = ''
   objectKeys = Object.keys
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private spinner: NgxSpinnerService,
     private reservas: ReservaService,
     private alerts: AlertsService,
